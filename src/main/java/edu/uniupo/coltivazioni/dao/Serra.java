@@ -31,6 +31,9 @@ public class Serra implements Serializable {
     private String descrizione;
     @Column(name = "TIPO_COLTURA")
     private String tipoColtura;
+    @ManyToOne
+    @JoinColumn( name = "AZIENDA_AGRICOLA_ID" )
+    private AziendaAgricola aziendaAgricola;
 
     /*Créer methode planification et configurer les accès pour les actions des collaborateurs */
 }

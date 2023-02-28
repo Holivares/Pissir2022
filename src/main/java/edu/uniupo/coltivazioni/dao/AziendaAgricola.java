@@ -19,14 +19,14 @@ import java.util.List;
 public class AziendaAgricola implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long AziendaAgricolaId;
     @Column(name = "DESCRIZIONE")
     private String descrizione;
     @Column(name = "TIPO")
     private String tipo;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "aziendaAgricola", cascade = CascadeType.ALL)
     private List<Serra> serraList;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "aziendaAgricola", cascade = CascadeType.ALL)
     private List<Utente> utenteList;
 
 

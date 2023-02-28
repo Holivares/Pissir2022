@@ -27,6 +27,10 @@ public class Utente implements Serializable {
     private String nome;
     @Column(name = "COGNOME")
     private String cognome;
+    @Column(name = "RUOLO")
     private String ruolo;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn( name = "AZIENDA_AGRICOLA_ID")
+    private AziendaAgricola aziendaAgricola;
 
 }

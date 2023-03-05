@@ -1,12 +1,10 @@
 package edu.uniupo.coltivazioni.controller;
 
 import edu.uniupo.coltivazioni.dao.ProgrammaIrrig;
+import edu.uniupo.coltivazioni.dto.DTOProgrammaIrrig;
 import edu.uniupo.coltivazioni.services.ProgrammaIrrigServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author
@@ -22,7 +20,12 @@ public class ProgrammaIrrigController {
         this.programmaIrrigServices = programmaIrrigServices;
     }
     @GetMapping(value = "/{id}",produces = "application/json")
-    public ProgrammaIrrig getProgrammaIrrig(@PathVariable Long id){
+    public DTOProgrammaIrrig getProgrammaIrrig(@PathVariable Long id){
         return programmaIrrigServices.geProgrammaIrrig(id);
+    }
+    @PostMapping(produces = "application/json")
+    public DTOProgrammaIrrig createProgramma(@RequestBody DTOProgrammaIrrig dtoProgrammaIrrig) {
+        System.out.println("je suis dans la méthode create");
+        return programmaIrrigServices.saveProgramma(dtoProgrammaIrrig);
     }
 }

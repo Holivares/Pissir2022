@@ -1,7 +1,10 @@
 package edu.uniupo.coltivazioni.services;
 
 import edu.uniupo.coltivazioni.dao.ProgrammaIrrig;
+import edu.uniupo.coltivazioni.dto.DTOProgrammaIrrig;
+import edu.uniupo.coltivazioni.mapper.DTOToDAO;
 import edu.uniupo.coltivazioni.repositori.ProgrammaIritigRepositori;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ProgrammaIrrigServicesImpl implements ProgrammaIrrigServices{
+    private DTOToDAO mapper = Mappers.getMapper(DTOToDAO.class);
     ProgrammaIritigRepositori programmaIritigRepositori;
     @Autowired
     public ProgrammaIrrigServicesImpl(ProgrammaIritigRepositori programmaIritigRepositori){
@@ -18,8 +22,15 @@ public class ProgrammaIrrigServicesImpl implements ProgrammaIrrigServices{
     }
 
     @Override
-    public ProgrammaIrrig geProgrammaIrrig(Long id) {
-        final ProgrammaIrrig programmaIrrig = new ProgrammaIrrig();
-        return programmaIritigRepositori.findById(id).orElse(programmaIrrig);
+    public DTOProgrammaIrrig geProgrammaIrrig(Long idProgrammaIrrig) {
+        final ProgrammaIrrig nullProgrammaIrrig = new ProgrammaIrrig();
+        final ProgrammaIrrig programmaIrrig =  programmaIritigRepositori.findById(idProgrammaIrrig).orElse(nullProgrammaIrrig);
+        return mapper.toDtoProgrammaIrrig(programmaIrrig);
+    }
+
+    @Override
+    public DTOProgrammaIrrig saveProgramma(DTOProgrammaIrrig dtoProgrammaIrrig) {
+        ProgrammaIrrig programmaIrrig = programmaIritigRepositori.save(mapper.toProgrammaIrrig(dtoProgrammaIrrig));
+        return mapper.toDtoProgrammaIrrig(programmaIrrig);
     }
 }

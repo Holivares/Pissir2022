@@ -18,7 +18,7 @@ import java.io.Serializable;
 public class Utente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long idUtente;
     @Column(name= "USERNAME")
     private String username;
     @Column(name = "EMAIL")

@@ -19,13 +19,13 @@ import java.util.List;
 public class Serra implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long idSerra;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "serra", cascade = CascadeType.ALL)
     private List<Attuatore> attuatore;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "serra", cascade = CascadeType.ALL)
     private List<Misura> misura;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "serra", cascade = CascadeType.ALL)
     private List<Sensore> sensore;
     @Column(name = "DESCRIZIONE")
     private String descrizione;

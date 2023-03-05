@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
+
 
 @Entity
 @Table(name = "MISURA")
@@ -19,12 +20,15 @@ import java.sql.Date;
 public class Misura implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long idMisura;
     @Column(name = "TIPO")
     private String tipo;
     @Column(name = "MISURAZIONI")
     private String misurazioni;
     @Column(name = "DATE_TIME")
     private Date dateTime;
+    @ManyToOne
+    @JoinColumn( name = "SERRA_ID" )
+    private Serra serra;
 
 }

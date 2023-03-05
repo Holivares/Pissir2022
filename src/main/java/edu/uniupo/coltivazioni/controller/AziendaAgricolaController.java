@@ -1,6 +1,7 @@
 package edu.uniupo.coltivazioni.controller;
 
 import edu.uniupo.coltivazioni.dao.AziendaAgricola;
+import edu.uniupo.coltivazioni.dto.DTOAziendaAgricola;
 import edu.uniupo.coltivazioni.services.AziendaAgricolaServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,14 +26,14 @@ public class AziendaAgricolaController {
     //questo valore "id" verrà recuperata nel mio metodo
     //produces definisce il formato con quale verrano ritornati i dati
     @GetMapping(value = "/{id}",produces = "application/json")
-    public AziendaAgricola getAziendaAgricola(@PathVariable Long id){
+    public DTOAziendaAgricola getAziendaAgricola(@PathVariable Long id){
         return aziendaAgricolaServices.getAziendaAgricola(id);
     }
 
     @PostMapping(produces = "application/json")
-    public AziendaAgricola createAziendaAgricola(@RequestBody AziendaAgricola aziendaAgricola){
+    public DTOAziendaAgricola createAziendaAgricola(@RequestBody DTOAziendaAgricola dtoAziendaAgricola){
         System.out.println("je suis dans la méthode create");
-        return aziendaAgricolaServices.createAzienda(aziendaAgricola);
+        return aziendaAgricolaServices.saveAzienda(dtoAziendaAgricola);
     }
 }
 

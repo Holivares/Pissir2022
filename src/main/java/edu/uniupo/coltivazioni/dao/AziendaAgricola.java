@@ -19,7 +19,7 @@ import java.util.List;
 public class AziendaAgricola implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long AziendaAgricolaId;
+    private Long idAziendaAgricola;
     @Column(name = "DESCRIZIONE")
     private String descrizione;
     @Column(name = "TIPO")

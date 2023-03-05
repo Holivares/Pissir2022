@@ -19,7 +19,7 @@ import java.io.Serializable;
 public class ProgrammaIrrig implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long idProgramma;
     @Column(name = "DATE")
     private String date;
     @Column(name = "ORA_INIZIO")
@@ -29,5 +29,5 @@ public class ProgrammaIrrig implements Serializable {
     @Column(name = "DESCRIZIONE")
     private String descrizione;
     @Column(name = "TIPO")
-    private TipoPogramma tipo;
+    private TipoProgramma tipo;
 }

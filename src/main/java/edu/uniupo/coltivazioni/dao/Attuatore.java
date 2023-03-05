@@ -18,12 +18,15 @@ import java.io.Serializable;
 public class Attuatore implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long idAttuatore;
     @Column(name = "DESCRIZIONE")
     private String descrizione;
     @Column(name = "STATO")
     private String stato;
     @Column(name = "IS_MANUAL")
     private boolean isManual;
+    @ManyToOne
+    @JoinColumn( name = "SERRA_ID" )
+    private Serra serra;
 
 }

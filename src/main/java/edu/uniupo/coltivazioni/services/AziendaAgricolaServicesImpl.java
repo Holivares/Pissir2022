@@ -1,7 +1,12 @@
 package edu.uniupo.coltivazioni.services;
 
 import edu.uniupo.coltivazioni.dao.AziendaAgricola;
+
+import edu.uniupo.coltivazioni.dto.DTOAziendaAgricola;
+
+import edu.uniupo.coltivazioni.mapper.DTOToDAO;
 import edu.uniupo.coltivazioni.repositori.AziendaAgricolaRepositori;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +18,10 @@ import org.springframework.stereotype.Service;
 //Une seule implementation pour une classe
 @Service
 public class AziendaAgricolaServicesImpl implements AziendaAgricolaServices {
+    //Recupère toutes les methodes des classes et les mettre dans l'objet mapper
+    private DTOToDAO mapper = Mappers.getMapper(DTOToDAO.class);
 
-    AziendaAgricolaRepositori aziendaAgricolaRepositori;
+    private AziendaAgricolaRepositori aziendaAgricolaRepositori;
     //injection de dependances della DB
     //va rechercher dans mon code la classe qui implemente cette interface, vu que l'on ne peut pas créer une instance d'une interface...
     @Autowired
@@ -23,18 +30,17 @@ public class AziendaAgricolaServicesImpl implements AziendaAgricolaServices {
     }
 
     @Override
-    public AziendaAgricola getAziendaAgricola(Long id) {
-       final AziendaAgricola aziendaAgricola = new AziendaAgricola();
+    public DTOAziendaAgricola getAziendaAgricola(Long idAziendaAgricola) {
+       final AziendaAgricola nullAziendaAgricola = new AziendaAgricola();
+       final AziendaAgricola aziendaAgricola = aziendaAgricolaRepositori.findById(idAziendaAgricola).orElse(nullAziendaAgricola);
 
-   //optional supprime les Nullpointer exception
-   //orElse: si optional de AziendeAgricola contient une val diff de null return cette valeur
-    //findById retourne un optional contenant une valeur de type aziendaAgricola
-       return aziendaAgricolaRepositori.findById(id).orElse(aziendaAgricola);
+       return mapper.toDtoAziendaAgricola(aziendaAgricola);
     }
 
     @Override
-    public AziendaAgricola createAzienda(AziendaAgricola aziendaAgricola) {
-        return aziendaAgricolaRepositori.save(aziendaAgricola);
+    public DTOAziendaAgricola saveAzienda(DTOAziendaAgricola dtoAziendaAgricola) {
+         AziendaAgricola aziendaAgricola = aziendaAgricolaRepositori.save(mapper.toAziendaAgricola(dtoAziendaAgricola));
+         return mapper.toDtoAziendaAgricola(aziendaAgricola);
 
     }
 

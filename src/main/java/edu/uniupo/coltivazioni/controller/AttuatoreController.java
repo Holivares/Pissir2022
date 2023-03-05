@@ -1,12 +1,10 @@
 package edu.uniupo.coltivazioni.controller;
 
 import edu.uniupo.coltivazioni.dao.Attuatore;
+import edu.uniupo.coltivazioni.dto.DTOAttuatore;
 import edu.uniupo.coltivazioni.services.AttuatoreServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author
@@ -22,7 +20,12 @@ public class AttuatoreController {
     }
 
     @GetMapping(value = "/{id}",produces = "application/json")
-    public Attuatore getAttuatore(@PathVariable Long id){
+    public DTOAttuatore getAttuatore(@PathVariable Long id){
             return attuatoreServices.getAttuatore(id);
         }
+    @PostMapping(produces = "application/json")
+    public DTOAttuatore createAttuatore(@RequestBody DTOAttuatore dtoAttuatore){
+        System.out.println("je suis dans la méthode create");
+        return attuatoreServices.saveAttuatore(dtoAttuatore);
+    }
 }

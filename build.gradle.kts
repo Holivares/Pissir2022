@@ -27,7 +27,10 @@ dependencies {
     /*developmentOnly("org.springframework.boot:spring-boot-devtools")*/
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.projectlombok:lombok")
+    annotationProcessor("org.mapstruct:mapstruct-processor:1.5.3.Final")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("org.mapstruct:mapstruct:1.5.3.Final")
+    //implementation("org.mapstruct:mapstruct-processor:1.5.3.Final")
     /*testImplementation("org.springframework.security:spring-security-test")*/
 }
 

@@ -1,11 +1,9 @@
 package edu.uniupo.coltivazioni.controller;
 
 import edu.uniupo.coltivazioni.dao.Serra;
+import edu.uniupo.coltivazioni.dto.DTOSerra;
 import edu.uniupo.coltivazioni.services.SerraServices;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author
@@ -21,7 +19,13 @@ public class SerraController {
         this.serraServices = serraServices;
     }
     @GetMapping(value = "/{id}",produces = "application/json")
-    public Serra getSerra(@PathVariable Long id){
+    public DTOSerra getSerra(@PathVariable Long id){
         return serraServices.getSerra(id);
+    }
+
+    @PostMapping(produces = "application/json")
+    public DTOSerra createSerra(@RequestBody DTOSerra dtoSerra){
+        System.out.println("je suis dans la méthode create");
+        return serraServices.saveSerra(dtoSerra);
     }
 }

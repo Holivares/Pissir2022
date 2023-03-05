@@ -1,12 +1,10 @@
 package edu.uniupo.coltivazioni.controller;
 
 import edu.uniupo.coltivazioni.dao.Misura;
+import edu.uniupo.coltivazioni.dto.DTOMisura;
 import edu.uniupo.coltivazioni.services.MisuraServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author
@@ -22,7 +20,13 @@ public class MisuraController {
     }
 
     @GetMapping(value = "/{id}",produces = "application/json")
-    public Misura getMisura(@PathVariable Long id){
+    public DTOMisura getMisura(@PathVariable Long id){
         return misuraServices.getMisura(id);
+    }
+
+    @PostMapping(produces = "application/json")
+    public DTOMisura createMisura(@RequestBody DTOMisura dtoMisura) {
+        System.out.println("je suis dans la méthode create");
+        return misuraServices.saveMisura(dtoMisura);
     }
 }

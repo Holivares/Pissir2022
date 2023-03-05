@@ -19,12 +19,16 @@ import java.util.Date;
 public class Sensore implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long idSensore;
     @Column(name = "DESCRIZIONE")
     private String descrizione;
     @Column(name = "TIPO")
     private String tipo;
     @Column(name = "DATE_TIME")
     private Date dateTime;
+
+    @ManyToOne
+    @JoinColumn( name = "SERRA_ID" )
+    private Serra serra;
 
 }

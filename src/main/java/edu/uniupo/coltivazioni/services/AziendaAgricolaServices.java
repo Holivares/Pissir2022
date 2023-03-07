@@ -1,7 +1,5 @@
 package edu.uniupo.coltivazioni.services;
 
-
-import edu.uniupo.coltivazioni.dao.AziendaAgricola;
 import edu.uniupo.coltivazioni.dto.DTOAziendaAgricola;
 
 /**
@@ -13,5 +11,7 @@ import edu.uniupo.coltivazioni.dto.DTOAziendaAgricola;
 public interface AziendaAgricolaServices {
     DTOAziendaAgricola getAziendaAgricola(Long idAziendaAgricola);
     DTOAziendaAgricola saveAzienda(DTOAziendaAgricola aziendaAgricola);
+
+    DTOAziendaAgricola updateAzienda ( DTOAziendaAgricola dtoAziendaAgricola );
 }
 

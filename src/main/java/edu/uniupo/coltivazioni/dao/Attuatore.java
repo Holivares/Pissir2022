@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "ATTUATORE")
+@Table( name = "ATTUATORE" )
 /*creano in automatico costruttore, getters, setters*/
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,13 +17,13 @@ import java.io.Serializable;
 @Setter
 public class Attuatore implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue( strategy = GenerationType.AUTO )
     private Long idAttuatore;
-    @Column(name = "DESCRIZIONE")
+    @Column( name = "DESCRIZIONE" )
     private String descrizione;
-    @Column(name = "STATO")
+    @Column( name = "STATO" )
     private String stato;
-    @Column(name = "IS_MANUAL")
+    @Column( name = "IS_MANUAL" )
     private boolean isManual;
     @ManyToOne
     @JoinColumn( name = "SERRA_ID" )

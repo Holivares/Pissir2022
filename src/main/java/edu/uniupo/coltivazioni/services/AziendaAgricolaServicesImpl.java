@@ -4,11 +4,12 @@ import edu.uniupo.coltivazioni.dao.AziendaAgricola;
 
 import edu.uniupo.coltivazioni.dto.DTOAziendaAgricola;
 
-import edu.uniupo.coltivazioni.mapper.DTOToDAO;
+import edu.uniupo.coltivazioni.mapper.ObjectMapper;
 import edu.uniupo.coltivazioni.repositori.AziendaAgricolaRepositori;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AziendaAgricolaServicesImpl implements AziendaAgricolaServices {
     //Recupère toutes les methodes des classes et les mettre dans l'objet mapper
-    private DTOToDAO mapper = Mappers.getMapper(DTOToDAO.class);
+    private final ObjectMapper mapper = Mappers.getMapper( ObjectMapper.class );
 
     private AziendaAgricolaRepositori aziendaAgricolaRepositori;
     //injection de dependances della DB
@@ -31,17 +32,27 @@ public class AziendaAgricolaServicesImpl implements AziendaAgricolaServices {
 
     @Override
     public DTOAziendaAgricola getAziendaAgricola(Long idAziendaAgricola) {
-       final AziendaAgricola nullAziendaAgricola = new AziendaAgricola();
-       final AziendaAgricola aziendaAgricola = aziendaAgricolaRepositori.findById(idAziendaAgricola).orElse(nullAziendaAgricola);
-
+       final AziendaAgricola aziendaAgricola = aziendaAgricolaRepositori.findById(idAziendaAgricola).orElse( new AziendaAgricola() );
        return mapper.toDtoAziendaAgricola(aziendaAgricola);
     }
 
     @Override
+    @Transactional
     public DTOAziendaAgricola saveAzienda(DTOAziendaAgricola dtoAziendaAgricola) {
-         AziendaAgricola aziendaAgricola = aziendaAgricolaRepositori.save(mapper.toAziendaAgricola(dtoAziendaAgricola));
-         return mapper.toDtoAziendaAgricola(aziendaAgricola);
+        AziendaAgricola NewAziendaAgricola = new AziendaAgricola();
+        mapper.toAziendaAgricola( dtoAziendaAgricola, NewAziendaAgricola );
+        AziendaAgricola aziendaAgricola = aziendaAgricolaRepositori.save( NewAziendaAgricola );
+        return mapper.toDtoAziendaAgricola(aziendaAgricola);
 
+    }
+
+    @Override
+    @Transactional
+    public DTOAziendaAgricola updateAzienda ( DTOAziendaAgricola dtoAziendaAgricola ) {
+        AziendaAgricola oldAziendaAgricola = aziendaAgricolaRepositori.findById( dtoAziendaAgricola.getIdAziendaAgricola() ).orElse( new AziendaAgricola() );
+        mapper.toAziendaAgricola( dtoAziendaAgricola, oldAziendaAgricola );
+        AziendaAgricola aziendaAgricola = aziendaAgricolaRepositori.save( oldAziendaAgricola );
+        return mapper.toDtoAziendaAgricola( aziendaAgricola );
     }
 
 

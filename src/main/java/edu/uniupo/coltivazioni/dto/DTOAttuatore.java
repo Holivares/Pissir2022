@@ -26,5 +26,5 @@ public class DTOAttuatore {
 
     private String stato;
     private boolean isManual;
-    private Serra serra;
+    private DTOSerra serra;
 }

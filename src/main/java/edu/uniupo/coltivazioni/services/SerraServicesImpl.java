@@ -1,7 +1,7 @@
 package edu.uniupo.coltivazioni.services;
 import edu.uniupo.coltivazioni.dao.Serra;
 import edu.uniupo.coltivazioni.dto.DTOSerra;
-import edu.uniupo.coltivazioni.mapper.DTOToDAO;
+import edu.uniupo.coltivazioni.mapper.ObjectMapper;
 import edu.uniupo.coltivazioni.repositori.SerraRepositori;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SerraServicesImpl implements SerraServices{
-    private DTOToDAO mapper = Mappers.getMapper(DTOToDAO.class);
+    private final ObjectMapper mapper = Mappers.getMapper( ObjectMapper.class );
 
     SerraRepositori serraRepositori;
     @Autowired

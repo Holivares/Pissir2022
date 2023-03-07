@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -26,7 +27,7 @@ public class Misura implements Serializable {
     @Column(name = "MISURAZIONI")
     private String misurazioni;
     @Column(name = "DATE_TIME")
-    private Date dateTime;
+    private LocalDateTime dateTime;
     @ManyToOne
     @JoinColumn( name = "SERRA_ID" )
     private Serra serra;

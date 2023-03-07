@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -25,8 +26,7 @@ public class Sensore implements Serializable {
     @Column(name = "TIPO")
     private String tipo;
     @Column(name = "DATE_TIME")
-    private Date dateTime;
-
+    private LocalDateTime dateTime;
     @ManyToOne
     @JoinColumn( name = "SERRA_ID" )
     private Serra serra;

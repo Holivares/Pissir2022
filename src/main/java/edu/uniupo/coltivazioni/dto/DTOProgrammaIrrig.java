@@ -17,7 +17,7 @@ public class DTOProgrammaIrrig {
 
     private Long idProgramma;
 
-    private String date;
+    private String dateTime;
 
     private int oraInizio;
 

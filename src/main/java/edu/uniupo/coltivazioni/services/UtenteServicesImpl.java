@@ -2,7 +2,7 @@ package edu.uniupo.coltivazioni.services;
 
 import edu.uniupo.coltivazioni.dao.Utente;
 import edu.uniupo.coltivazioni.dto.DTOUtente;
-import edu.uniupo.coltivazioni.mapper.DTOToDAO;
+import edu.uniupo.coltivazioni.mapper.ObjectMapper;
 import edu.uniupo.coltivazioni.repositori.UtenteRepositori;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UtenteServicesImpl implements UtenteServices{
-    private DTOToDAO mapper = Mappers.getMapper(DTOToDAO.class);
+    private final ObjectMapper mapper = Mappers.getMapper( ObjectMapper.class );
 
     UtenteRepositori utenteRepositori;
     public UtenteServicesImpl(UtenteRepositori utenteRepositori){

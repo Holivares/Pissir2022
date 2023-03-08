@@ -22,7 +22,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     /*implementation("org.springframework.boot:spring-boot-starter-security")*/
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation ("com.mysql:mysql-connector-j:8.0.32")
+    implementation("com.mysql:mysql-connector-j:8.0.32")
     compileOnly("org.projectlombok:lombok")
     /*developmentOnly("org.springframework.boot:spring-boot-devtools")*/
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")

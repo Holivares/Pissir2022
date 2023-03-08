@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "AZIENDA_AGRI")
+@Table( name = "AZIENDA_AGRI" )
 /*creano in automatico costruttore, getters, setters*/
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,16 +18,15 @@ import java.util.List;
 @Setter
 public class AziendaAgricola implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue( strategy = GenerationType.AUTO )
     private Long idAziendaAgricola;
-    @Column(name = "DESCRIZIONE")
+    @Column( name = "DESCRIZIONE" )
     private String descrizione;
-    @Column(name = "TIPO")
+    @Column( name = "TIPO" )
     private String tipo;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "aziendaAgricola", cascade = CascadeType.ALL)
+    @OneToMany( fetch = FetchType.LAZY, mappedBy = "aziendaAgricola", cascade = CascadeType.ALL, orphanRemoval = true )
     private List<Serra> serraList;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "aziendaAgricola", cascade = CascadeType.ALL)
+    @OneToMany( fetch = FetchType.LAZY, mappedBy = "aziendaAgricola", cascade = CascadeType.ALL, orphanRemoval = true )
     private List<Utente> utenteList;
-
 
 }

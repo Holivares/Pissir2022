@@ -7,5 +7,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author
  * @author
  */
-public interface ProgrammaIritigRepositori extends JpaRepository< ProgrammaIrrig, Long> {
-}
+public interface ProgrammaIritigRepositori extends JpaRepository<ProgrammaIrrig, Long> {}

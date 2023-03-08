@@ -1,7 +1,5 @@
 package edu.uniupo.coltivazioni.dto;
 
-import edu.uniupo.coltivazioni.dao.AziendaAgricola;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,5 +20,5 @@ public class DTOUtente {
     private String nome;
     private String cognome;
     private String ruolo;
-    private DTOAziendaAgricola aziendaAgricola;
+    private Long idAziendaAgricola;
 }

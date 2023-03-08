@@ -7,5 +7,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author
  * @author
  */
-public interface SerraRepositori extends JpaRepository<Serra, Long> {
-}
+public interface SerraRepositori extends JpaRepository<Serra, Long> {}

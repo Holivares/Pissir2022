@@ -7,5 +7,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author
  * @author
  */
-public interface AziendaAgricolaRepositori extends JpaRepository<AziendaAgricola, Long> {
-}
+public interface AziendaAgricolaRepositori extends JpaRepository<AziendaAgricola, Long> {}

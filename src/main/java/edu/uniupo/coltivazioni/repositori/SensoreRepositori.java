@@ -7,5 +7,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author
  * @author
  */
-public interface SensoreRepositori extends JpaRepository<Sensore, Long> {
-}
+public interface SensoreRepositori extends JpaRepository<Sensore, Long> {}

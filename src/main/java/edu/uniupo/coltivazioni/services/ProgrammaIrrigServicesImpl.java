@@ -13,24 +13,25 @@ import org.springframework.stereotype.Service;
  * @author
  */
 @Service
-public class ProgrammaIrrigServicesImpl implements ProgrammaIrrigServices{
+public class ProgrammaIrrigServicesImpl implements ProgrammaIrrigServices {
     private final ObjectMapper mapper = Mappers.getMapper( ObjectMapper.class );
     ProgrammaIritigRepositori programmaIritigRepositori;
+
     @Autowired
-    public ProgrammaIrrigServicesImpl(ProgrammaIritigRepositori programmaIritigRepositori){
+    public ProgrammaIrrigServicesImpl ( ProgrammaIritigRepositori programmaIritigRepositori ) {
         this.programmaIritigRepositori = programmaIritigRepositori;
     }
 
     @Override
-    public DTOProgrammaIrrig geProgrammaIrrig(Long idProgrammaIrrig) {
+    public DTOProgrammaIrrig geProgrammaIrrig ( Long idProgrammaIrrig ) {
         final ProgrammaIrrig nullProgrammaIrrig = new ProgrammaIrrig();
-        final ProgrammaIrrig programmaIrrig =  programmaIritigRepositori.findById(idProgrammaIrrig).orElse(nullProgrammaIrrig);
-        return mapper.toDtoProgrammaIrrig(programmaIrrig);
+        final ProgrammaIrrig programmaIrrig = programmaIritigRepositori.findById( idProgrammaIrrig ).orElse( nullProgrammaIrrig );
+        return mapper.toDtoProgrammaIrrig( programmaIrrig );
     }
 
     @Override
-    public DTOProgrammaIrrig saveProgramma(DTOProgrammaIrrig dtoProgrammaIrrig) {
-        ProgrammaIrrig programmaIrrig = programmaIritigRepositori.save(mapper.toProgrammaIrrig(dtoProgrammaIrrig));
-        return mapper.toDtoProgrammaIrrig(programmaIrrig);
+    public DTOProgrammaIrrig saveProgramma ( DTOProgrammaIrrig dtoProgrammaIrrig ) {
+        ProgrammaIrrig programmaIrrig = programmaIritigRepositori.save( mapper.toProgrammaIrrig( dtoProgrammaIrrig ) );
+        return mapper.toDtoProgrammaIrrig( programmaIrrig );
     }
 }

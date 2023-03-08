@@ -5,11 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import java.io.Serializable;
 
+import static org.hibernate.annotations.CascadeType.SAVE_UPDATE;
+
 @Entity
-@Table(name = "UTENTE")
+@Table( name = "UTENTE" )
 /*creano in automatico costruttore, getters, setters*/
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,20 +20,21 @@ import java.io.Serializable;
 @Setter
 public class Utente implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue( strategy = GenerationType.AUTO )
     private Long idUtente;
-    @Column(name= "USERNAME")
+    @Column( name = "USERNAME" )
     private String username;
-    @Column(name = "EMAIL")
+    @Column( name = "EMAIL" )
     private String email;
-    @Column(name = "NOME")
+    @Column( name = "NOME" )
     private String nome;
-    @Column(name = "COGNOME")
+    @Column( name = "COGNOME" )
     private String cognome;
-    @Column(name = "RUOLO")
+    @Column( name = "RUOLO" )
     private String ruolo;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn( name = "AZIENDA_AGRICOLA_ID")
+    @ManyToOne
+    @JoinColumn( name = "AZIENDA_AGRICOLA_ID" )
+    @Cascade( SAVE_UPDATE )
     private AziendaAgricola aziendaAgricola;
 
 }

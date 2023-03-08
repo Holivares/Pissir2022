@@ -7,5 +7,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author
  * @author
  */
-public interface MisuraRepositori extends JpaRepository<Misura, Long> {
-}
+public interface MisuraRepositori extends JpaRepository<Misura, Long> {}

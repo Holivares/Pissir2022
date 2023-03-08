@@ -11,5 +11,4 @@ import org.springframework.stereotype.Repository;
 
 /*JpaRepo permette di connettersi al DB e contiene tutte le operazione basiche del CRUD*/
 @Repository
-public interface AttuatoreRepositori extends JpaRepository<Attuatore, Long> {
-}
+public interface AttuatoreRepositori extends JpaRepository<Attuatore, Long> {}

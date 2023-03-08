@@ -1,6 +1,5 @@
 package edu.uniupo.coltivazioni.services;
 
-import edu.uniupo.coltivazioni.dao.ProgrammaIrrig;
 import edu.uniupo.coltivazioni.dto.DTOProgrammaIrrig;
 
 /**
@@ -8,7 +7,7 @@ import edu.uniupo.coltivazioni.dto.DTOProgrammaIrrig;
  * @author
  */
 public interface ProgrammaIrrigServices {
-    DTOProgrammaIrrig geProgrammaIrrig(Long idProgramma);
+    DTOProgrammaIrrig geProgrammaIrrig ( Long idProgramma );
 
-    DTOProgrammaIrrig saveProgramma(DTOProgrammaIrrig dtoProgrammaIrrig);
+    DTOProgrammaIrrig saveProgramma ( DTOProgrammaIrrig dtoProgrammaIrrig );
 }

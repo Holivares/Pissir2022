@@ -13,25 +13,27 @@ import org.springframework.stereotype.Service;
  * @author
  */
 @Service
-public class AttuatoreServicesImpl implements AttuatoreServices{
+public class AttuatoreServicesImpl implements AttuatoreServices {
     private final ObjectMapper mapper = Mappers.getMapper( ObjectMapper.class );
 
     AttuatoreRepositori attuatoreRepositori;
+
     @Autowired
-    public AttuatoreServicesImpl(AttuatoreRepositori attuatoreRepositori){
+    public AttuatoreServicesImpl ( AttuatoreRepositori attuatoreRepositori ) {
         this.attuatoreRepositori = attuatoreRepositori;
     }
-    @Override
-    public DTOAttuatore getAttuatore(Long idAttuatore) {
-       final Attuatore nullAttuatore = new Attuatore();
-       final Attuatore attuatore = attuatoreRepositori.findById(idAttuatore).orElse(nullAttuatore);
 
-       return mapper.toDtoAttuatore(attuatore);
+    @Override
+    public DTOAttuatore getAttuatore ( Long idAttuatore ) {
+        final Attuatore nullAttuatore = new Attuatore();
+        final Attuatore attuatore = attuatoreRepositori.findById( idAttuatore ).orElse( nullAttuatore );
+
+        return mapper.toDtoAttuatore( attuatore );
     }
 
     @Override
-    public DTOAttuatore saveAttuatore(DTOAttuatore dtoAttuatore) {
-        Attuatore attuatore = attuatoreRepositori.save(mapper.toAttuatore(dtoAttuatore));
-        return mapper.toDtoAttuatore(attuatore);
+    public DTOAttuatore saveAttuatore ( DTOAttuatore dtoAttuatore ) {
+        Attuatore attuatore = attuatoreRepositori.save( mapper.toAttuatore( dtoAttuatore ) );
+        return mapper.toDtoAttuatore( attuatore );
     }
 }

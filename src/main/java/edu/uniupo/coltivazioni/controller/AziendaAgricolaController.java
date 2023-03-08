@@ -1,6 +1,5 @@
 package edu.uniupo.coltivazioni.controller;
 
-import edu.uniupo.coltivazioni.dao.AziendaAgricola;
 import edu.uniupo.coltivazioni.dto.DTOAziendaAgricola;
 import edu.uniupo.coltivazioni.services.AziendaAgricolaServices;
 import org.springframework.beans.factory.annotation.Autowired;

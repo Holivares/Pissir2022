@@ -17,22 +17,23 @@ public class MisuraServicesImpl implements MisuraServices {
     private final ObjectMapper mapper = Mappers.getMapper( ObjectMapper.class );
 
     MisuraRepositori misuraRepositori;
+
     @Autowired
-    public MisuraServicesImpl(MisuraRepositori misuraRepositori){
+    public MisuraServicesImpl ( MisuraRepositori misuraRepositori ) {
         this.misuraRepositori = misuraRepositori;
     }
 
     @Override
-    public DTOMisura getMisura(Long idMisura) {
+    public DTOMisura getMisura ( Long idMisura ) {
         final Misura nullMisura = new Misura();
-        final Misura misura = misuraRepositori.findById(idMisura).orElse(nullMisura);
+        final Misura misura = misuraRepositori.findById( idMisura ).orElse( nullMisura );
 
-        return mapper.toDtoMisura(misura);
+        return mapper.toDtoMisura( misura );
     }
 
     @Override
-    public DTOMisura saveMisura(DTOMisura dtoMisura) {
-        Misura misura = misuraRepositori.save(mapper.toMisura(dtoMisura));
-        return mapper.toDtoMisura(misura);
+    public DTOMisura saveMisura ( DTOMisura dtoMisura ) {
+        Misura misura = misuraRepositori.save( mapper.toMisura( dtoMisura ) );
+        return mapper.toDtoMisura( misura );
     }
 }

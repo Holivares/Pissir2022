@@ -5,7 +5,5 @@ package edu.uniupo.coltivazioni.dao;
  * @author
  */
 public enum TipoProgramma {
-    ILLUMINAZIONE_ARTIFICIALE,
-    RISCALDAMENTO,
-    IRRIGAZIONE
+    ILLUMINAZIONE_ARTIFICIALE, RISCALDAMENTO, IRRIGAZIONE
 }

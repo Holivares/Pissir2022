@@ -12,24 +12,26 @@ import org.springframework.stereotype.Service;
  * @author
  */
 @Service
-public class UtenteServicesImpl implements UtenteServices{
+public class UtenteServicesImpl implements UtenteServices {
     private final ObjectMapper mapper = Mappers.getMapper( ObjectMapper.class );
 
     UtenteRepositori utenteRepositori;
-    public UtenteServicesImpl(UtenteRepositori utenteRepositori){
+
+    public UtenteServicesImpl ( UtenteRepositori utenteRepositori ) {
         this.utenteRepositori = utenteRepositori;
     }
-    @Override
-    public DTOUtente getUtente(Long idUtente) {
-        final Utente nullUtente = new Utente();
-        final Utente utente = utenteRepositori.findById(idUtente).orElse(nullUtente);
 
-        return mapper.toDtoUtente(utente);
+    @Override
+    public DTOUtente getUtente ( Long idUtente ) {
+        final Utente nullUtente = new Utente();
+        final Utente utente = utenteRepositori.findById( idUtente ).orElse( nullUtente );
+
+        return mapper.toDtoUtente( utente );
     }
 
     @Override
-    public DTOUtente saveUtente(DTOUtente dtoUtente) {
-        Utente utente = utenteRepositori.save(mapper.toUtente(dtoUtente));
-        return mapper.toDtoUtente(utente);
+    public DTOUtente saveUtente ( DTOUtente dtoUtente ) {
+        Utente utente = utenteRepositori.save( mapper.toUtente( dtoUtente ) );
+        return mapper.toDtoUtente( utente );
     }
 }

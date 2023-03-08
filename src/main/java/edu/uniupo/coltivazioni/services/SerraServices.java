@@ -1,6 +1,5 @@
 package edu.uniupo.coltivazioni.services;
 
-import edu.uniupo.coltivazioni.dao.Serra;
 import edu.uniupo.coltivazioni.dto.DTOSerra;
 
 /**
@@ -9,7 +8,7 @@ import edu.uniupo.coltivazioni.dto.DTOSerra;
  */
 public interface SerraServices {
 
-    DTOSerra getSerra(Long idSerra);
+    DTOSerra getSerra ( Long idSerra );
 
-    DTOSerra saveSerra(DTOSerra dtoSerra);
+    DTOSerra saveSerra ( DTOSerra dtoSerra );
 }

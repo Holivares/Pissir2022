@@ -16,14 +16,10 @@ import lombok.Setter;
 public class DTOProgrammaIrrig {
 
     private Long idProgramma;
-
     private String dateTime;
-
     private int oraInizio;
-
     private int oraFine;
-
     private String descrizione;
-
     private DTOTipoProgramma tipo;
+
 }

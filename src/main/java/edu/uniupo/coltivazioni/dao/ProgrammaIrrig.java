@@ -1,6 +1,5 @@
 package edu.uniupo.coltivazioni.dao;
 
-
 import edu.uniupo.coltivazioni.dto.DTOTipoProgramma;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +11,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "PROGRAMMA_IRRIG")
+@Table( name = "PROGRAMMA_IRRIG" )
 /*creano in automatico costruttore, getters, setters*/
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,16 +19,17 @@ import java.time.LocalDateTime;
 @Setter
 public class ProgrammaIrrig implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue( strategy = GenerationType.AUTO )
     private Long idProgramma;
-    @Column(name = "DATE")
+    @Column( name = "DATE" )
     private LocalDateTime dateTime;
-    @Column(name = "ORA_INIZIO")
+    @Column( name = "ORA_INIZIO" )
     private int oraInizio;
-    @Column(name = "ORA_FINE")
+    @Column( name = "ORA_FINE" )
     private int oraFine;
-    @Column(name = "DESCRIZIONE")
+    @Column( name = "DESCRIZIONE" )
     private String descrizione;
-    @Column(name = "TIPO")
+    @Column( name = "TIPO" )
     private DTOTipoProgramma tipo;
+
 }

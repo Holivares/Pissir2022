@@ -1,15 +1,12 @@
 package edu.uniupo.coltivazioni.services;
 
 import edu.uniupo.coltivazioni.dao.AziendaAgricola;
-
 import edu.uniupo.coltivazioni.dto.DTOAziendaAgricola;
-
 import edu.uniupo.coltivazioni.mapper.ObjectMapper;
 import edu.uniupo.coltivazioni.repositori.AziendaAgricolaRepositori;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author
@@ -23,31 +20,30 @@ public class AziendaAgricolaServicesImpl implements AziendaAgricolaServices {
     private final ObjectMapper mapper = Mappers.getMapper( ObjectMapper.class );
 
     private AziendaAgricolaRepositori aziendaAgricolaRepositori;
+
     //injection de dependances della DB
     //va rechercher dans mon code la classe qui implemente cette interface, vu que l'on ne peut pas créer une instance d'une interface...
     @Autowired
-    public AziendaAgricolaServicesImpl(AziendaAgricolaRepositori aziendaAgricolaRepositori) {
+    public AziendaAgricolaServicesImpl ( AziendaAgricolaRepositori aziendaAgricolaRepositori ) {
         this.aziendaAgricolaRepositori = aziendaAgricolaRepositori;
     }
 
     @Override
-    public DTOAziendaAgricola getAziendaAgricola(Long idAziendaAgricola) {
-       final AziendaAgricola aziendaAgricola = aziendaAgricolaRepositori.findById(idAziendaAgricola).orElse( new AziendaAgricola() );
-       return mapper.toDtoAziendaAgricola(aziendaAgricola);
+    public DTOAziendaAgricola getAziendaAgricola ( Long idAziendaAgricola ) {
+        final AziendaAgricola aziendaAgricola = aziendaAgricolaRepositori.findById( idAziendaAgricola ).orElse( new AziendaAgricola() );
+        return mapper.toDtoAziendaAgricola( aziendaAgricola );
     }
 
     @Override
-    @Transactional
-    public DTOAziendaAgricola saveAzienda(DTOAziendaAgricola dtoAziendaAgricola) {
+    public DTOAziendaAgricola saveAzienda ( DTOAziendaAgricola dtoAziendaAgricola ) {
         AziendaAgricola NewAziendaAgricola = new AziendaAgricola();
         mapper.toAziendaAgricola( dtoAziendaAgricola, NewAziendaAgricola );
         AziendaAgricola aziendaAgricola = aziendaAgricolaRepositori.save( NewAziendaAgricola );
-        return mapper.toDtoAziendaAgricola(aziendaAgricola);
+        return mapper.toDtoAziendaAgricola( aziendaAgricola );
 
     }
 
     @Override
-    @Transactional
     public DTOAziendaAgricola updateAzienda ( DTOAziendaAgricola dtoAziendaAgricola ) {
         AziendaAgricola oldAziendaAgricola = aziendaAgricolaRepositori.findById( dtoAziendaAgricola.getIdAziendaAgricola() ).orElse( new AziendaAgricola() );
         mapper.toAziendaAgricola( dtoAziendaAgricola, oldAziendaAgricola );

@@ -13,27 +13,28 @@ import org.springframework.stereotype.Service;
  * @author
  */
 @Service
-public class SensoreServicesImpl implements SensoreServices{
+public class SensoreServicesImpl implements SensoreServices {
 
     private final ObjectMapper mapper = Mappers.getMapper( ObjectMapper.class );
 
     SensoreRepositori sensoreRepositori;
+
     @Autowired
-    public SensoreServicesImpl(SensoreRepositori sensoreRepositori){
+    public SensoreServicesImpl ( SensoreRepositori sensoreRepositori ) {
         this.sensoreRepositori = sensoreRepositori;
     }
 
     @Override
-    public DTOSensore getSensore(Long idSensore) {
+    public DTOSensore getSensore ( Long idSensore ) {
         final Sensore nullSensore = new Sensore();
-        final Sensore sensore = sensoreRepositori.findById(idSensore).orElse(nullSensore);
+        final Sensore sensore = sensoreRepositori.findById( idSensore ).orElse( nullSensore );
 
-        return mapper.toDtoSensore(sensore);
+        return mapper.toDtoSensore( sensore );
     }
 
     @Override
-    public DTOSensore saveSensore(DTOSensore dtoSensore) {
-        Sensore sensore = sensoreRepositori.save(mapper.toSensore(dtoSensore));
-        return mapper.toDtoSensore(sensore);
+    public DTOSensore saveSensore ( DTOSensore dtoSensore ) {
+        Sensore sensore = sensoreRepositori.save( mapper.toSensore( dtoSensore ) );
+        return mapper.toDtoSensore( sensore );
     }
 }

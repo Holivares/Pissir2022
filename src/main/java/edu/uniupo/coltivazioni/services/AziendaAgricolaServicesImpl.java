@@ -2,11 +2,14 @@ package edu.uniupo.coltivazioni.services;
 
 import edu.uniupo.coltivazioni.dao.AziendaAgricola;
 import edu.uniupo.coltivazioni.dto.DTOAziendaAgricola;
+import edu.uniupo.coltivazioni.dto.DTODeletedResponse;
 import edu.uniupo.coltivazioni.mapper.ObjectMapper;
 import edu.uniupo.coltivazioni.repositori.AziendaAgricolaRepositori;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * @author
@@ -49,6 +52,20 @@ public class AziendaAgricolaServicesImpl implements AziendaAgricolaServices {
         mapper.toAziendaAgricola( dtoAziendaAgricola, oldAziendaAgricola );
         AziendaAgricola aziendaAgricola = aziendaAgricolaRepositori.save( oldAziendaAgricola );
         return mapper.toDtoAziendaAgricola( aziendaAgricola );
+    }
+
+    @Override
+    public DTODeletedResponse deleteAzienda(Long idAziendaAgricola) {
+        DTODeletedResponse dtoDeletedResponse = new DTODeletedResponse();
+        Optional<AziendaAgricola> deleteCondidateAziendaAgricola = aziendaAgricolaRepositori.findById( idAziendaAgricola);
+        //deleteCondidateAziendaAgricola.ifPresent(aziendaAgricola -> aziendaAgricolaRepositori.delete(aziendaAgricola));
+        deleteCondidateAziendaAgricola.ifPresentOrElse(deleteCondidate -> aziendaAgricolaRepositori.delete(deleteCondidate),()->{dtoDeletedResponse.setDeletionStatus(false); dtoDeletedResponse.setMessage("Data not found");});
+        Optional<AziendaAgricola> deleteAziendaAgricola = aziendaAgricolaRepositori.findById( idAziendaAgricola);
+        if(deleteAziendaAgricola.isEmpty()){
+            return new DTODeletedResponse(true, "Object deleted");
+
+        }
+        return new DTODeletedResponse(false, "Unable to delete object,please retry");
     }
 
 

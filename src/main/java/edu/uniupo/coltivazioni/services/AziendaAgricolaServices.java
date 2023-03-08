@@ -1,6 +1,7 @@
 package edu.uniupo.coltivazioni.services;
 
 import edu.uniupo.coltivazioni.dto.DTOAziendaAgricola;
+import edu.uniupo.coltivazioni.dto.DTODeletedResponse;
 
 /**
  * @author Evrard Holivares
@@ -14,5 +15,7 @@ public interface AziendaAgricolaServices {
     DTOAziendaAgricola saveAzienda ( DTOAziendaAgricola aziendaAgricola );
 
     DTOAziendaAgricola updateAzienda ( DTOAziendaAgricola dtoAziendaAgricola );
+
+    DTODeletedResponse deleteAzienda(Long idAziendaAgricola);
 }
 

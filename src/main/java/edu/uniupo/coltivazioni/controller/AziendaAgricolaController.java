@@ -1,6 +1,7 @@
 package edu.uniupo.coltivazioni.controller;
 
 import edu.uniupo.coltivazioni.dto.DTOAziendaAgricola;
+import edu.uniupo.coltivazioni.dto.DTODeletedResponse;
 import edu.uniupo.coltivazioni.services.AziendaAgricolaServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,11 @@ public class AziendaAgricolaController {
     public DTOAziendaAgricola updateAziendaAgricola ( @RequestBody DTOAziendaAgricola dtoAziendaAgricola ) {
         System.out.println( "je suis dans la méthode create" );
         return aziendaAgricolaServices.updateAzienda( dtoAziendaAgricola );
+    }
+
+    @DeleteMapping(value = "/{id}",produces = "application/json")
+    public DTODeletedResponse deleteAziendaAricola(@PathVariable Long id){
+        return aziendaAgricolaServices.deleteAzienda(id);
     }
 }
 

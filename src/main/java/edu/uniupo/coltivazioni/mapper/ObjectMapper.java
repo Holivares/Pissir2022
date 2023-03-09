@@ -31,7 +31,6 @@ public abstract class ObjectMapper {
     @Mapping( target = "dateTime", source = "dateTime", qualifiedByName = "localDateTimeToString" )
     @Mapping( target = "idSerra", source = "sensore.serra.idSerra" )
     public abstract DTOSensore toDtoSensore ( Sensore sensore );
-
     @InheritInverseConfiguration
     @Mapping( target = "idAziendaAgricola", source = "serra.aziendaAgricola.idAziendaAgricola" )
     public abstract DTOSerra toDtoSerra ( Serra serra );
@@ -60,8 +59,8 @@ public abstract class ObjectMapper {
     @Mapping( target = "serra.idSerra ", source = "idSerra" )
     public abstract Sensore toSensore ( DTOSensore dtoSensore );
 
-    @Mapping( target = "aziendaAgricola.idAziendaAgricola", source = "idAziendaAgricola" )
-    public abstract Serra toSerra ( DTOSerra dtoSerra );
+    @Mapping( nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,target = "aziendaAgricola.idAziendaAgricola", source = "idAziendaAgricola" )
+    public abstract void toSerra ( DTOSerra dtoSerra, @MappingTarget Serra serra );
 
     public abstract TipoProgramma toTipoProgramma ( DTOTipoProgramma dtoTipoProgramma );
 
@@ -70,11 +69,18 @@ public abstract class ObjectMapper {
 
     @Named( "stringToLocalDateTime" )
     public static LocalDateTime stringToLocalDateTime ( String date ) {
+        if(date == null){
+            return null;
+        }
         return LocalDateTime.parse( date, DATE_FORMAT );
     }
 
     @Named( "localDateTimeToString" )
     public static String localDateTimeToString ( LocalDateTime date ) {
+        if(date == null){
+            return null;
+        }
+
         return date.format( DATE_FORMAT );
     }
 

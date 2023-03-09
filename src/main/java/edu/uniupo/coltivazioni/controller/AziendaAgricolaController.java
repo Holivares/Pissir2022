@@ -33,13 +33,13 @@ public class AziendaAgricolaController {
 
     @PostMapping( produces = "application/json" )
     public DTOAziendaAgricola createAziendaAgricola ( @RequestBody DTOAziendaAgricola dtoAziendaAgricola ) {
-        System.out.println( "je suis dans la méthode create" );
+        System.out.println( "je suis dans la méthode create " + dtoAziendaAgricola.toString() );
         return aziendaAgricolaServices.saveAzienda( dtoAziendaAgricola );
     }
 
     @PatchMapping( produces = "application/json" )
     public DTOAziendaAgricola updateAziendaAgricola ( @RequestBody DTOAziendaAgricola dtoAziendaAgricola ) {
-        System.out.println( "je suis dans la méthode create" );
+        System.out.println( "je suis dans la méthode update" );
         return aziendaAgricolaServices.updateAzienda( dtoAziendaAgricola );
     }
 

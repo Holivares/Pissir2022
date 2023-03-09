@@ -41,6 +41,7 @@ public class AziendaAgricolaServicesImpl implements AziendaAgricolaServices {
     public DTOAziendaAgricola saveAzienda ( DTOAziendaAgricola dtoAziendaAgricola ) {
         AziendaAgricola NewAziendaAgricola = new AziendaAgricola();
         mapper.toAziendaAgricola( dtoAziendaAgricola, NewAziendaAgricola );
+        System.out.println("NewAziendaAgricola.toString() = " + NewAziendaAgricola.toString());
         AziendaAgricola aziendaAgricola = aziendaAgricolaRepositori.save( NewAziendaAgricola );
         return mapper.toDtoAziendaAgricola( aziendaAgricola );
 

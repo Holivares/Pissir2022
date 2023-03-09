@@ -1,10 +1,7 @@
 package edu.uniupo.coltivazioni.dao;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import java.io.Serializable;
@@ -18,6 +15,7 @@ import static org.hibernate.annotations.CascadeType.SAVE_UPDATE;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Serra implements Serializable {
     @Id
     @GeneratedValue( strategy = GenerationType.AUTO )
@@ -33,7 +31,7 @@ public class Serra implements Serializable {
     @Column( name = "TIPO_COLTURA" )
     private String tipoColtura;
     @ManyToOne
-    @JoinColumn( name = "AZIENDA_AGRICOLA_ID" )
+    @JoinColumn( name = "ID_AZIENDA_AGRICOLA" )
     @Cascade( SAVE_UPDATE )
     private AziendaAgricola aziendaAgricola;
 

@@ -1,12 +1,15 @@
 package edu.uniupo.coltivazioni.services;
 
 import edu.uniupo.coltivazioni.dao.Serra;
+import edu.uniupo.coltivazioni.dto.DTODeletedResponse;
 import edu.uniupo.coltivazioni.dto.DTOSerra;
 import edu.uniupo.coltivazioni.mapper.ObjectMapper;
 import edu.uniupo.coltivazioni.repositori.SerraRepositori;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * @author
@@ -32,7 +35,32 @@ public class SerraServicesImpl implements SerraServices {
 
     @Override
     public DTOSerra saveSerra ( DTOSerra dtoSerra ) {
-        Serra serra = serraRepositori.save( mapper.toSerra( dtoSerra ) );
+        Serra NewSerra = new Serra();
+        mapper.toSerra(dtoSerra, NewSerra);
+        Serra serra = serraRepositori.save( NewSerra);
         return mapper.toDtoSerra( serra );
+    }
+
+    @Override
+    public DTOSerra updateSerra(DTOSerra dtoSerra) {
+        Serra oldSerra = serraRepositori.findById(dtoSerra.getIdSerra()).orElse(new Serra());
+        mapper.toSerra(dtoSerra, oldSerra);
+        Serra serra = serraRepositori.save(oldSerra);
+        return mapper.toDtoSerra(serra);
+    }
+
+    @Override
+    public DTODeletedResponse deleteSerra(Long idSerra) {
+        DTODeletedResponse dtoDeletedResponse = new DTODeletedResponse(true,"Serra Deleted");
+        Optional<Serra> deletedCondidateSerra = serraRepositori.findById(idSerra);
+        deletedCondidateSerra.ifPresentOrElse(deleteCondidate-> {
+            System.out.println("deleteCondidate found = " + deleteCondidate.getIdSerra() + " " + deleteCondidate.getDescrizione());
+            serraRepositori.delete(deleteCondidate);
+        }, () -> {
+            System.out.println( "deleteCondidate not found ");
+            dtoDeletedResponse.setDeletionStatus( false );
+            dtoDeletedResponse.setMessage( "Data not found" );
+        } );
+        return dtoDeletedResponse;
     }
 }

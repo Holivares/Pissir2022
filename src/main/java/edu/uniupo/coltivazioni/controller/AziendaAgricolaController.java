@@ -43,9 +43,9 @@ public class AziendaAgricolaController {
         return aziendaAgricolaServices.updateAzienda( dtoAziendaAgricola );
     }
 
-    @DeleteMapping(value = "/{id}",produces = "application/json")
-    public DTODeletedResponse deleteAziendaAricola(@PathVariable Long id){
-        return aziendaAgricolaServices.deleteAzienda(id);
+    @DeleteMapping( value = "/{id}", produces = "application/json" )
+    public DTODeletedResponse deleteAziendaAricola ( @PathVariable Long id ) {
+        return aziendaAgricolaServices.deleteAzienda( id );
     }
 }
 

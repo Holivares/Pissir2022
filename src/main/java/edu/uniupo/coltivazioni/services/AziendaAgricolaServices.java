@@ -16,6 +16,6 @@ public interface AziendaAgricolaServices {
 
     DTOAziendaAgricola updateAzienda ( DTOAziendaAgricola dtoAziendaAgricola );
 
-    DTODeletedResponse deleteAzienda(Long idAziendaAgricola);
+    DTODeletedResponse deleteAzienda ( Long idAziendaAgricola );
 }
 

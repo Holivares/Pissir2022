@@ -55,17 +55,18 @@ public class AziendaAgricolaServicesImpl implements AziendaAgricolaServices {
     }
 
     @Override
-    public DTODeletedResponse deleteAzienda(Long idAziendaAgricola) {
-        DTODeletedResponse dtoDeletedResponse = new DTODeletedResponse();
-        Optional<AziendaAgricola> deleteCondidateAziendaAgricola = aziendaAgricolaRepositori.findById( idAziendaAgricola);
-        //deleteCondidateAziendaAgricola.ifPresent(aziendaAgricola -> aziendaAgricolaRepositori.delete(aziendaAgricola));
-        deleteCondidateAziendaAgricola.ifPresentOrElse(deleteCondidate -> aziendaAgricolaRepositori.delete(deleteCondidate),()->{dtoDeletedResponse.setDeletionStatus(false); dtoDeletedResponse.setMessage("Data not found");});
-        Optional<AziendaAgricola> deleteAziendaAgricola = aziendaAgricolaRepositori.findById( idAziendaAgricola);
-        if(deleteAziendaAgricola.isEmpty()){
-            return new DTODeletedResponse(true, "Object deleted");
-
-        }
-        return new DTODeletedResponse(false, "Unable to delete object,please retry");
+    public DTODeletedResponse deleteAzienda ( Long idAziendaAgricola ) {
+        DTODeletedResponse dtoDeletedResponse = new DTODeletedResponse(true, "Azienda Agricola Deleted");
+        Optional<AziendaAgricola> deleteCondidateAziendaAgricola = aziendaAgricolaRepositori.findById( idAziendaAgricola );
+        deleteCondidateAziendaAgricola.ifPresentOrElse( deleteCondidate -> {
+            System.out.println( "deleteCondidate found = " + deleteCondidate.getIdAziendaAgricola() + " " + deleteCondidate.getDescrizione());
+            aziendaAgricolaRepositori.delete( deleteCondidate );
+        }, () -> {
+            System.out.println( "deleteCondidate not found ");
+            dtoDeletedResponse.setDeletionStatus( false );
+            dtoDeletedResponse.setMessage( "Data not found" );
+        } );
+        return dtoDeletedResponse;
     }
 
 

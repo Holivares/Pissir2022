@@ -28,13 +28,12 @@ public abstract class ObjectMapper {
     @Mapping( target = "dateTime", source = "dateTime", qualifiedByName = "localDateTimeToString" )
     public abstract DTOProgrammaIrrig toDtoProgrammaIrrig ( ProgrammaIrrig programmaIrrig );
 
-
     @Mapping( target = "dateTime", source = "dateTime", qualifiedByName = "localDateTimeToString" )
-    @Mapping( target = "idSerra", source = "sensore.serra.idSerra")
+    @Mapping( target = "idSerra", source = "sensore.serra.idSerra" )
     public abstract DTOSensore toDtoSensore ( Sensore sensore );
 
     @InheritInverseConfiguration
-    @Mapping( target = "idAziendaAgricola", source = "serra.aziendaAgricola.idAziendaAgricola")
+    @Mapping( target = "idAziendaAgricola", source = "serra.aziendaAgricola.idAziendaAgricola" )
     public abstract DTOSerra toDtoSerra ( Serra serra );
 
     @InheritInverseConfiguration

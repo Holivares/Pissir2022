@@ -1,5 +1,6 @@
 package edu.uniupo.coltivazioni.controller;
 
+import edu.uniupo.coltivazioni.dto.DTODeletedResponse;
 import edu.uniupo.coltivazioni.dto.DTOMisura;
 import edu.uniupo.coltivazioni.services.MisuraServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,16 @@ public class MisuraController {
     public DTOMisura createMisura ( @RequestBody DTOMisura dtoMisura ) {
         System.out.println( "je suis dans la méthode create" );
         return misuraServices.saveMisura( dtoMisura );
+    }
+
+    @PatchMapping(produces = "application/json")
+    public DTOMisura updateMisura(@RequestBody DTOMisura dtoMisura){
+        System.out.println("Je suis dans la méthode update");
+        return misuraServices.updateMisura(dtoMisura);
+    }
+
+    @DeleteMapping(value = "/{id}", produces = "application/json")
+    public DTODeletedResponse deleteMisura(@PathVariable Long id){
+        return misuraServices.deleteMisura(id);
     }
 }

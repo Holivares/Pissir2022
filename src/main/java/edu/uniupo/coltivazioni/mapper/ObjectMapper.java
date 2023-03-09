@@ -45,27 +45,29 @@ public abstract class ObjectMapper {
     @BeanMapping( nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE )
     public abstract void toAziendaAgricola ( DTOAziendaAgricola dtoAziendaAgricola, @MappingTarget AziendaAgricola aziendaAgricola );
 
+    @BeanMapping( nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE )
     @Mapping( target = "serra.idSerra ", source = "idSerra" )
-    public abstract Attuatore toAttuatore ( DTOAttuatore dtoAttuatore );
+    public abstract void toAttuatore ( DTOAttuatore dtoAttuatore, @MappingTarget Attuatore attuatore );
 
+    @BeanMapping( nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE )
     @Mapping( target = "dateTime", source = "dateTime", qualifiedByName = "stringToLocalDateTime" )
     @Mapping( target = "serra.idSerra ", source = "idSerra" )
-    public abstract Misura toMisura ( DTOMisura dtoMisura );
+    public abstract void toMisura ( DTOMisura dtoMisura, @MappingTarget Misura misura );
 
     @Mapping( target = "dateTime", source = "dateTime", qualifiedByName = "stringToLocalDateTime" )
-    public abstract ProgrammaIrrig toProgrammaIrrig ( DTOProgrammaIrrig dtoProgrammaIrrig );
-
+    public abstract ProgrammaIrrig toProgrammaIrrig ( DTOProgrammaIrrig dtoProgrammaIrrig, @MappingTarget ProgrammaIrrig programmaIrrig );
+    @BeanMapping( nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE )
     @Mapping( target = "dateTime", source = "dateTime", qualifiedByName = "stringToLocalDateTime" )
     @Mapping( target = "serra.idSerra ", source = "idSerra" )
-    public abstract Sensore toSensore ( DTOSensore dtoSensore );
+    public abstract void toSensore ( DTOSensore dtoSensore , @MappingTarget Sensore sensore);
 
-    @Mapping( nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,target = "aziendaAgricola.idAziendaAgricola", source = "idAziendaAgricola" )
+    @Mapping( target = "aziendaAgricola.idAziendaAgricola", source = "idAziendaAgricola" )
     public abstract void toSerra ( DTOSerra dtoSerra, @MappingTarget Serra serra );
 
     public abstract TipoProgramma toTipoProgramma ( DTOTipoProgramma dtoTipoProgramma );
 
     @Mapping( target = "aziendaAgricola.idAziendaAgricola", source = "idAziendaAgricola" )
-    public abstract Utente toUtente ( DTOUtente dtoUtente );
+    public abstract Utente toUtente ( DTOUtente dtoUtente, @MappingTarget Utente utente );
 
     @Named( "stringToLocalDateTime" )
     public static LocalDateTime stringToLocalDateTime ( String date ) {

@@ -1,0 +1,33 @@
+<configuration>
+    <appender name="STDOUT_INFO" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="STDOUT_DEBUG" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="edu.uniupo.coltivazioni.controller" additivity="false" level="debug">
+        <appender-ref ref="STDOUT_DEBUG"/>
+    </logger>
+
+    <logger name="edu.uniupo.coltivazioni.dao" additivity="false" level="debug">
+        <appender-ref ref="STDOUT_DEBUG"/>
+    </logger>
+
+    <logger name="edu.uniupo.coltivazioni.dto" additivity="false" level="debug">
+        <appender-ref ref="STDOUT_DEBUG"/>
+    </logger>
+
+    <logger name="edu.uniupo.coltivazioni.services" additivity="false" level="debug">
+        <appender-ref ref="STDOUT_DEBUG"/>
+    </logger>
+
+    <root level="info">
+        <appender-ref ref="STDOUT_INFO"/>
+    </root>
+</configuration>

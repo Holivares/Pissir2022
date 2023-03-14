@@ -12,7 +12,7 @@ import java.util.UUID;
  */
 public class UtenteServicesImpl implements UtenteServices{
 
-    UtenteRepositori utenteRepositori;
+   private UtenteRepositori utenteRepositori;
     @Override
     public DTOUtente createUtente(DTOUtente utente) {
         return null;

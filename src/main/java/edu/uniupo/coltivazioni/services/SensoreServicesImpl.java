@@ -11,7 +11,7 @@ import java.util.UUID;
  */
 public class SensoreServicesImpl implements  SensoreServices{
 
-    SensoreRepositori  sensoreRepositori;
+   private SensoreRepositori  sensoreRepositori;
     @Override
     public DTOSensore findSensoreByIdSerra(UUID idSerra) {
         return null;

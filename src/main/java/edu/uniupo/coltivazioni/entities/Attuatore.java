@@ -28,7 +28,7 @@ public class Attuatore implements Serializable {
     private StatoAttuatore stato;
     @Enumerated( EnumType.STRING )
     @Column( name = "TYPE" )
-    private TypaAttuatore typa;
+    private TipoAttuatore tipo;
 
     @Override
     public boolean equals ( Object o ) {

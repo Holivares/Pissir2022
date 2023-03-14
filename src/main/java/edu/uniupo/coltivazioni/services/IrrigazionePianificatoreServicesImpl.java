@@ -12,7 +12,7 @@ import java.util.UUID;
  */
 public class IrrigazionePianificatoreServicesImpl implements IrrigazionePianificatoreServices{
 
-    IrrigazionePianificatoreRepositori irrigazionePianificatoreRepositori;
+   private IrrigazionePianificatoreRepositori irrigazionePianificatoreRepositori;
     @Override
     public DTOIrrigazionePianificatore createIrrigazionePianificatore(DTOIrrigazionePianificatore irrigazionePianificatore) {
         return null;

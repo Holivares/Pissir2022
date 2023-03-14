@@ -12,7 +12,7 @@ import java.util.UUID;
  */
 public class SerraServicesImpl implements SerraServices{
 
-    SerraRepositori serraRepositori;
+    private SerraRepositori serraRepositori;
     @Override
     public DTOSerra createSerra(DTOSerra serra) {
         return null;

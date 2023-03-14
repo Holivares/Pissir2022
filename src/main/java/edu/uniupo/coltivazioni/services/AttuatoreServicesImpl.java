@@ -11,7 +11,7 @@ import java.util.UUID;
  */
 public class AttuatoreServicesImpl implements AttuatoreServices{
 
-    AttuatoreRepositori attuatoreRepositori;
+   private  AttuatoreRepositori attuatoreRepositori;
     @Override
     public DTOAttuatore findAttuatoreByIdSerra(UUID idSerra) {
         return null;

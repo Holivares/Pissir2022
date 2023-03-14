@@ -26,7 +26,7 @@ public class Sensore implements Serializable {
     private Serra serra;
     @Enumerated( EnumType.STRING )
     @Column( name = "TYPE" )
-    private TypaSensore typa;
+    private TipoSensore tipo;
 
     @Override
     public boolean equals ( Object o ) {

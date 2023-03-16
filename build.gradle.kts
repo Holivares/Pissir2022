@@ -22,6 +22,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.mysql:mysql-connector-j:8.0.32")
+    implementation("org.postgresql:postgresql:42.5.4")
     implementation("org.mapstruct:mapstruct:1.5.3.Final")
     implementation("ch.qos.logback:logback-core:1.4.5")
     implementation("org.slf4j:slf4j-api:2.0.6")

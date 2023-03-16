@@ -14,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table( name = "USER" )
+@Table( name = "PERSON" )
 public class Utente implements Serializable {
 
     @Id

@@ -16,6 +16,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DTOStatoAttuatore {
-    private AttuatoreMode mode;
-    private AttuatoreStato stato;
+    private DTOAttuatoreMode mode;
+    private DTOAttuatoreStato stato;
 }

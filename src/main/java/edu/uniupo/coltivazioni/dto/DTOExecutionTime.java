@@ -1,12 +1,11 @@
 package edu.uniupo.coltivazioni.dto;
 
-import edu.uniupo.coltivazioni.entities.AziendaAgricola;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.UUID;
+import java.time.LocalTime;
 
 /**
  * @author
@@ -16,8 +15,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
-public class DTOSerra {
-    private UUID idSerra;
-    private DTOAziendaAgricola aziendaAgricola;
-    private String descrizione;
+public class DTOExecutionTime {
+    private LocalTime startTime;
+    private LocalTime endTime;
+
 }

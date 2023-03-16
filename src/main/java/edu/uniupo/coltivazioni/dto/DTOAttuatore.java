@@ -21,10 +21,10 @@ import java.util.UUID;
 public class DTOAttuatore {
     private UUID idAttuatore;
 
-    private Serra serra;
+    private DTOSerra serra;
 
-    private StatoAttuatore stato;
+    private DTOStatoAttuatore stato;
 
-    private TipoAttuatore typa;
+    private DTOTipoAttuatore tipo;
 
 }

@@ -14,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table( name = "AGRICULTURAL_HOLDING" )
+@Table( name = "AGRICULTURAL_HOLDING")
 public class AziendaAgricola implements Serializable {
 
     @Id

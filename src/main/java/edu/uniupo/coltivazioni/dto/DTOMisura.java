@@ -18,7 +18,7 @@ import java.util.UUID;
 @Setter
 public class DTOMisura {
     private UUID idMisura;
-    private Sensore sensore;
+    private DTOSensore sensore;
     private Double umidita;
     private Double luce;
     private Double temperatura;

@@ -18,7 +18,7 @@ import java.util.UUID;
 @Setter
 public class DTOAziendaAgricola {
     private UUID idAziendaAgricola;
-    private Utente utente;
+    private DTOUtente utente;
     private String name;
     private String descrizione;
 }

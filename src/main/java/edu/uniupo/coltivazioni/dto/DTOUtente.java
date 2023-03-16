@@ -22,5 +22,5 @@ public class DTOUtente {
     private String cognome;
     private String email;
     private String password;
-    private Ruolo role;
+    private DTORuolo role;
 }

@@ -10,7 +10,7 @@ import java.util.UUID;
  * @author
  */
 public interface AziendaAgricolaServices {
-    DTOAziendaAgricola createAziendaAgricola(DTOAziendaAgricola aziendaAgricola);
+    DTOAziendaAgricola createAziendaAgricola(DTOAziendaAgricola dtoAziendaAgricola);
     DTOAziendaAgricola updateAziendaAgricola(DTOAziendaAgricola dtoAziendaAgricola);
     DTODeleteResponse deleteAziendaAgricola(UUID idAziendaAgricola);
     DTOAziendaAgricola findAziendaAgricolaByIdUser(UUID idUtente);

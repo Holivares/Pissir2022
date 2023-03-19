@@ -17,10 +17,11 @@ import java.util.UUID;
  * @author
  */
 @Service
-public class AttuatoreServicesImpl implements AttuatoreServices{
+public class AttuatoreServicesImpl implements AttuatoreServices {
 
-   private  AttuatoreRepositori attuatoreRepositori;
-   private final ObjectMapper objectMapper = Mappers.getMapper(ObjectMapper.class);
+    private final AttuatoreRepositori attuatoreRepositori;
+    private final ObjectMapper mapper = Mappers.getMapper(ObjectMapper.class);
+
     @Autowired
     public AttuatoreServicesImpl(AttuatoreRepositori attuatoreRepositori) {
         this.attuatoreRepositori = attuatoreRepositori;
@@ -28,23 +29,30 @@ public class AttuatoreServicesImpl implements AttuatoreServices{
 
 
     @Override
+    public DTOAttuatore createAttuatore(DTOAttuatore dtoAttuatore) {
+        Attuatore attuatore = attuatoreRepositori.save(mapper.dTOAttuatoreToAttuatore(dtoAttuatore));
+        return mapper.attuatoreToDTOAttuatore(attuatore);
+
+    }
+
+    @Override
     public DTOAttuatore findAttuatoreByIdSerra(UUID idSerra) {
-       Optional<Attuatore> attuatore = attuatoreRepositori.findAttuatoreBySerraIdSerra(idSerra);
-        return objectMapper.attuatoreToDTOAttuatore(attuatore.orElse(new Attuatore()));
+        Optional<Attuatore> attuatore = attuatoreRepositori.findBySerraIdSerra(idSerra);
+        return mapper.attuatoreToDTOAttuatore(attuatore.orElse(new Attuatore()));
     }
 
     @Override
     public DTOAttuatore enableAttuatore(UUID idAttuatore) {
         Optional<Attuatore> attuatore = attuatoreRepositori.findById(idAttuatore);
         attuatore.ifPresent(attuatore1 -> attuatore1.getStato().setStato(AttuatoreStato.ATTIVO));
-        return objectMapper.attuatoreToDTOAttuatore(attuatore.orElse(new Attuatore()));
+        return mapper.attuatoreToDTOAttuatore(attuatore.orElse(new Attuatore()));
     }
 
     @Override
     public DTOAttuatore disableAttuatore(UUID idAttuatore) {
         Optional<Attuatore> attuatore = attuatoreRepositori.findById(idAttuatore);
         attuatore.ifPresent(attuatore1 -> attuatore1.getStato().setStato(AttuatoreStato.DISATTIVATO));
-        return objectMapper.attuatoreToDTOAttuatore(attuatore.orElse(new Attuatore()));
+        return mapper.attuatoreToDTOAttuatore(attuatore.orElse(new Attuatore()));
     }
 
 }

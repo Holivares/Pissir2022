@@ -15,14 +15,6 @@
         <appender-ref ref="STDOUT_DEBUG"/>
     </logger>
 
-    <logger name="edu.uniupo.coltivazioni.dao" additivity="false" level="debug">
-        <appender-ref ref="STDOUT_DEBUG"/>
-    </logger>
-
-    <logger name="edu.uniupo.coltivazioni.dto" additivity="false" level="debug">
-        <appender-ref ref="STDOUT_DEBUG"/>
-    </logger>
-
     <logger name="edu.uniupo.coltivazioni.services" additivity="false" level="debug">
         <appender-ref ref="STDOUT_DEBUG"/>
     </logger>

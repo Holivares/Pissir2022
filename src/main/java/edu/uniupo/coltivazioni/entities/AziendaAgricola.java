@@ -25,7 +25,7 @@ public class AziendaAgricola implements Serializable {
     @JoinColumn( name = "ID_USER", referencedColumnName = "ID_USER" )
     private Utente utente;
     @Column( name = "NAME" )
-    private String name;
+    private String nome;
     @Column( name = "DESCRIPTION" )
     private String descrizione;
 

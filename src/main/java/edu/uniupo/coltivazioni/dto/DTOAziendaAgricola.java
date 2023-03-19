@@ -19,6 +19,6 @@ import java.util.UUID;
 public class DTOAziendaAgricola {
     private UUID idAziendaAgricola;
     private DTOUtente utente;
-    private String name;
+    private String nome;
     private String descrizione;
 }

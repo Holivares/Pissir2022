@@ -4,6 +4,7 @@ import edu.uniupo.coltivazioni.entities.Sensore;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -12,4 +13,5 @@ import java.util.UUID;
  */
 @Repository
 public interface SensoreRepositori extends JpaRepository<Sensore, UUID> {
+    Optional<Sensore> findBySerraIdSerra(UUID idSerra);
 }

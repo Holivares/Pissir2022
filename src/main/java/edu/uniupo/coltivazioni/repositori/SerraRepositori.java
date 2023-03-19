@@ -4,6 +4,7 @@ import edu.uniupo.coltivazioni.entities.Serra;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -12,4 +13,5 @@ import java.util.UUID;
  */
 @Repository
 public interface SerraRepositori extends JpaRepository<Serra, UUID> {
+    Optional<Serra> findByAziendaAgricolaIdAziendaAgricola(UUID idAziendaAgricola);
 }

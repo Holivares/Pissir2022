@@ -10,8 +10,8 @@ import java.util.UUID;
  * @author
  */
 public interface UtenteServices {
-    DTOUtente createUtente(DTOUtente utente);
+    DTOUtente createUtente(DTOUtente dtoUtente);
     DTOUtente updateUtente(DTOUtente dtoUtente);
-    DTODeleteResponse deleteUtente(UUID idUtente);
+    DTODeleteResponse deleteUtenteById(UUID idUtente);
     DTOUtente findUtenteByEmailAndPassword(String email, String password);
 }

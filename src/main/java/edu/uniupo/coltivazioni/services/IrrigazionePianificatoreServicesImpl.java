@@ -17,43 +17,45 @@ import java.util.UUID;
  * @author
  */
 @Service
-public class IrrigazionePianificatoreServicesImpl implements IrrigazionePianificatoreServices{
+public class IrrigazionePianificatoreServicesImpl implements IrrigazionePianificatoreServices {
 
-   private final IrrigazionePianificatoreRepositori irrigazionePianificatoreRepositori;
-   private final ObjectMapper mapper = Mappers.getMapper(ObjectMapper.class);
+    private final IrrigazionePianificatoreRepositori irrigazionePianificatoreRepositori;
+    private final ObjectMapper mapper = Mappers.getMapper( ObjectMapper.class );
+
     @Autowired
-    public IrrigazionePianificatoreServicesImpl(IrrigazionePianificatoreRepositori irrigazionePianificatoreRepositori) {
+    public IrrigazionePianificatoreServicesImpl ( IrrigazionePianificatoreRepositori irrigazionePianificatoreRepositori ) {
         this.irrigazionePianificatoreRepositori = irrigazionePianificatoreRepositori;
     }
 
     @Override
-    public DTOIrrigazionePianificatore createIrrigazionePianificatore(DTOIrrigazionePianificatore dtoIrrigazionePianificatore) {
-        IrrigazionePianificatore pianificatore = irrigazionePianificatoreRepositori.save(mapper.dTOIrrigazionePianificatoreTOIrrigazionePianificatore(dtoIrrigazionePianificatore));
-        return mapper.irrigazionePianificatoreTODTOIrrigazionePianificatore(pianificatore);
+    public DTOIrrigazionePianificatore createIrrigazionePianificatore ( DTOIrrigazionePianificatore dtoIrrigazionePianificatore ) {
+        IrrigazionePianificatore pianificatore =
+                irrigazionePianificatoreRepositori.save( mapper.dTOIrrigazionePianificatoreTOIrrigazionePianificatore( dtoIrrigazionePianificatore ) );
+        return mapper.irrigazionePianificatoreTODTOIrrigazionePianificatore( pianificatore );
     }
 
     @Override
-    public DTOIrrigazionePianificatore updateIrrigazionePianificatore(DTOIrrigazionePianificatore dtoIrrigazionePianificatore) {
-        IrrigazionePianificatore pianificatore = irrigazionePianificatoreRepositori.save(mapper.dTOIrrigazionePianificatoreTOIrrigazionePianificatore(dtoIrrigazionePianificatore));
-        return mapper.irrigazionePianificatoreTODTOIrrigazionePianificatore(pianificatore);
+    public DTOIrrigazionePianificatore updateIrrigazionePianificatore ( DTOIrrigazionePianificatore dtoIrrigazionePianificatore ) {
+        IrrigazionePianificatore pianificatore =
+                irrigazionePianificatoreRepositori.save( mapper.dTOIrrigazionePianificatoreTOIrrigazionePianificatore( dtoIrrigazionePianificatore ) );
+        return mapper.irrigazionePianificatoreTODTOIrrigazionePianificatore( pianificatore );
     }
 
     @Override
-    public DTODeleteResponse deleteIrrigazionePianificatoreById(UUID idIrrigazionePianificatore) {
-            irrigazionePianificatoreRepositori.deleteById(idIrrigazionePianificatore);
-            return new DTODeleteResponse("Piano irrigazione is deleted", true);
-    }
-
-
-    @Override
-    public DTOIrrigazionePianificatore findIrrigazionePianificatoreByIdAziendaAgricola(UUID idAziendaAgricola) {
-        Optional<IrrigazionePianificatore>pianificatore = irrigazionePianificatoreRepositori.findByAziendaAgricolaIdAziendaAgricola(idAziendaAgricola);
-        return mapper.irrigazionePianificatoreTODTOIrrigazionePianificatore(pianificatore.orElse(new IrrigazionePianificatore()));
+    public DTODeleteResponse deleteIrrigazionePianificatoreById ( UUID idIrrigazionePianificatore ) {
+        irrigazionePianificatoreRepositori.deleteById( idIrrigazionePianificatore );
+        return new DTODeleteResponse( "Piano irrigazione is deleted", true );
     }
 
     @Override
-    public DTOIrrigazionePianificatore findIrrigazionePianificatoreByIdserra(UUID idSerra) {
-       Optional<IrrigazionePianificatore> pianificatore = irrigazionePianificatoreRepositori.findBySerraidSerra(idSerra);
-        return mapper.irrigazionePianificatoreTODTOIrrigazionePianificatore(pianificatore.orElse(new IrrigazionePianificatore()));
+    public DTOIrrigazionePianificatore findIrrigazionePianificatoreByIdAziendaAgricola ( UUID idAziendaAgricola ) {
+        Optional<IrrigazionePianificatore> pianificatore = irrigazionePianificatoreRepositori.findByAziendaAgricolaIdAziendaAgricola( idAziendaAgricola );
+        return mapper.irrigazionePianificatoreTODTOIrrigazionePianificatore( pianificatore.orElse( new IrrigazionePianificatore() ) );
+    }
+
+    @Override
+    public DTOIrrigazionePianificatore findIrrigazionePianificatoreByIdserra ( UUID idSerra ) {
+        Optional<IrrigazionePianificatore> pianificatore = irrigazionePianificatoreRepositori.findBySerraIdSerra( idSerra );
+        return mapper.irrigazionePianificatoreTODTOIrrigazionePianificatore( pianificatore.orElse( new IrrigazionePianificatore() ) );
     }
 }

@@ -13,6 +13,7 @@ import java.util.UUID;
  */
 @Repository
 public interface AziendaAgricolaRepositori extends JpaRepository<AziendaAgricola, UUID> {
-    Optional<AziendaAgricola> findByUtenteidUtente(UUID IdUtente);
-    Optional<AziendaAgricola> findByNome(String nome);
+    Optional<AziendaAgricola> findByUtenteIdUtente ( UUID IdUtente );
+
+    Optional<AziendaAgricola> findByNome ( String nome );
 }

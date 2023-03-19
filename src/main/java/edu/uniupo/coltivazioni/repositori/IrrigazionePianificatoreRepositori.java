@@ -13,7 +13,7 @@ import java.util.UUID;
  */
 @Repository
 public interface IrrigazionePianificatoreRepositori extends JpaRepository<IrrigazionePianificatore, UUID> {
-    Optional<IrrigazionePianificatore> findByAziendaAgricolaIdAziendaAgricola(UUID idAziendaAgricola);
+    Optional<IrrigazionePianificatore> findByAziendaAgricolaIdAziendaAgricola ( UUID idAziendaAgricola );
 
-    Optional<IrrigazionePianificatore> findBySerraidSerra(UUID idSerra);
+    Optional<IrrigazionePianificatore> findBySerraIdSerra ( UUID idSerra );
 }

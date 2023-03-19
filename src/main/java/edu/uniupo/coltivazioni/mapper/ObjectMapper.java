@@ -29,17 +29,17 @@ public abstract class ObjectMapper {
     //converti dto en dao
 
     public abstract Attuatore dTOAttuatoreToAttuatore(DTOAttuatore dtoAttuatore);
-    public abstract DTOSerra dTOSerraToSerra(DTOSerra DtoSerra);
-    public abstract DTOStatoAttuatore dTOStatoAttuatoreToStatoAttuatore(DTOStatoAttuatore dtoStatoAttuatore);
-    public abstract DTOTipoAttuatore dTOTipoAttuatoreToTipoAttuatore(DTOTipoAttuatore dtoTipoAttuatore);
-    public abstract DTOAttuatoreMode dTOAttuatoreModeTOAttuatoreMode(DTOAttuatoreMode dtoAttuatoreMode);
-    public abstract DTOAttuatoreStato dTOAttuatoreStatoTOAttuatoreStato(DTOAttuatoreStato dtoAttuatoreStato);
-    public abstract DTOUtente dTOUtenteTOUtente(DTOUtente dtoUtente);
-    public abstract DTOAziendaAgricola dTOAziendaAgricolaTOAziendaAgricola(DTOAziendaAgricola dtoAziendaAgricola);
-    public abstract DTOSensore dTOSensoreTOSensore(DTOSensore dtoSensore);
-    public abstract DTOIrrigazionePianificatore dTOIrrigazionePianificatoreTOIrrigazionePianificatore(DTOIrrigazionePianificatore dtoIrrigazionePianificatore);
-    public abstract DTOMisura dTOMisuraTOMisura(DTOMisura dtoMisura);
-    public abstract DTORuolo dTORuoloTORuolo(DTORuolo dtoRuolo);
-    public abstract DTOExecutionTime dTOExecutionTimeTOExecutionTime(DTOExecutionTime dtoExecutionTime);
+    public abstract Serra dTOSerraToSerra(DTOSerra DtoSerra);
+    public abstract StatoAttuatore dTOStatoAttuatoreToStatoAttuatore(DTOStatoAttuatore dtoStatoAttuatore);
+    public abstract TipoAttuatore dTOTipoAttuatoreToTipoAttuatore(DTOTipoAttuatore dtoTipoAttuatore);
+    public abstract AttuatoreMode dTOAttuatoreModeTOAttuatoreMode(DTOAttuatoreMode dtoAttuatoreMode);
+    public abstract AttuatoreStato dTOAttuatoreStatoTOAttuatoreStato(DTOAttuatoreStato dtoAttuatoreStato);
+    public abstract Utente dTOUtenteTOUtente(DTOUtente dtoUtente);
+    public abstract AziendaAgricola dTOAziendaAgricolaTOAziendaAgricola(DTOAziendaAgricola dtoAziendaAgricola);
+    public abstract Sensore dTOSensoreTOSensore(DTOSensore dtoSensore);
+    public abstract IrrigazionePianificatore dTOIrrigazionePianificatoreTOIrrigazionePianificatore(DTOIrrigazionePianificatore dtoIrrigazionePianificatore);
+    public abstract Misura dTOMisuraTOMisura(DTOMisura dtoMisura);
+    public abstract Ruolo dTORuoloTORuolo(DTORuolo dtoRuolo);
+    public abstract ExecutionTime dTOExecutionTimeTOExecutionTime(DTOExecutionTime dtoExecutionTime);
 
 }

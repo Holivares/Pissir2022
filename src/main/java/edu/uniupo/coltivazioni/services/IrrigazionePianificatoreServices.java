@@ -10,9 +10,9 @@ import java.util.UUID;
  * @author
  */
 public interface IrrigazionePianificatoreServices {
-    DTOIrrigazionePianificatore createIrrigazionePianificatore(DTOIrrigazionePianificatore irrigazionePianificatore);
+    DTOIrrigazionePianificatore createIrrigazionePianificatore(DTOIrrigazionePianificatore dtoIrrigazionePianificatore);
     DTOIrrigazionePianificatore updateIrrigazionePianificatore(DTOIrrigazionePianificatore dtoIrrigazionePianificatore);
-    DTODeleteResponse deleteIrrigazionePianificatore(UUID idIrrigazionePianificatore);
+    DTODeleteResponse deleteIrrigazionePianificatoreById(UUID idIrrigazionePianificatore);
     DTOIrrigazionePianificatore findIrrigazionePianificatoreByIdAziendaAgricola(UUID idAziendaAgricola);
     DTOIrrigazionePianificatore findIrrigazionePianificatoreByIdserra(UUID idSerra);
 }

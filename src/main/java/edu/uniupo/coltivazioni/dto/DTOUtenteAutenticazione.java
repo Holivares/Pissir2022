@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class DTODeleteResponse {
-    private String message;
-    private Boolean status;
+public class DTOUtenteAutenticazione {
+    private String email;
+    private String password;
 }

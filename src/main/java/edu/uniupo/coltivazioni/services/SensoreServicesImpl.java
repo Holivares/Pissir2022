@@ -6,6 +6,7 @@ import edu.uniupo.coltivazioni.mapper.ObjectMapper;
 import edu.uniupo.coltivazioni.repositori.SensoreRepositori;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -15,6 +16,7 @@ import java.util.UUID;
  * @author
  */
 @Service
+@Transactional
 public class SensoreServicesImpl implements  SensoreServices{
 
    private final SensoreRepositori  sensoreRepositori;

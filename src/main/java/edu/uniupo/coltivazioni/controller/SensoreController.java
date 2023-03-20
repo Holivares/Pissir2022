@@ -24,9 +24,9 @@ public class SensoreController {
     public SensoreController(SensoreServices sensoreServices) {
         this.sensoreServices = sensoreServices;
     }
-    @PostMapping(value = "/", produces = "application/json")
+    @PostMapping(produces = "application/json")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public DTOSensore createSensore(DTOSensore dtoSensore){
+    public DTOSensore createSensore(@RequestBody DTOSensore dtoSensore){
         logger.info("i'm in controller to create an sensore");
         return sensoreServices.createSensore(dtoSensore);
     }

@@ -27,14 +27,14 @@ public class IrrigazionePianificatoreController {
         this.irrigazionePianificatoreServices = irrigazionePianificatoreServices;
     }
 
-    @PostMapping(value = "/", produces = "application/json")
+    @PostMapping(produces = "application/json")
     @ResponseStatus(value = HttpStatus.CREATED)
     public DTOIrrigazionePianificatore createIrrigazionePianificatore(@RequestBody DTOIrrigazionePianificatore dtoIrrigazionePianificatore) {
         logger.info("i'm in the controller to create an pianificatore");
         return irrigazionePianificatoreServices.createIrrigazionePianificatore(dtoIrrigazionePianificatore);
     }
 
-    @PutMapping(value = "/", produces = "application/json")
+    @PutMapping(produces = "application/json")
     @ResponseStatus(value = HttpStatus.OK)
     public DTOIrrigazionePianificatore updateIrrigazionePianificatore(@RequestBody DTOIrrigazionePianificatore dtoIrrigazionePianificatore) {
         logger.info("i'm in the controller to update an pianificatore");

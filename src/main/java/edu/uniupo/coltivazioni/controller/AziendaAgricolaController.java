@@ -25,37 +25,37 @@ public class AziendaAgricolaController {
     public AziendaAgricolaController(AziendaAgricolaServices aziendaAgricolaServices) {
         this.aziendaAgricolaServices = aziendaAgricolaServices;
     }
-    @PostMapping(value = "/", produces = "application/json")
+    @PostMapping(produces = "application/json")
     @ResponseStatus(value = HttpStatus.CREATED)
     public DTOAziendaAgricola createAziendaAgricola(@RequestBody DTOAziendaAgricola dtoAziendaAgricola){
         logger.info("i'm in the controller to create an azienda agricola ");
         return aziendaAgricolaServices.createAziendaAgricola(dtoAziendaAgricola);
     }
-    @PutMapping(value = "/", produces = "application/json")
+    @PutMapping(produces = "application/json")
     @ResponseStatus(value = HttpStatus.OK)
     public DTOAziendaAgricola updateAziendaAgricola(@RequestBody DTOAziendaAgricola dtoAziendaAgricola){
         logger.info("i'm in the controller to update un azienda agricola");
         return aziendaAgricolaServices.updateAziendaAgricola(dtoAziendaAgricola);
     }
-    @DeleteMapping(value = "/{idAziendaAgricola}")
+    @DeleteMapping(value = "/{idAziendaAgricola}", produces = "application/json")
     @ResponseStatus(value = HttpStatus.OK)
     public DTODeleteResponse deleteAziendaAgricola(@PathVariable  UUID idAziendaAgricola){
         logger.info("i'm in the controller to delete un azienda agricola");
         return aziendaAgricolaServices.deleteAziendaAgricola(idAziendaAgricola);
     }
-    @GetMapping(value = "/{idUtente}")
+    @GetMapping(value = "/{idUtente}", produces = "application/json")
     @ResponseStatus(value = HttpStatus.FOUND)
     public DTOAziendaAgricola findAziendaAgricolaByIdUser(@PathVariable UUID idUtente){
         logger.info("i'm in the controller to find an azienda agricola by idUser");
         return aziendaAgricolaServices.findAziendaAgricolaByIdUser(idUtente);
     }
-    @GetMapping(value = "/{idAziendaAgricola}")
+    @GetMapping(value = "/{idAziendaAgricola}", produces = "application/json")
     @ResponseStatus(value = HttpStatus.FOUND)
     public DTOAziendaAgricola findAziendaAgricolaByid(@PathVariable UUID idAziendaAgricola){
         logger.info("i'm in the controller to find an azienda agricola by idAziendaAgricola");
         return aziendaAgricolaServices.findAziendaAgricolaById(idAziendaAgricola);
     }
-    @GetMapping(value = "/{nome}")
+    @GetMapping(value = "/{nome}", produces = "application/json")
     @ResponseStatus(value = HttpStatus.FOUND)
     public DTOAziendaAgricola findAziendaAgricolaByName(@PathVariable String nome){
         logger.info("i'm the controller to find an azienda agricola by name ");

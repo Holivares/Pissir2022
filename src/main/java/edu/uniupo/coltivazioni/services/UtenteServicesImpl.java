@@ -7,6 +7,8 @@ import edu.uniupo.coltivazioni.mapper.ObjectMapper;
 import edu.uniupo.coltivazioni.repositori.UtenteRepositori;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
 import java.util.UUID;
 
@@ -15,6 +17,7 @@ import java.util.UUID;
  * @author
  */
 @Service
+@Transactional
 public class UtenteServicesImpl implements UtenteServices{
 
    private final UtenteRepositori utenteRepositori;

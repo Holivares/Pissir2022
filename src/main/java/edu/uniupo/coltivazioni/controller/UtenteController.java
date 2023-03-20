@@ -28,21 +28,21 @@ public class UtenteController {
         this.utenteServices = utenteServices;
     }
 
-    @PostMapping(value = "/", produces = "application/json")
+    @PostMapping(produces = "application/json")
     @ResponseStatus(value = HttpStatus.CREATED)
     public DTOUtente createUtente(@RequestBody DTOUtente dtoUtente) {
         logger.info("i'm in the controller to create an utente");
         return utenteServices.createUtente(dtoUtente);
     }
 
-    @PutMapping(value = "/", produces = "application/json")
+    @PutMapping(produces = "application/json")
     @ResponseStatus(value = HttpStatus.OK)
     public DTOUtente updateUtente(@RequestBody DTOUtente dtoUtente) {
         logger.info("i'm in the controller to update an utente ");
         return utenteServices.updateUtente(dtoUtente);
     }
 
-    @DeleteMapping(value = "/{idSerra}")
+    @DeleteMapping(value = "/{idSerra}", produces = "application/json")
     @ResponseStatus(value = HttpStatus.OK)
     public DTODeleteResponse deleteUtenteById(@PathVariable UUID idUtente) {
         logger.info("i'm in the controller to delete an utente by idUtente");

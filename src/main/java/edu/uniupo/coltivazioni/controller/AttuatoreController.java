@@ -26,9 +26,9 @@ public class AttuatoreController {
         this.attuatoreServices = attuatoreServices;
     }
 
-    @PostMapping( value = "/", produces = "application/json" )
+    @PostMapping( produces = "application/json" )
     @ResponseStatus( value = HttpStatus.CREATED )
-    public DTOAttuatore createAtrtuatore ( DTOAttuatore dtoAttuatore ) {
+    public DTOAttuatore createAtrtuatore ( @RequestBody DTOAttuatore dtoAttuatore ) {
         logger.info( "i'm in the controller..." );
         return attuatoreServices.createAttuatore( dtoAttuatore );
 

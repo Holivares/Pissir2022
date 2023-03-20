@@ -26,7 +26,7 @@ public class MisuraController {
         this.misuraServices = misuraServices;
     }
 
-    @PostMapping(value = "/", produces = "application/json")
+    @PostMapping(produces = "application/json")
     @ResponseStatus(value = HttpStatus.CREATED)
     public DTOMisura createMisura(@RequestBody DTOMisura dtoMisura) {
         logger.info("i'm in controller...");

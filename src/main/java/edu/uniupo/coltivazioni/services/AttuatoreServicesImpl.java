@@ -8,6 +8,7 @@ import edu.uniupo.coltivazioni.repositori.AttuatoreRepositori;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -17,6 +18,7 @@ import java.util.UUID;
  * @author
  */
 @Service
+@Transactional
 public class AttuatoreServicesImpl implements AttuatoreServices {
 
     private final AttuatoreRepositori attuatoreRepositori;
@@ -30,8 +32,18 @@ public class AttuatoreServicesImpl implements AttuatoreServices {
 
     @Override
     public DTOAttuatore createAttuatore(DTOAttuatore dtoAttuatore) {
-        Attuatore attuatore = attuatoreRepositori.save(mapper.dTOAttuatoreToAttuatore(dtoAttuatore));
-        return mapper.attuatoreToDTOAttuatore(attuatore);
+        Attuatore attuatore1 = mapper.dTOAttuatoreToAttuatore(dtoAttuatore);
+        System.out.println("****************************");
+        System.out.println(attuatore1.getTipo());
+        System.out.println(attuatore1.getStato().getMode());
+        System.out.println(attuatore1.getStato().getStato());
+        Attuatore attuatore = attuatoreRepositori.save(attuatore1);
+        DTOAttuatore attuatore2 =  mapper.attuatoreToDTOAttuatore(attuatore);
+        System.out.println("*****************************");
+        System.out.println(attuatore2.getTipo());
+        System.out.println(attuatore2.getStato().getMode());
+        System.out.println(attuatore2.getStato().getStato());
+        return attuatore2;
 
     }
 

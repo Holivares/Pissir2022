@@ -19,6 +19,6 @@ import java.util.UUID;
 @Setter
 public class DTOSensore {
     private UUID idSensore;
-    private Serra serra;
+    private UUID idSerra;
     private TipoSensore tipo;
 }

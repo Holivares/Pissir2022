@@ -27,14 +27,14 @@ public class SerraController {
         this.serraServices = serraServices;
     }
 
-    @PostMapping(value = "/", produces = "application/json")
+    @PostMapping(produces = "application/json")
     @ResponseStatus(value = HttpStatus.CREATED)
     public DTOSerra createSerra(@RequestBody DTOSerra dtoSerra) {
         logger.info("i'm in the to create an serra");
         return serraServices.createSerra(dtoSerra);
     }
 
-    @PutMapping(value = "/", produces = "application/json")
+    @PutMapping(produces = "application/json")
     @ResponseStatus(value = HttpStatus.OK)
     public DTOSerra updateSerra(@RequestBody DTOSerra dtoSerra) {
         logger.info("i'm in the to update an serra");

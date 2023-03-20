@@ -7,6 +7,7 @@ import edu.uniupo.coltivazioni.repositori.MisuraRepositori;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -16,6 +17,7 @@ import java.util.UUID;
  * @author
  */
 @Service
+@Transactional
 public class MisuraServicesImpl implements MisuraServices{
 
     private final MisuraRepositori misuraRepositori;

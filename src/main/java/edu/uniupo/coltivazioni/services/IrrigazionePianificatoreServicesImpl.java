@@ -8,6 +8,7 @@ import edu.uniupo.coltivazioni.repositori.IrrigazionePianificatoreRepositori;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -17,6 +18,7 @@ import java.util.UUID;
  * @author
  */
 @Service
+@Transactional
 public class IrrigazionePianificatoreServicesImpl implements IrrigazionePianificatoreServices {
 
     private final IrrigazionePianificatoreRepositori irrigazionePianificatoreRepositori;

@@ -20,8 +20,8 @@ import java.util.UUID;
 public class DTOIrrigazionePianificatore {
 
     private UUID idIrrigazionePianificatore;
-    private DTOAziendaAgricola aziendaAgricola;
-    private DTOSerra serra;
+    private UUID idAziendaAgricola;
+    private UUID idSerra;
     private String descrizione;
     private LocalDate esecuzioneData;
     private DTOExecutionTime esecuzioneTempo;

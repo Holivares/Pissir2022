@@ -19,10 +19,10 @@ public class Sensore implements Serializable {
 
     @Id
     @GeneratedValue( strategy = GenerationType.UUID )
-    @Column( name = "ID_SENSOR" )
+    @Column( name = "ID_SENSOR", length = 10 )
     private UUID idSensore;
     @ManyToOne
-    @JoinColumn( name = "ID_GREENHOUSE", referencedColumnName = "ID_GREENHOUSE" )
+    @JoinColumn( name = "ID_GREENHOUSE" )
     private Serra serra;
     @Enumerated( EnumType.STRING )
     @Column( name = "TYPE" )

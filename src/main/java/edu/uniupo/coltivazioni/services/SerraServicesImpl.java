@@ -18,37 +18,36 @@ import java.util.UUID;
  */
 @Service
 @Transactional
-public class SerraServicesImpl implements SerraServices{
+public class SerraServicesImpl implements SerraServices {
 
     private final SerraRepositori serraRepositori;
-    private final ObjectMapper mapper = Mappers.getMapper(ObjectMapper.class);
+    private final ObjectMapper mapper = Mappers.getMapper( ObjectMapper.class );
 
-    public SerraServicesImpl(SerraRepositori serraRepositori) {
+    public SerraServicesImpl ( SerraRepositori serraRepositori ) {
         this.serraRepositori = serraRepositori;
     }
 
     @Override
-    public DTOSerra createSerra(DTOSerra dtoSerra) {
-        Serra serra = serraRepositori.save(mapper.dTOSerraToSerra(dtoSerra));
-        return mapper.serraToDTOSerra(serra);
+    public DTOSerra createSerra ( DTOSerra dtoSerra ) {
+        Serra serra = serraRepositori.save( mapper.dTOSerraToSerra( dtoSerra ) );
+        return mapper.serraToDTOSerra( serra );
     }
 
     @Override
-    public DTOSerra updateSerra(DTOSerra dtoSerra) {
-        Serra serra = serraRepositori.save(mapper.dTOSerraToSerra(dtoSerra));
-        return mapper.serraToDTOSerra(serra);
+    public DTOSerra updateSerra ( DTOSerra dtoSerra ) {
+        Serra serra = serraRepositori.save( mapper.dTOSerraToSerra( dtoSerra ) );
+        return mapper.serraToDTOSerra( serra );
     }
 
     @Override
-    public DTODeleteResponse deleteSerra(UUID idSerra) {
-        serraRepositori.deleteById(idSerra);
-        return new DTODeleteResponse("Serra is deleted",true);
+    public DTODeleteResponse deleteSerra ( UUID idSerra ) {
+        serraRepositori.deleteById( idSerra );
+        return new DTODeleteResponse( "Serra is deleted", true );
     }
 
-
     @Override
-    public DTOSerra findSerraByIdAziendaAgricola(UUID idAziendaAgricola) {
-        Optional<Serra> serra = serraRepositori.findByAziendaAgricolaIdAziendaAgricola(idAziendaAgricola);
-        return mapper.serraToDTOSerra(serra.orElse(new Serra()));
+    public DTOSerra findSerraByIdAziendaAgricola ( UUID idAziendaAgricola ) {
+        Optional<Serra> serra = serraRepositori.findByAziendaAgricolaIdAziendaAgricola( idAziendaAgricola );
+        return mapper.serraToDTOSerra( serra.orElse( new Serra() ) );
     }
 }

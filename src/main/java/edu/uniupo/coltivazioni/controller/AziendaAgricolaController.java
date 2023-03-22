@@ -16,49 +16,55 @@ import java.util.UUID;
  * @author
  */
 @RestController
-@RequestMapping("v1/aziende")
+@RequestMapping( "v1/aziende" )
 public class AziendaAgricolaController {
     private final AziendaAgricolaServices aziendaAgricolaServices;
-    private final Logger logger = LoggerFactory.getLogger(AziendaAgricolaController.class);
+    private final Logger logger = LoggerFactory.getLogger( AziendaAgricolaController.class );
 
     @Autowired
-    public AziendaAgricolaController(AziendaAgricolaServices aziendaAgricolaServices) {
+    public AziendaAgricolaController ( AziendaAgricolaServices aziendaAgricolaServices ) {
         this.aziendaAgricolaServices = aziendaAgricolaServices;
     }
-    @PostMapping(produces = "application/json")
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public DTOAziendaAgricola createAziendaAgricola(@RequestBody DTOAziendaAgricola dtoAziendaAgricola){
-        logger.info("i'm in the controller to create an azienda agricola ");
-        return aziendaAgricolaServices.createAziendaAgricola(dtoAziendaAgricola);
+
+    @PostMapping( produces = "application/json" )
+    @ResponseStatus( value = HttpStatus.CREATED )
+    public DTOAziendaAgricola createAziendaAgricola ( @RequestBody DTOAziendaAgricola dtoAziendaAgricola ) {
+        logger.info( "i'm in the controller to create an azienda agricola " );
+        return aziendaAgricolaServices.createAziendaAgricola( dtoAziendaAgricola );
     }
-    @PutMapping(produces = "application/json")
-    @ResponseStatus(value = HttpStatus.OK)
-    public DTOAziendaAgricola updateAziendaAgricola(@RequestBody DTOAziendaAgricola dtoAziendaAgricola){
-        logger.info("i'm in the controller to update un azienda agricola");
-        return aziendaAgricolaServices.updateAziendaAgricola(dtoAziendaAgricola);
+
+    @PutMapping( produces = "application/json" )
+    @ResponseStatus( value = HttpStatus.OK )
+    public DTOAziendaAgricola updateAziendaAgricola ( @RequestBody DTOAziendaAgricola dtoAziendaAgricola ) {
+        logger.info( "i'm in the controller to update un azienda agricola" );
+        return aziendaAgricolaServices.updateAziendaAgricola( dtoAziendaAgricola );
     }
-    @DeleteMapping(value = "/{idAziendaAgricola}", produces = "application/json")
-    @ResponseStatus(value = HttpStatus.OK)
-    public DTODeleteResponse deleteAziendaAgricola(@PathVariable  UUID idAziendaAgricola){
-        logger.info("i'm in the controller to delete un azienda agricola");
-        return aziendaAgricolaServices.deleteAziendaAgricola(idAziendaAgricola);
+
+    @DeleteMapping( value = "/{idAziendaAgricola}", produces = "application/json" )
+    @ResponseStatus( value = HttpStatus.OK )
+    public DTODeleteResponse deleteAziendaAgricola ( @PathVariable UUID idAziendaAgricola ) {
+        logger.info( "i'm in the controller to delete un azienda agricola" );
+        return aziendaAgricolaServices.deleteAziendaAgricola( idAziendaAgricola );
     }
-    @GetMapping(value = "/{idUtente}", produces = "application/json")
-    @ResponseStatus(value = HttpStatus.FOUND)
-    public DTOAziendaAgricola findAziendaAgricolaByIdUser(@PathVariable UUID idUtente){
-        logger.info("i'm in the controller to find an azienda agricola by idUser");
-        return aziendaAgricolaServices.findAziendaAgricolaByIdUser(idUtente);
+
+    @GetMapping( value = "/{idUtente}", produces = "application/json" )
+    @ResponseStatus( value = HttpStatus.FOUND )
+    public DTOAziendaAgricola findAziendaAgricolaByIdUser ( @PathVariable UUID idUtente ) {
+        logger.info( "i'm in the controller to find an azienda agricola by idUser" );
+        return aziendaAgricolaServices.findAziendaAgricolaByIdUser( idUtente );
     }
-    @GetMapping(value = "/{idAziendaAgricola}", produces = "application/json")
-    @ResponseStatus(value = HttpStatus.FOUND)
-    public DTOAziendaAgricola findAziendaAgricolaByid(@PathVariable UUID idAziendaAgricola){
-        logger.info("i'm in the controller to find an azienda agricola by idAziendaAgricola");
-        return aziendaAgricolaServices.findAziendaAgricolaById(idAziendaAgricola);
+
+    @GetMapping( value = "/{idAziendaAgricola}", produces = "application/json" )
+    @ResponseStatus( value = HttpStatus.FOUND )
+    public DTOAziendaAgricola findAziendaAgricolaByid ( @PathVariable UUID idAziendaAgricola ) {
+        logger.info( "i'm in the controller to find an azienda agricola by idAziendaAgricola" );
+        return aziendaAgricolaServices.findAziendaAgricolaById( idAziendaAgricola );
     }
-    @GetMapping(value = "/{nome}", produces = "application/json")
-    @ResponseStatus(value = HttpStatus.FOUND)
-    public DTOAziendaAgricola findAziendaAgricolaByName(@PathVariable String nome){
-        logger.info("i'm the controller to find an azienda agricola by name ");
-        return aziendaAgricolaServices.findAziendaAgricolaByName(nome);
+
+    @GetMapping( value = "/{nome}", produces = "application/json" )
+    @ResponseStatus( value = HttpStatus.FOUND )
+    public DTOAziendaAgricola findAziendaAgricolaByName ( @PathVariable String nome ) {
+        logger.info( "i'm the controller to find an azienda agricola by name " );
+        return aziendaAgricolaServices.findAziendaAgricolaByName( nome );
     }
 }

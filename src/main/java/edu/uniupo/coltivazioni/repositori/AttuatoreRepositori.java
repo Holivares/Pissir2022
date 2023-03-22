@@ -13,5 +13,5 @@ import java.util.UUID;
  */
 @Repository
 public interface AttuatoreRepositori extends JpaRepository<Attuatore, UUID> {
-    Optional<Attuatore> findBySerraIdSerra(UUID idSerra);
+    Optional<Attuatore> findBySerraIdSerra ( UUID idSerra );
 }

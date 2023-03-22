@@ -19,16 +19,16 @@ public class Misura implements Serializable {
 
     @Id
     @GeneratedValue( strategy = GenerationType.UUID )
-    @Column( name = "ID_MEASURE" )
+    @Column( name = "ID_MEASURE", length = 10 )
     private UUID idMisura;
     @ManyToOne
-    @JoinColumn( name = "ID_SENSOR", referencedColumnName = "ID_SENSOR" )
+    @JoinColumn( name = "ID_SENSOR" )
     private Sensore sensore;
-    @Column( name = "HUMIDITY_MEASURE" )
+    @Column( name = "HUMIDITY_MEASURE", length = 4, precision = 2 )
     private Double umidita;
-    @Column( name = "LIGHT_MEASURE" )
+    @Column( name = "LIGHT_MEASURE", length = 4, precision = 2 )
     private Double luce;
-    @Column( name = "TEMPERATURE_MEASURE" )
+    @Column( name = "TEMPERATURE_MEASURE", length = 4, precision = 2 )
     private Double temperatura;
 
     @Override

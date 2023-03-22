@@ -19,12 +19,12 @@ public class Serra implements Serializable {
 
     @Id
     @GeneratedValue( strategy = GenerationType.UUID )
-    @Column( name = "ID_GREENHOUSE" )
+    @Column( name = "ID_GREENHOUSE", length = 10 )
     private UUID idSerra;
     @ManyToOne
-    @JoinColumn( name = "ID_AGRICULTURAL_HOLDING", referencedColumnName = "ID_AGRICULTURAL_HOLDING" )
+    @JoinColumn( name = "ID_AGRICULTURAL_HOLDING" )
     private AziendaAgricola aziendaAgricola;
-    @Column( name = "DESCRIPTION" )
+    @Column( name = "DESCRIPTION", length = 100 )
     private String descrizione;
 
     @Override

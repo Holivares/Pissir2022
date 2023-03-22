@@ -22,49 +22,38 @@ import java.util.UUID;
 public class AttuatoreServicesImpl implements AttuatoreServices {
 
     private final AttuatoreRepositori attuatoreRepositori;
-    private final ObjectMapper mapper = Mappers.getMapper(ObjectMapper.class);
+    private final ObjectMapper mapper = Mappers.getMapper( ObjectMapper.class );
 
     @Autowired
-    public AttuatoreServicesImpl(AttuatoreRepositori attuatoreRepositori) {
+    public AttuatoreServicesImpl ( AttuatoreRepositori attuatoreRepositori ) {
         this.attuatoreRepositori = attuatoreRepositori;
     }
 
-
     @Override
-    public DTOAttuatore createAttuatore(DTOAttuatore dtoAttuatore) {
-        Attuatore attuatore1 = mapper.dTOAttuatoreToAttuatore(dtoAttuatore);
-        System.out.println("****************************");
-        System.out.println(attuatore1.getTipo());
-        System.out.println(attuatore1.getStato().getMode());
-        System.out.println(attuatore1.getStato().getStato());
-        Attuatore attuatore = attuatoreRepositori.save(attuatore1);
-        DTOAttuatore attuatore2 =  mapper.attuatoreToDTOAttuatore(attuatore);
-        System.out.println("*****************************");
-        System.out.println(attuatore2.getTipo());
-        System.out.println(attuatore2.getStato().getMode());
-        System.out.println(attuatore2.getStato().getStato());
-        return attuatore2;
+    public DTOAttuatore createAttuatore ( DTOAttuatore dtoAttuatore ) {
+        Attuatore attuatore = attuatoreRepositori.save( mapper.dTOAttuatoreToAttuatore( dtoAttuatore ) );
+        return mapper.attuatoreToDTOAttuatore( attuatore );
 
     }
 
     @Override
-    public DTOAttuatore findAttuatoreByIdSerra(UUID idSerra) {
-        Optional<Attuatore> attuatore = attuatoreRepositori.findBySerraIdSerra(idSerra);
-        return mapper.attuatoreToDTOAttuatore(attuatore.orElse(new Attuatore()));
+    public DTOAttuatore findAttuatoreByIdSerra ( UUID idSerra ) {
+        Optional<Attuatore> attuatore = attuatoreRepositori.findBySerraIdSerra( idSerra );
+        return mapper.attuatoreToDTOAttuatore( attuatore.orElse( new Attuatore() ) );
     }
 
     @Override
-    public DTOAttuatore enableAttuatore(UUID idAttuatore) {
-        Optional<Attuatore> attuatore = attuatoreRepositori.findById(idAttuatore);
-        attuatore.ifPresent(attuatore1 -> attuatore1.getStato().setStato(AttuatoreStato.ATTIVO));
-        return mapper.attuatoreToDTOAttuatore(attuatore.orElse(new Attuatore()));
+    public DTOAttuatore enableAttuatore ( UUID idAttuatore ) {
+        Optional<Attuatore> attuatore = attuatoreRepositori.findById( idAttuatore );
+        attuatore.ifPresent( attuatore1 -> attuatore1.getStato().setStato( AttuatoreStato.ATTIVO ) );
+        return mapper.attuatoreToDTOAttuatore( attuatore.orElse( new Attuatore() ) );
     }
 
     @Override
-    public DTOAttuatore disableAttuatore(UUID idAttuatore) {
-        Optional<Attuatore> attuatore = attuatoreRepositori.findById(idAttuatore);
-        attuatore.ifPresent(attuatore1 -> attuatore1.getStato().setStato(AttuatoreStato.DISATTIVATO));
-        return mapper.attuatoreToDTOAttuatore(attuatore.orElse(new Attuatore()));
+    public DTOAttuatore disableAttuatore ( UUID idAttuatore ) {
+        Optional<Attuatore> attuatore = attuatoreRepositori.findById( idAttuatore );
+        attuatore.ifPresent( attuatore1 -> attuatore1.getStato().setStato( AttuatoreStato.DISATTIVATO ) );
+        return mapper.attuatoreToDTOAttuatore( attuatore.orElse( new Attuatore() ) );
     }
 
 }

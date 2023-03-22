@@ -20,15 +20,15 @@ public class IrrigazionePianificatore implements Serializable {
 
     @Id
     @GeneratedValue( strategy = GenerationType.UUID )
-    @Column( name = "ID_IRRIGATION_SCHEDULER" )
+    @Column( name = "ID_IRRIGATION_SCHEDULER", length = 10 )
     private UUID idIrrigazionePianificatore;
     @ManyToOne
-    @JoinColumn( name = "ID_AGRICULTURAL_HOLDING", referencedColumnName = "ID_AGRICULTURAL_HOLDING" )
+    @JoinColumn( name = "ID_AGRICULTURAL_HOLDING" )
     private AziendaAgricola aziendaAgricola;
     @ManyToOne
-    @JoinColumn( name = "ID_GREENHOUSE", referencedColumnName = "ID_GREENHOUSE" )
+    @JoinColumn( name = "ID_GREENHOUSE" )
     private Serra serra;
-    @Column( name = "DESCRIPTION" )
+    @Column( name = "DESCRIPTION", length = 100 )
     private String descrizione;
     @Column( name = "EXECUTION_DATE" )
     private LocalDate esecuzioneData;

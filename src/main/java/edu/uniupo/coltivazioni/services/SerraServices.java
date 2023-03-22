@@ -10,8 +10,11 @@ import java.util.UUID;
  * @author
  */
 public interface SerraServices {
-    DTOSerra createSerra(DTOSerra dtoSerra);
-    DTOSerra updateSerra(DTOSerra dtoSerra);
-    DTODeleteResponse deleteSerra(UUID idSerra);
-    DTOSerra findSerraByIdAziendaAgricola(UUID idAziendaAgricola);
+    DTOSerra createSerra ( DTOSerra dtoSerra );
+
+    DTOSerra updateSerra ( DTOSerra dtoSerra );
+
+    DTODeleteResponse deleteSerra ( UUID idSerra );
+
+    DTOSerra findSerraByIdAziendaAgricola ( UUID idAziendaAgricola );
 }

@@ -13,5 +13,5 @@ import java.util.UUID;
  */
 @Repository
 public interface SerraRepositori extends JpaRepository<Serra, UUID> {
-    Optional<Serra> findByAziendaAgricolaIdAziendaAgricola(UUID idAziendaAgricola);
+    Optional<Serra> findByAziendaAgricolaIdAziendaAgricola ( UUID idAziendaAgricola );
 }

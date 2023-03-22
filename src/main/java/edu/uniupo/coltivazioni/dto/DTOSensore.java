@@ -1,6 +1,5 @@
 package edu.uniupo.coltivazioni.dto;
 
-import edu.uniupo.coltivazioni.entities.Serra;
 import edu.uniupo.coltivazioni.entities.TipoSensore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

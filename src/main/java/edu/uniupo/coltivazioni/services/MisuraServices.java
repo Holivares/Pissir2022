@@ -10,7 +10,9 @@ import java.util.UUID;
  */
 public interface MisuraServices {
 
-    DTOMisura createMisura(DTOMisura dtoMisura);
-    DTOMisura findMisuraById(UUID idMisura);
-    DTOMisura findMisuraBySensoreId(UUID idSensore);
+    DTOMisura createMisura ( DTOMisura dtoMisura );
+
+    DTOMisura findMisuraById ( UUID idMisura );
+
+    DTOMisura findMisuraBySensoreId ( UUID idSensore );
 }

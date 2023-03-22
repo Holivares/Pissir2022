@@ -13,6 +13,6 @@ import java.util.UUID;
  */
 @Repository
 public interface MisuraRepositori extends JpaRepository<Misura, UUID> {
-    Optional<Misura>findBySensoreIdSensore(UUID idSensore);
+    Optional<Misura> findBySensoreIdSensore ( UUID idSensore );
 
 }

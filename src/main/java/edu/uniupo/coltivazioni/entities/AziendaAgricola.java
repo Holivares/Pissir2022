@@ -1,6 +1,8 @@
 package edu.uniupo.coltivazioni.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -13,20 +15,27 @@ import java.util.UUID;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Entity
-@Table( name = "AGRICULTURAL_HOLDING")
+@Table( name = "AGRICULTURAL_HOLDING" )
 public class AziendaAgricola implements Serializable {
 
     @Id
     @GeneratedValue( strategy = GenerationType.UUID )
-    @Column( name = "ID_AGRICULTURAL_HOLDING" )
+    @Column( name = "ID_AGRICULTURAL_HOLDING", length = 10 )
     private UUID idAziendaAgricola;
-    @ManyToOne
-    @JoinColumn( name = "ID_USER", referencedColumnName = "ID_USER" )
+    @OneToOne( orphanRemoval = true )
+    @JoinColumn( name = "ID_USER" )
+    @NonNull
+    @Valid
     private Utente utente;
-    @Column( name = "NAME" )
+    @Column( name = "NAME", length = 25 )
+    @NonNull
+    @NotBlank
     private String nome;
-    @Column( name = "DESCRIPTION" )
+    @Column( name = "DESCRIPTION", length = 100 )
+    @NonNull
+    @NotBlank
     private String descrizione;
 
     @Override

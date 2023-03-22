@@ -1,8 +1,5 @@
 package edu.uniupo.coltivazioni.dto;
 
-import edu.uniupo.coltivazioni.entities.AziendaAgricola;
-import edu.uniupo.coltivazioni.entities.ExecutionTime;
-import edu.uniupo.coltivazioni.entities.Serra;
 import lombok.*;
 
 import java.time.LocalDate;

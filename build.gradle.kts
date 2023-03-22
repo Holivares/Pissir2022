@@ -19,6 +19,7 @@ repositories {
 }
 
 dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.mysql:mysql-connector-j:8.0.32")
@@ -32,8 +33,12 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok")
     annotationProcessor("org.mapstruct:mapstruct-processor:1.5.3.Final")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
     testImplementation("ch.qos.logback:logback-classic:1.4.5")
     testImplementation("ch.qos.logback:logback-classic:1.4.5")
+    testImplementation("org.assertj:assertj-core:3.24.2")
+    testImplementation("com.h2database:h2:2.1.214")
     /*testImplementation("org.springframework.security:spring-security-test")*/
 }
 

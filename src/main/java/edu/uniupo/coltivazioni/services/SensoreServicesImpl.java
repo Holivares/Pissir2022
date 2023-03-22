@@ -17,24 +17,24 @@ import java.util.UUID;
  */
 @Service
 @Transactional
-public class SensoreServicesImpl implements  SensoreServices{
+public class SensoreServicesImpl implements SensoreServices {
 
-   private final SensoreRepositori  sensoreRepositori;
-   private final ObjectMapper mapper = Mappers.getMapper(ObjectMapper.class);
+    private final SensoreRepositori sensoreRepositori;
+    private final ObjectMapper mapper = Mappers.getMapper( ObjectMapper.class );
 
-    public SensoreServicesImpl(SensoreRepositori sensoreRepositori) {
+    public SensoreServicesImpl ( SensoreRepositori sensoreRepositori ) {
         this.sensoreRepositori = sensoreRepositori;
     }
 
     @Override
-    public DTOSensore createSensore(DTOSensore dtoSensore) {
-        Sensore sensore = sensoreRepositori.save(mapper.dTOSensoreTOSensore(dtoSensore));
-        return mapper.sensoreTODTOSensore(sensore);
+    public DTOSensore createSensore ( DTOSensore dtoSensore ) {
+        Sensore sensore = sensoreRepositori.save( mapper.dTOSensoreTOSensore( dtoSensore ) );
+        return mapper.sensoreTODTOSensore( sensore );
     }
 
     @Override
-    public DTOSensore findSensoreByIdSerra(UUID idSerra) {
-        Optional<Sensore> sensore = sensoreRepositori.findBySerraIdSerra(idSerra);
-        return mapper.sensoreTODTOSensore(sensore.orElse(new Sensore()));
+    public DTOSensore findSensoreByIdSerra ( UUID idSerra ) {
+        Optional<Sensore> sensore = sensoreRepositori.findBySerraIdSerra( idSerra );
+        return mapper.sensoreTODTOSensore( sensore.orElse( new Sensore() ) );
     }
 }

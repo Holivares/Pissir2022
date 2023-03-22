@@ -9,6 +9,7 @@ import java.util.UUID;
  * @author
  */
 public interface SensoreServices {
-    DTOSensore createSensore(DTOSensore dtoSensore);
-    DTOSensore findSensoreByIdSerra(UUID idSerra);
+    DTOSensore createSensore ( DTOSensore dtoSensore );
+
+    DTOSensore findSensoreByIdSerra ( UUID idSerra );
 }

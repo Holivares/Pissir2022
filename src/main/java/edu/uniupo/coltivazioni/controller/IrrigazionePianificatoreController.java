@@ -16,50 +16,50 @@ import java.util.UUID;
  * @author
  */
 @RestController
-@RequestMapping("v1/piani")
+@RequestMapping( "v1/piani" )
 public class IrrigazionePianificatoreController {
 
     private final IrrigazionePianificatoreServices irrigazionePianificatoreServices;
-    private final Logger logger = LoggerFactory.getLogger(IrrigazionePianificatoreController.class);
+    private final Logger logger = LoggerFactory.getLogger( IrrigazionePianificatoreController.class );
 
     @Autowired
-    public IrrigazionePianificatoreController(IrrigazionePianificatoreServices irrigazionePianificatoreServices) {
+    public IrrigazionePianificatoreController ( IrrigazionePianificatoreServices irrigazionePianificatoreServices ) {
         this.irrigazionePianificatoreServices = irrigazionePianificatoreServices;
     }
 
-    @PostMapping(produces = "application/json")
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public DTOIrrigazionePianificatore createIrrigazionePianificatore(@RequestBody DTOIrrigazionePianificatore dtoIrrigazionePianificatore) {
-        logger.info("i'm in the controller to create an pianificatore");
-        return irrigazionePianificatoreServices.createIrrigazionePianificatore(dtoIrrigazionePianificatore);
+    @PostMapping( produces = "application/json" )
+    @ResponseStatus( value = HttpStatus.CREATED )
+    public DTOIrrigazionePianificatore createIrrigazionePianificatore ( @RequestBody DTOIrrigazionePianificatore dtoIrrigazionePianificatore ) {
+        logger.info( "i'm in the controller to create an pianificatore" );
+        return irrigazionePianificatoreServices.createIrrigazionePianificatore( dtoIrrigazionePianificatore );
     }
 
-    @PutMapping(produces = "application/json")
-    @ResponseStatus(value = HttpStatus.OK)
-    public DTOIrrigazionePianificatore updateIrrigazionePianificatore(@RequestBody DTOIrrigazionePianificatore dtoIrrigazionePianificatore) {
-        logger.info("i'm in the controller to update an pianificatore");
-        return irrigazionePianificatoreServices.updateIrrigazionePianificatore(dtoIrrigazionePianificatore);
+    @PutMapping( produces = "application/json" )
+    @ResponseStatus( value = HttpStatus.OK )
+    public DTOIrrigazionePianificatore updateIrrigazionePianificatore ( @RequestBody DTOIrrigazionePianificatore dtoIrrigazionePianificatore ) {
+        logger.info( "i'm in the controller to update an pianificatore" );
+        return irrigazionePianificatoreServices.updateIrrigazionePianificatore( dtoIrrigazionePianificatore );
     }
 
-    @DeleteMapping(value = "/{idIrrigazionePianificatore}", produces = "application/json")
-    @ResponseStatus(value = HttpStatus.OK)
-    public DTODeleteResponse deleteIrrigazionePianificatore(@PathVariable UUID idIrrigazionePianificatore) {
-        logger.info("i'm in controller to delete an pianificatore");
-        return irrigazionePianificatoreServices.deleteIrrigazionePianificatoreById(idIrrigazionePianificatore);
+    @DeleteMapping( value = "/{idIrrigazionePianificatore}", produces = "application/json" )
+    @ResponseStatus( value = HttpStatus.OK )
+    public DTODeleteResponse deleteIrrigazionePianificatore ( @PathVariable UUID idIrrigazionePianificatore ) {
+        logger.info( "i'm in controller to delete an pianificatore" );
+        return irrigazionePianificatoreServices.deleteIrrigazionePianificatoreById( idIrrigazionePianificatore );
     }
 
-    @GetMapping(value = "/{idAziendaAgricola}", produces = "application/json")
-    @ResponseStatus(value = HttpStatus.FOUND)
-    public DTOIrrigazionePianificatore findIrrigazionePianificatoreByIdAziendaAgricola(@PathVariable UUID idAziendaAgricola) {
-        logger.info("i'm in the controller to find an pianificatore by idAziendaAgricola");
-        return irrigazionePianificatoreServices.findIrrigazionePianificatoreByIdAziendaAgricola(idAziendaAgricola);
+    @GetMapping( value = "/{idAziendaAgricola}", produces = "application/json" )
+    @ResponseStatus( value = HttpStatus.FOUND )
+    public DTOIrrigazionePianificatore findIrrigazionePianificatoreByIdAziendaAgricola ( @PathVariable UUID idAziendaAgricola ) {
+        logger.info( "i'm in the controller to find an pianificatore by idAziendaAgricola" );
+        return irrigazionePianificatoreServices.findIrrigazionePianificatoreByIdAziendaAgricola( idAziendaAgricola );
     }
 
-    @GetMapping(value = "/{idSerra}", produces = "application/json")
-    @ResponseStatus(value = HttpStatus.FOUND)
-    public DTOIrrigazionePianificatore findIrrigazionePianificatoreByIdserra(@PathVariable UUID idSerra) {
-        logger.info("i'm in controller to find an pianificatore by idSerra");
-        return irrigazionePianificatoreServices.findIrrigazionePianificatoreByIdserra(idSerra);
+    @GetMapping( value = "/{idSerra}", produces = "application/json" )
+    @ResponseStatus( value = HttpStatus.FOUND )
+    public DTOIrrigazionePianificatore findIrrigazionePianificatoreByIdserra ( @PathVariable UUID idSerra ) {
+        logger.info( "i'm in controller to find an pianificatore by idSerra" );
+        return irrigazionePianificatoreServices.findIrrigazionePianificatoreByIdserra( idSerra );
     }
 
 }

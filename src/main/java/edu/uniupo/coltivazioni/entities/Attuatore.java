@@ -19,7 +19,7 @@ public class Attuatore implements Serializable {
 
     @Id
     @GeneratedValue( strategy = GenerationType.UUID )
-    @Column( name = "ID_ACTUATOR" )
+    @Column( name = "ID_ACTUATOR", length = 10 )
     private UUID idAttuatore;
     @ManyToOne
     @JoinColumn( name = "ID_GREENHOUSE" )
@@ -27,7 +27,7 @@ public class Attuatore implements Serializable {
     @Embedded
     private StatoAttuatore stato;
     @Enumerated( EnumType.STRING )
-    @Column( name = "TYPE" )
+    @Column( name = "TYPE", length = 25 )
     private TipoAttuatore tipo;
 
     @Override

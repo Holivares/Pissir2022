@@ -18,33 +18,33 @@ import java.util.UUID;
  */
 @Service
 @Transactional
-public class MisuraServicesImpl implements MisuraServices{
+public class MisuraServicesImpl implements MisuraServices {
 
     private final MisuraRepositori misuraRepositori;
 
-    private ObjectMapper mapper = Mappers.getMapper(ObjectMapper.class);
+    private ObjectMapper mapper = Mappers.getMapper( ObjectMapper.class );
 
     @Autowired
-    public MisuraServicesImpl(MisuraRepositori misuraRepositori) {
+    public MisuraServicesImpl ( MisuraRepositori misuraRepositori ) {
         this.misuraRepositori = misuraRepositori;
 
     }
 
     @Override
-    public DTOMisura createMisura(DTOMisura dtoMisura) {
-        Misura misura = misuraRepositori.save(mapper.dTOMisuraTOMisura(dtoMisura));
-        return mapper.misuraTODTOMisura(misura);
+    public DTOMisura createMisura ( DTOMisura dtoMisura ) {
+        Misura misura = misuraRepositori.save( mapper.dTOMisuraTOMisura( dtoMisura ) );
+        return mapper.misuraTODTOMisura( misura );
     }
 
     @Override
-    public DTOMisura findMisuraById(UUID idMisura) {
-        Optional<Misura> misura =  misuraRepositori.findById(idMisura);
-        return mapper.misuraTODTOMisura(misura.orElse(new Misura()));
+    public DTOMisura findMisuraById ( UUID idMisura ) {
+        Optional<Misura> misura = misuraRepositori.findById( idMisura );
+        return mapper.misuraTODTOMisura( misura.orElse( new Misura() ) );
     }
 
     @Override
-    public DTOMisura findMisuraBySensoreId(UUID idSensore) {
-        Optional<Misura> misura = misuraRepositori.findBySensoreIdSensore(idSensore);
-        return mapper.misuraTODTOMisura(misura.orElse(new Misura()));
+    public DTOMisura findMisuraBySensoreId ( UUID idSensore ) {
+        Optional<Misura> misura = misuraRepositori.findBySensoreIdSensore( idSensore );
+        return mapper.misuraTODTOMisura( misura.orElse( new Misura() ) );
     }
 }

@@ -16,43 +16,43 @@ import java.util.UUID;
  * @author
  */
 @RestController
-@RequestMapping(value = "v1/serre")
+@RequestMapping( value = "v1/serre" )
 public class SerraController {
 
     private final SerraServices serraServices;
-    private final Logger logger = LoggerFactory.getLogger(SensoreController.class);
+    private final Logger logger = LoggerFactory.getLogger( SensoreController.class );
 
     @Autowired
-    public SerraController(SerraServices serraServices) {
+    public SerraController ( SerraServices serraServices ) {
         this.serraServices = serraServices;
     }
 
-    @PostMapping(produces = "application/json")
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public DTOSerra createSerra(@RequestBody DTOSerra dtoSerra) {
-        logger.info("i'm in the to create an serra");
-        return serraServices.createSerra(dtoSerra);
+    @PostMapping( produces = "application/json" )
+    @ResponseStatus( value = HttpStatus.CREATED )
+    public DTOSerra createSerra ( @RequestBody DTOSerra dtoSerra ) {
+        logger.info( "i'm in the to create an serra" );
+        return serraServices.createSerra( dtoSerra );
     }
 
-    @PutMapping(produces = "application/json")
-    @ResponseStatus(value = HttpStatus.OK)
-    public DTOSerra updateSerra(@RequestBody DTOSerra dtoSerra) {
-        logger.info("i'm in the to update an serra");
-        return serraServices.updateSerra(dtoSerra);
+    @PutMapping( produces = "application/json" )
+    @ResponseStatus( value = HttpStatus.OK )
+    public DTOSerra updateSerra ( @RequestBody DTOSerra dtoSerra ) {
+        logger.info( "i'm in the to update an serra" );
+        return serraServices.updateSerra( dtoSerra );
     }
 
-    @DeleteMapping(value = "/{idSerra}", produces = "application/json")
-    @ResponseStatus(value = HttpStatus.OK)
-    public DTODeleteResponse deleteSerra(@PathVariable UUID idSerra) {
-        logger.info("i'm in the controller to delete an serra");
-        return serraServices.deleteSerra(idSerra);
+    @DeleteMapping( value = "/{idSerra}", produces = "application/json" )
+    @ResponseStatus( value = HttpStatus.OK )
+    public DTODeleteResponse deleteSerra ( @PathVariable UUID idSerra ) {
+        logger.info( "i'm in the controller to delete an serra" );
+        return serraServices.deleteSerra( idSerra );
     }
 
-    @GetMapping(value = "/{idAziendaAgricola}", produces = "application/json")
-    @ResponseStatus(value = HttpStatus.FOUND)
-    public DTOSerra findSerraByIdAziendaAgricola(@PathVariable UUID idAziendaAgricola) {
-        logger.info("i'm in the controller to find an serra by idAziendaAgricola");
-        return serraServices.findSerraByIdAziendaAgricola(idAziendaAgricola);
+    @GetMapping( value = "/{idAziendaAgricola}", produces = "application/json" )
+    @ResponseStatus( value = HttpStatus.FOUND )
+    public DTOSerra findSerraByIdAziendaAgricola ( @PathVariable UUID idAziendaAgricola ) {
+        logger.info( "i'm in the controller to find an serra by idAziendaAgricola" );
+        return serraServices.findSerraByIdAziendaAgricola( idAziendaAgricola );
     }
 
 }

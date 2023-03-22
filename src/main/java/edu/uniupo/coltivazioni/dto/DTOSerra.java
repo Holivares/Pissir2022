@@ -1,6 +1,5 @@
 package edu.uniupo.coltivazioni.dto;
 
-import edu.uniupo.coltivazioni.entities.AziendaAgricola;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -2,6 +2,7 @@ package edu.uniupo.coltivazioni.controller;
 
 import edu.uniupo.coltivazioni.dto.DTOAttuatore;
 import edu.uniupo.coltivazioni.services.AttuatoreServices;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,8 @@ public class AttuatoreController {
 
     @PostMapping( produces = "application/json" )
     @ResponseStatus( value = HttpStatus.CREATED )
-    public DTOAttuatore createAtrtuatore ( @RequestBody DTOAttuatore dtoAttuatore ) {
-        logger.info( "i'm in the controller..." );
+    public DTOAttuatore createAtrtuatore ( @RequestBody @Valid DTOAttuatore dtoAttuatore ) {
+        logger.info( "i'm in the controller createAtrtuatore ..." );
         return attuatoreServices.createAttuatore( dtoAttuatore );
 
     }

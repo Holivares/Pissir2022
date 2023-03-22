@@ -10,8 +10,11 @@ import java.util.UUID;
  */
 public interface AttuatoreServices {
 
-    DTOAttuatore createAttuatore(DTOAttuatore dtoAttuatore);
-    DTOAttuatore findAttuatoreByIdSerra(UUID idSerra);
-    DTOAttuatore enableAttuatore(UUID idAttuatore);
-    DTOAttuatore disableAttuatore(UUID idAttuatore);
+    DTOAttuatore createAttuatore ( DTOAttuatore dtoAttuatore );
+
+    DTOAttuatore findAttuatoreByIdSerra ( UUID idSerra );
+
+    DTOAttuatore enableAttuatore ( UUID idAttuatore );
+
+    DTOAttuatore disableAttuatore ( UUID idAttuatore );
 }

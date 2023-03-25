@@ -1,6 +1,7 @@
 package edu.uniupo.coltivazioni.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -13,6 +14,7 @@ import java.util.UUID;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Entity
 @Table( name = "GREENHOUSE" )
 public class SerraEntity implements Serializable {
@@ -22,9 +24,12 @@ public class SerraEntity implements Serializable {
     @Column( name = "ID_GREENHOUSE" )
     private UUID idSerra;
     @ManyToOne
+    @NonNull
     @JoinColumn( name = "ID_AGRICULTURAL_HOLDING" )
     private AziendaAgricolaEntity aziendaAgricolaEntity;
     @Column( name = "DESCRIPTION", length = 100 )
+    @NonNull
+    @NotBlank
     private String descrizione;
 
     @Override

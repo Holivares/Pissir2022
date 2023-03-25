@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -25,28 +26,28 @@ public class SerraController {
 
     @PostMapping( produces = "application/json" )
     @ResponseStatus( value = HttpStatus.CREATED )
-    public SerraModel createSerra ( @RequestBody SerraModel serraModel ) {
+    public SerraModel createSerra ( @RequestBody SerraModel serraModel ) throws Exception {
         logger.info( "i'm in the controller to create an serra ..." );
         return serraService.createSerra( serraModel );
     }
 
     @PutMapping( produces = "application/json" )
     @ResponseStatus( value = HttpStatus.OK )
-    public SerraModel updateSerra ( @RequestBody SerraModel serraModel ) {
+    public SerraModel updateSerra ( @RequestBody SerraModel serraModel ) throws Exception {
         logger.info( "i'm in the controller to update an serra ..." );
         return serraService.updateSerra( serraModel );
     }
 
     @DeleteMapping( value = "/{idSerra}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.OK )
-    public DeleteResponseModel deleteSerra ( @PathVariable UUID idSerra ) {
+    public DeleteResponseModel deleteSerra ( @PathVariable UUID idSerra ) throws Exception {
         logger.info( "i'm in the controller to delete an serra ..." );
         return serraService.deleteSerra( idSerra );
     }
 
     @GetMapping( value = "/{idAziendaAgricola}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.FOUND )
-    public SerraModel findSerraByIdAziendaAgricola ( @PathVariable UUID idAziendaAgricola ) {
+    public List<SerraModel> findSerraByIdAziendaAgricola ( @PathVariable UUID idAziendaAgricola ) throws Exception {
         logger.info( "i'm in the controller to find an serra by AziendaAgricola id ..." );
         return serraService.findSerraByIdAziendaAgricola( idAziendaAgricola );
     }

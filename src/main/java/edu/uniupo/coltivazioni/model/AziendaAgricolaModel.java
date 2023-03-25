@@ -12,7 +12,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class AziendaAgricolaModel implements ModelType {
+public class AziendaAgricolaModel implements DefaultModel {
 
     private UUID idAziendaAgricola;
     @NotNull( message = "User id field can't be empty or null" )

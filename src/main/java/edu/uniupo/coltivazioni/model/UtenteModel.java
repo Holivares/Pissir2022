@@ -14,7 +14,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class UtenteModel implements ModelType {
+public class UtenteModel implements DefaultModel {
 
     private UUID idUtente;
     @Size( min = 2, max = 25, message = "Last name must contains an word in length of 2 to 25 characters long" )

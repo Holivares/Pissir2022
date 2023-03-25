@@ -2,8 +2,8 @@ package edu.uniupo.coltivazioni.service.implement;
 
 import edu.uniupo.coltivazioni.entity.UtenteEntity;
 import edu.uniupo.coltivazioni.mapper.ModelsToEntities;
+import edu.uniupo.coltivazioni.model.DefaultModel;
 import edu.uniupo.coltivazioni.model.DeleteResponseModel;
-import edu.uniupo.coltivazioni.model.ModelType;
 import edu.uniupo.coltivazioni.model.UtenteAutenticazioneModel;
 import edu.uniupo.coltivazioni.model.UtenteModel;
 import edu.uniupo.coltivazioni.repository.UtenteRepository;
@@ -32,7 +32,7 @@ public class UtenteServiceImpl implements UtenteService {
     @Override
     public UtenteModel createUtente ( UtenteModel utenteModel ) throws Exception {
         logger.info( "The create user method has been called ..." );
-        ModelType.checkModelType( utenteModel, this.getClass().getName(), "createUtente" );
+        DefaultModel.checkModelType( utenteModel, this.getClass().getName(), "createUtente" );
         UtenteEntity utenteEntity = utenteRepository.save( mapper.modelToEntityOfUtente( utenteModel ) );
         return mapper.entityToModelOfUtente( utenteEntity );
     }
@@ -40,7 +40,7 @@ public class UtenteServiceImpl implements UtenteService {
     @Override
     public UtenteModel updateUtente ( UtenteModel utenteModel ) throws Exception {
         logger.info( "The update user method has been called ..." );
-        ModelType.checkModelType( utenteModel, this.getClass().getName(), "updateUtente" );
+        DefaultModel.checkModelType( utenteModel, this.getClass().getName(), "updateUtente" );
         UtenteEntity oldUtente = OptionalUnpacker.unpackerOrThrows( utenteRepository.findById( utenteModel.getIdUtente() ),
                                                                     "Not found data of this utente in server" );
         mapper.updateUtenteEntity( utenteModel, oldUtente );
@@ -59,7 +59,7 @@ public class UtenteServiceImpl implements UtenteService {
     @Override
     public UtenteModel findUtenteByEmailAndPassword ( UtenteAutenticazioneModel utenteAutenticazioneModel ) throws Exception {
         logger.info( "The find user by email and password method has been called ..." );
-        ModelType.checkModelType( utenteAutenticazioneModel, this.getClass().getName(), "findUtenteByEmailAndPassword" );
+        DefaultModel.checkModelType( utenteAutenticazioneModel, this.getClass().getName(), "findUtenteByEmailAndPassword" );
         UtenteEntity utente = OptionalUnpacker.unpackerOrThrows( utenteRepository.findByEmail( utenteAutenticazioneModel.getEmail() ),
                                                                  "Authentication has failed" );
         return mapper.entityToModelOfUtente( utente );

@@ -1,10 +1,10 @@
 package edu.uniupo.coltivazioni.repositoriTests;
 
-import edu.uniupo.coltivazioni.entities.AziendaAgricola;
-import edu.uniupo.coltivazioni.entities.Ruolo;
-import edu.uniupo.coltivazioni.entities.Utente;
-import edu.uniupo.coltivazioni.repositori.AziendaAgricolaRepositori;
-import edu.uniupo.coltivazioni.repositori.UtenteRepositori;
+import edu.uniupo.coltivazioni.entity.AziendaAgricolaEntity;
+import edu.uniupo.coltivazioni.entity.RuoloEntity;
+import edu.uniupo.coltivazioni.entity.UtenteEntity;
+import edu.uniupo.coltivazioni.repository.AziendaAgricolaRepository;
+import edu.uniupo.coltivazioni.repository.UtenteRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -23,32 +23,32 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RepositoriesCustomMethodTest {
 
     @Autowired
-    private UtenteRepositori utenteRepositori;
+    private UtenteRepository utenteRepository;
     @Autowired
-    private AziendaAgricolaRepositori aziendaAgricolaRepositori;
-    private List<Utente> utenti;
-    private List<AziendaAgricola> aziendaAgricole;
+    private AziendaAgricolaRepository aziendaAgricolaRepository;
+    private List<UtenteEntity> utenti;
+    private List<AziendaAgricolaEntity> aziendaAgricole;
 
     @BeforeEach
     void setUp () {
-        Utente utente1 = new Utente( "utente1", "test1", "test1@mail.com", "1234", Ruolo.AGRICOLTORE );
-        Utente utente2 = new Utente( "utente2", "test2", "test2@mail.com", "1234", Ruolo.COLLABORATORE );
+        UtenteEntity utenteEntity1 = new UtenteEntity( "utente1", "test1", "test1@mail.com", "1234", RuoloEntity.AGRICOLTORE );
+        UtenteEntity utenteEntity2 = new UtenteEntity( "utente2", "test2", "test2@mail.com", "1234", RuoloEntity.COLLABORATORE );
 
-        utenti = utenteRepositori.saveAll( asList( utente1, utente2 ) );
+        utenti = utenteRepository.saveAll( asList( utenteEntity1, utenteEntity2 ) );
 
-        AziendaAgricola aziendaAgricola1 = new AziendaAgricola(
+        AziendaAgricolaEntity aziendaAgricolaEntity1 = new AziendaAgricolaEntity(
                 utenti.get( 1 ), "azienda1", "this is a first azienda for my test implementation. have create this in beforeEach test method" );
-        AziendaAgricola aziendaAgricola2 = new AziendaAgricola(
+        AziendaAgricolaEntity aziendaAgricolaEntity2 = new AziendaAgricolaEntity(
                 utenti.get( 0 ), "azienda2", "this is second azienda for my test implementation. have create this in beforeEach test method" );
 
-        aziendaAgricole = aziendaAgricolaRepositori.saveAll( asList( aziendaAgricola1, aziendaAgricola2 ) );
+        aziendaAgricole = aziendaAgricolaRepository.saveAll( asList( aziendaAgricolaEntity1, aziendaAgricolaEntity2 ) );
 
     }
 
     @AfterEach
     void afterEach () {
-        utenteRepositori.deleteAll();
-        aziendaAgricolaRepositori.deleteAll();
+        utenteRepository.deleteAll();
+        aziendaAgricolaRepository.deleteAll();
         utenti.clear();
         aziendaAgricole.clear();
     }
@@ -59,7 +59,7 @@ public class RepositoriesCustomMethodTest {
 
         String email = utenti.get( 0 ).getEmail();
 
-        Optional<Utente> candidateToCheckExpect = utenteRepositori.findByEmail( email );
+        Optional<UtenteEntity> candidateToCheckExpect = utenteRepository.findByEmail( email );
 
         assertThat( candidateToCheckExpect ).hasValueSatisfying( utente -> {
             assertThat( utente.getIdUtente() ).isExactlyInstanceOf( UUID.class );
@@ -76,11 +76,11 @@ public class RepositoriesCustomMethodTest {
 
         UUID idUtente = utenti.get( 1 ).getIdUtente();
 
-        Optional<AziendaAgricola> candidateToExpected = aziendaAgricolaRepositori.findByUtenteIdUtente( idUtente );
+        Optional<AziendaAgricolaEntity> candidateToExpected = aziendaAgricolaRepository.findByUtenteEntityIdUtente( idUtente );
 
         assertThat( candidateToExpected ).hasValueSatisfying( aziendaAgricola -> {
-            assertThat( aziendaAgricola ).isExactlyInstanceOf( AziendaAgricola.class );
-            assertThat( aziendaAgricola.getUtente().getIdUtente() ).isEqualTo( idUtente );
+            assertThat( aziendaAgricola ).isExactlyInstanceOf( AziendaAgricolaEntity.class );
+            assertThat( aziendaAgricola.getUtenteEntity().getIdUtente() ).isEqualTo( idUtente );
             assertThat( aziendaAgricola.getIdAziendaAgricola() ).isEqualTo( aziendaAgricole.get( 0 ).getIdAziendaAgricola() );
             assertThat( aziendaAgricola.getNome() ).isNotBlank();
             assertThat( aziendaAgricola.getDescrizione() ).isNotBlank();

@@ -1,7 +1,7 @@
 package edu.uniupo.coltivazioni.controller;
 
-import edu.uniupo.coltivazioni.dto.DTOMisura;
-import edu.uniupo.coltivazioni.services.MisuraServices;
+import edu.uniupo.coltivazioni.model.MisuraModel;
+import edu.uniupo.coltivazioni.service.MisuraService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,40 +10,36 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-/**
- * @author
- * @author
- */
 @RestController
 @RequestMapping( value = "v1/misure" )
 public class MisuraController {
 
-    private final MisuraServices misuraServices;
+    private final MisuraService misuraService;
     private final Logger logger = LoggerFactory.getLogger( MisuraController.class );
 
     @Autowired
-    public MisuraController ( MisuraServices misuraServices ) {
-        this.misuraServices = misuraServices;
+    public MisuraController ( MisuraService misuraService ) {
+        this.misuraService = misuraService;
     }
 
     @PostMapping( produces = "application/json" )
     @ResponseStatus( value = HttpStatus.CREATED )
-    public DTOMisura createMisura ( @RequestBody DTOMisura dtoMisura ) {
-        logger.info( "i'm in controller..." );
-        return misuraServices.createMisura( dtoMisura );
+    public MisuraModel createMisura ( @RequestBody MisuraModel misuraModel ) {
+        logger.info( "i'm in the controller to create an misura ..." );
+        return misuraService.createMisura( misuraModel );
     }
 
     @GetMapping( value = "/{idMisura}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.OK )
-    public DTOMisura findMisuraById ( @PathVariable UUID idMisura ) {
-        logger.info( "i'm in the controller..." );
-        return misuraServices.findMisuraById( idMisura );
+    public MisuraModel findMisuraById ( @PathVariable UUID idMisura ) {
+        logger.info( "i'm in the controller to find misura by id ..." );
+        return misuraService.findMisuraById( idMisura );
     }
 
     @GetMapping( value = "/{idSensore}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.OK )
-    public DTOMisura findMisuraBySensoreId ( @PathVariable UUID idSensore ) {
-        logger.info( "i'm in the controller..." );
-        return misuraServices.findMisuraBySensoreId( idSensore );
+    public MisuraModel findMisuraByIdSensore ( @PathVariable UUID idSensore ) {
+        logger.info( "i'm in the controller to find misura by sensore id ..." );
+        return misuraService.findMisuraBySensoreId( idSensore );
     }
 }

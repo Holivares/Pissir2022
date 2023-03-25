@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.config.BootstrapMode;
 
 @Configuration
-@EnableJpaRepositories( basePackages = { "edu.uniupo.coltivazioni.repositori" }, enableDefaultTransactions = false, bootstrapMode = BootstrapMode.DEFERRED )
+@EnableJpaRepositories( basePackages = { "edu.uniupo.coltivazioni.repository" }, enableDefaultTransactions = false, bootstrapMode = BootstrapMode.DEFERRED )
 public class AppConfiguration {
 }

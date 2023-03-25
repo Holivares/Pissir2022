@@ -15,7 +15,7 @@
         <appender-ref ref="STDOUT_DEBUG"/>
     </logger>
 
-    <logger name="edu.uniupo.coltivazioni.services" additivity="false" level="debug">
+    <logger name="edu.uniupo.coltivazioni.service" additivity="false" level="debug">
         <appender-ref ref="STDOUT_DEBUG"/>
     </logger>
 

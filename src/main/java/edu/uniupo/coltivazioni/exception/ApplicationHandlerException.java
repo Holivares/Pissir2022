@@ -34,12 +34,21 @@ public class ApplicationHandlerException {
         return new ApplicationError( notFoundEntityException.getStatus(), List.of( notFoundEntityException.getMessage() ) );
     }
 
+    @ExceptionHandler( DuplicateAziendaAgricola.class )
+    @ResponseStatus( value = HttpStatus.BAD_REQUEST )
+    public ApplicationError handleDuplicateAziendaAgricola ( DuplicateAziendaAgricola duplicateAziendaAgricola ) {
+        logger.info( "DuplicateAziendaAgricola caught with messages : %s".formatted( duplicateAziendaAgricola.getMessage() ) );
+        return new ApplicationError( duplicateAziendaAgricola.getStatus(), List.of( duplicateAziendaAgricola.getMessage() ) );
+    }
+
     @ExceptionHandler( { SQLIntegrityConstraintViolationException.class, ConstraintViolationException.class, DataIntegrityViolationException.class } )
     @ResponseStatus( value = HttpStatus.BAD_REQUEST )
-    public ApplicationError handleSQLIntegrityConstraintViolationException ( SQLIntegrityConstraintViolationException sqlIntegrityConstraintViolationException ) {
+    public ApplicationError handleSqlConstraintException ( SQLIntegrityConstraintViolationException sqlIntegrityConstraintViolationException ) {
         logger.info( "SQLIntegrityConstraintViolationException caught with messages : %s".formatted( sqlIntegrityConstraintViolationException.getMessage() ) );
         if( sqlIntegrityConstraintViolationException.getMessage().contains( "Duplicate entry" ) ) {
             return new ApplicationError( ApplicationStatusError.BAD_REQUEST, List.of( "This email is already registered in server" ) );
+        } else if( sqlIntegrityConstraintViolationException.getMessage().contains( "Cannot add or update a child row" ) ) {
+            return new ApplicationError( ApplicationStatusError.BAD_REQUEST, List.of( "It's not possible to create azienda for not existing user" ) );
         }
         return new ApplicationError( ApplicationStatusError.BAD_REQUEST, List.of( "An error is caught due to your request, register has fail" ) );
     }

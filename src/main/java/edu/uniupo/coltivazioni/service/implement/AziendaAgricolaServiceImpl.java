@@ -1,17 +1,22 @@
 package edu.uniupo.coltivazioni.service.implement;
 
 import edu.uniupo.coltivazioni.entity.AziendaAgricolaEntity;
+import edu.uniupo.coltivazioni.exception.DuplicateAziendaAgricola;
+import edu.uniupo.coltivazioni.exception.NotFoundEntityException;
 import edu.uniupo.coltivazioni.mapper.ModelsToEntities;
 import edu.uniupo.coltivazioni.model.AziendaAgricolaModel;
 import edu.uniupo.coltivazioni.model.DeleteResponseModel;
+import edu.uniupo.coltivazioni.model.ModelType;
 import edu.uniupo.coltivazioni.repository.AziendaAgricolaRepository;
 import edu.uniupo.coltivazioni.service.AziendaAgricolaService;
+import edu.uniupo.coltivazioni.utility.OptionalUnpacker;
 import org.mapstruct.factory.Mappers;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -19,6 +24,7 @@ import java.util.UUID;
 public class AziendaAgricolaServiceImpl implements AziendaAgricolaService {
     private final AziendaAgricolaRepository aziendaAgricolaRepository;
     private final ModelsToEntities mapper = Mappers.getMapper( ModelsToEntities.class );
+    private final Logger logger = LoggerFactory.getLogger( AziendaAgricolaServiceImpl.class );
 
     @Autowired
     public AziendaAgricolaServiceImpl ( AziendaAgricolaRepository aziendaAgricolaRepository ) {
@@ -26,38 +32,60 @@ public class AziendaAgricolaServiceImpl implements AziendaAgricolaService {
     }
 
     @Override
-    public AziendaAgricolaModel createAziendaAgricola ( AziendaAgricolaModel aziendaAgricolaModel ) {
-        AziendaAgricolaEntity azienda = aziendaAgricolaRepository.save( mapper.modelToEntityOfAziendaAgricola( aziendaAgricolaModel ) );
-        return mapper.entityToModelOfAziendaAgricola( azienda );
+    public AziendaAgricolaModel createAziendaAgricola ( AziendaAgricolaModel aziendaAgricolaModel ) throws Exception {
+        logger.info( "The create aziendaAgricola method has been called ..." );
+        ModelType.checkModelType( aziendaAgricolaModel, this.getClass().getName(), "createAziendaAgricola" );
+        AziendaAgricolaEntity aziendaAgricola = OptionalUnpacker.unpacker( aziendaAgricolaRepository
+                                                                                   .findByUtenteEntityIdUtente( aziendaAgricolaModel.getIdUtente() ) );
+        if( aziendaAgricola != null ) {
+            throw new DuplicateAziendaAgricola( this.getClass().getName(), "createAziendaAgricola", "This user have already an azienda" );
+        } else {
+            AziendaAgricolaEntity azienda = aziendaAgricolaRepository.save( mapper.modelToEntityOfAziendaAgricola( aziendaAgricolaModel ) );
+            return mapper.entityToModelOfAziendaAgricola( azienda );
+        }
     }
 
     @Override
-    public AziendaAgricolaModel updateAziendaAgricola ( AziendaAgricolaModel aziendaAgricolaModel ) {
-        AziendaAgricolaEntity azienda = aziendaAgricolaRepository.save( mapper.modelToEntityOfAziendaAgricola( aziendaAgricolaModel ) );
-        return mapper.entityToModelOfAziendaAgricola( azienda );
+    public AziendaAgricolaModel updateAziendaAgricola ( AziendaAgricolaModel aziendaAgricolaModel ) throws Exception {
+        logger.info( "The update aziendaAgricola method has been called ..." );
+        ModelType.checkModelType( aziendaAgricolaModel, this.getClass().getName(), "updateAziendaAgricola" );
+        AziendaAgricolaEntity oldAziendaAgricola =
+                OptionalUnpacker.unpackerOrThrows( aziendaAgricolaRepository.findById( aziendaAgricolaModel.getIdAziendaAgricola() ),
+                                                   "Not found data of this azienda in server" );
+        mapper.updateAziendaAgricolaEntity( aziendaAgricolaModel, oldAziendaAgricola );
+        return mapper.entityToModelOfAziendaAgricola( oldAziendaAgricola );
     }
 
     @Override
-    public DeleteResponseModel deleteAziendaAgricola ( UUID idAziendaAgricola ) {
-        aziendaAgricolaRepository.deleteById( idAziendaAgricola );
+    public DeleteResponseModel deleteAziendaAgricola ( UUID idAziendaAgricola ) throws Exception {
+        logger.info( "The delete aziendaAgricola method has been called ..." );
+        AziendaAgricolaEntity aziendaAgricola = OptionalUnpacker.unpackerOrThrows( aziendaAgricolaRepository.findById( idAziendaAgricola ),
+                                                                                   "Not found data of this azienda in server" );
+        aziendaAgricolaRepository.deleteById( aziendaAgricola.getIdAziendaAgricola() );
         return new DeleteResponseModel( "Azienda Agricola is deleted", true );
     }
 
     @Override
-    public AziendaAgricolaModel findAziendaAgricolaByIdUser ( UUID idUtente ) {
-        Optional<AziendaAgricolaEntity> azienda = aziendaAgricolaRepository.findByUtenteEntityIdUtente( idUtente );
-        return mapper.entityToModelOfAziendaAgricola( azienda.orElse( new AziendaAgricolaEntity() ) );
+    public AziendaAgricolaModel findAziendaAgricolaByIdUser ( UUID idUtente ) throws NotFoundEntityException {
+        logger.info( "The find aziendaAgricola by id of user method has been called ..." );
+        AziendaAgricolaEntity aziendaAgricola = OptionalUnpacker.unpackerOrThrows( aziendaAgricolaRepository.findByUtenteEntityIdUtente( idUtente ),
+                                                                                   "Not found data of this azienda in server" );
+        return mapper.entityToModelOfAziendaAgricola( aziendaAgricola );
     }
 
     @Override
-    public AziendaAgricolaModel findAziendaAgricolaById ( UUID idAziendaAgricola ) {
-        Optional<AziendaAgricolaEntity> azienda = aziendaAgricolaRepository.findById( idAziendaAgricola );
-        return mapper.entityToModelOfAziendaAgricola( azienda.orElse( new AziendaAgricolaEntity() ) );
+    public AziendaAgricolaModel findAziendaAgricolaById ( UUID idAziendaAgricola ) throws NotFoundEntityException {
+        logger.info( "The find aziendaAgricola with his id method has been called ..." );
+        AziendaAgricolaEntity aziendaAgricola = OptionalUnpacker.unpackerOrThrows( aziendaAgricolaRepository.findById( idAziendaAgricola ),
+                                                                                   "Not found data of this azienda in server" );
+        return mapper.entityToModelOfAziendaAgricola( aziendaAgricola );
     }
 
     @Override
-    public AziendaAgricolaModel findAziendaAgricolaByName ( String nome ) {
-        Optional<AziendaAgricolaEntity> azienda = aziendaAgricolaRepository.findByNome( nome );
-        return mapper.entityToModelOfAziendaAgricola( azienda.orElse( new AziendaAgricolaEntity() ) );
+    public AziendaAgricolaModel findAziendaAgricolaByName ( String nome ) throws NotFoundEntityException {
+        logger.info( "The find aziendaAgricola with his name method has been called ..." );
+        AziendaAgricolaEntity aziendaAgricola = OptionalUnpacker.unpackerOrThrows( aziendaAgricolaRepository.findByNome( nome ),
+                                                                                   "Not found data of this azienda in server" );
+        return mapper.entityToModelOfAziendaAgricola( aziendaAgricola );
     }
 }

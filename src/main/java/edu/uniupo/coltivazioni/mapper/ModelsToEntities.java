@@ -84,6 +84,13 @@ public abstract class ModelsToEntities {
     public abstract ExecutionTimeEntity modelToEntityOfExecutionTime ( ExecutionTimeModel executionTimeModel );
 
     @Mapping( target = "idUtente", ignore = true )
-    public abstract void updateEntity ( UtenteModel newUtente, @MappingTarget UtenteEntity oldUtente );
+    public abstract void updateUtenteEntity ( UtenteModel newUtente, @MappingTarget UtenteEntity oldUtente );
+
+    @Mapping( target = "idAziendaAgricola", ignore = true )
+    @Mapping( target = "utenteEntity.idUtente", source = "idUtente" )
+    @Mapping( target = "utenteEntity", ignore = true )
+    public abstract void updateAziendaAgricolaEntity ( AziendaAgricolaModel newAziendaAgricolaModel,
+                                                       @MappingTarget AziendaAgricolaEntity oldAziendaAgricolaEntity
+                                                     );
 
 }

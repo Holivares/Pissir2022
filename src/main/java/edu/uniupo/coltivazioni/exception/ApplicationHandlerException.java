@@ -34,11 +34,11 @@ public class ApplicationHandlerException {
         return new ApplicationError( notFoundEntityException.getStatus(), List.of( notFoundEntityException.getMessage() ) );
     }
 
-    @ExceptionHandler( DuplicateAziendaAgricola.class )
+    @ExceptionHandler( DuplicateEntityException.class )
     @ResponseStatus( value = HttpStatus.BAD_REQUEST )
-    public ApplicationError handleDuplicateAziendaAgricola ( DuplicateAziendaAgricola duplicateAziendaAgricola ) {
-        logger.info( "DuplicateAziendaAgricola caught with messages : %s".formatted( duplicateAziendaAgricola.getMessage() ) );
-        return new ApplicationError( duplicateAziendaAgricola.getStatus(), List.of( duplicateAziendaAgricola.getMessage() ) );
+    public ApplicationError handleDuplicateAziendaAgricola ( DuplicateEntityException duplicateEntityException ) {
+        logger.info( "DuplicateAziendaAgricola caught with messages : %s".formatted( duplicateEntityException.getMessage() ) );
+        return new ApplicationError( duplicateEntityException.getStatus(), List.of( duplicateEntityException.getMessage() ) );
     }
 
     @ExceptionHandler( { SQLIntegrityConstraintViolationException.class, ConstraintViolationException.class, DataIntegrityViolationException.class } )

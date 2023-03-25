@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UtenteAutenticazioneModel implements ModelType {
+public class UtenteAutenticazioneModel implements DefaultModel {
     @NotBlank( message = "Email field can't be empty or null" )
     @NotNull( message = "Email field can't be empty or null" )
     @Email( message = "Authentication has failed" )

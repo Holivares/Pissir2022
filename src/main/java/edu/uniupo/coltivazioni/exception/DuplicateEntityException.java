@@ -6,13 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Getter
-public class DuplicateAziendaAgricola extends Exception {
+public class DuplicateEntityException extends Exception {
     private final ApplicationStatusError status = ApplicationStatusError.BAD_REQUEST;
     private final String message;
 
-    public DuplicateAziendaAgricola ( String className, String methodName, String message ) {
+    public DuplicateEntityException ( String className, String methodName, String message ) {
         super( message );
-        Logger logger = LoggerFactory.getLogger( DuplicateAziendaAgricola.class );
+        Logger logger = LoggerFactory.getLogger( DuplicateEntityException.class );
         logger.info( "DuplicateAziendaAgricola is throwing by %s class in method %s ...".formatted( className, methodName ) );
         this.message = message;
     }

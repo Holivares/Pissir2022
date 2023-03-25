@@ -6,6 +6,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Mapper()
 public abstract class ModelsToEntities {
     //Converti un dao en dto
@@ -14,6 +17,12 @@ public abstract class ModelsToEntities {
 
     @Mapping( target = "idAziendaAgricola", source = "aziendaAgricolaEntity.idAziendaAgricola" )
     public abstract SerraModel entityToModelOfSerra ( SerraEntity serraEntity );
+
+    public List<SerraModel> entityToModelListOfSerra ( List<SerraEntity> serraEntities ) {
+        List<SerraModel> serraModels = new ArrayList<>();
+        serraEntities.forEach( serraEntity -> serraModels.add( entityToModelOfSerra( serraEntity ) ) );
+        return serraModels;
+    }
 
     public abstract StatoAttuatoreModel entityToModelOfAttuatore ( StatoAttuatoreEntity statoAttuatoreEntity );
 
@@ -50,6 +59,12 @@ public abstract class ModelsToEntities {
     @Mapping( target = "aziendaAgricolaEntity.idAziendaAgricola", source = "idAziendaAgricola" )
     @Mapping( target = "aziendaAgricolaEntity", ignore = true )
     public abstract SerraEntity modelToEntityOfSerra ( SerraModel serraModel );
+
+    public List<SerraEntity> modelToEntityListOfSerra ( List<SerraModel> serraModels ) {
+        List<SerraEntity> serraEntities = new ArrayList<>();
+        serraModels.forEach( serraModel -> serraEntities.add( modelToEntityOfSerra( serraModel ) ) );
+        return serraEntities;
+    }
 
     public abstract StatoAttuatoreEntity modelToEntityOfStatoAttuatore ( StatoAttuatoreModel statoAttuatoreModel );
 
@@ -92,5 +107,10 @@ public abstract class ModelsToEntities {
     public abstract void updateAziendaAgricolaEntity ( AziendaAgricolaModel newAziendaAgricolaModel,
                                                        @MappingTarget AziendaAgricolaEntity oldAziendaAgricolaEntity
                                                      );
+
+    @Mapping( target = "idSerra", ignore = true )
+    @Mapping( target = "aziendaAgricolaEntity.idAziendaAgricola", source = "idAziendaAgricola" )
+    @Mapping( target = "aziendaAgricolaEntity", ignore = true )
+    public abstract void updateSerraEntity ( SerraModel newSerra, @MappingTarget SerraEntity oldSerra );
 
 }

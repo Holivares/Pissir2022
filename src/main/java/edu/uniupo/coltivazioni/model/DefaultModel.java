@@ -9,9 +9,9 @@ import java.util.Set;
 
 import static edu.uniupo.coltivazioni.service.UtenteService.serviceThrower;
 
-public interface ModelType {
+public interface DefaultModel {
 
-    static <T extends ModelType> void isNull ( T t, ServiceThrower<Exception> serviceThrower, String className, String methodName ) throws Exception {
+    static <T extends DefaultModel> void isNull ( T t, ServiceThrower<Exception> serviceThrower, String className, String methodName ) throws Exception {
         if( t == null ) {
             serviceThrower.thrower( new InvalidModelException( className, methodName, List.of( "The data you sent is not valid, please check your data" ) ) );
         }
@@ -24,7 +24,7 @@ public interface ModelType {
         }
     }
 
-    static <T extends ModelType> void checkModelType ( T t, String className, String methodeName ) throws Exception {
+    static <T extends DefaultModel> void checkModelType ( T t, String className, String methodeName ) throws Exception {
         T.isNull( t, serviceThrower, className, methodeName );
         t.validate( serviceThrower, className, methodeName );
     }

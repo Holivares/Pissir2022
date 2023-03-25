@@ -1,0 +1,65 @@
+package edu.uniupo.coltivazioni.entity;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
+import org.hibernate.Hibernate;
+
+import java.io.Serializable;
+import java.util.Objects;
+import java.util.UUID;
+
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@RequiredArgsConstructor
+@Entity
+@Table( name = "PERSON", uniqueConstraints = @UniqueConstraint( columnNames = { "EMAIL" } ) )
+public class UtenteEntity implements Serializable {
+
+    @Id
+    @GeneratedValue( strategy = GenerationType.UUID )
+    @Column( name = "ID_USER" )
+    private UUID idUtente;
+    @Column( name = "NAME", length = 25 )
+    @NonNull
+    @NotBlank
+    private String nome;
+    @Column( name = "FIRST_NAME", length = 40 )
+    @NonNull
+    @NotBlank
+    private String cognome;
+    @Column( name = "EMAIL", length = 50 )
+    @NonNull
+    @Email
+    @NotBlank
+    private String email;
+    @Column( name = "PASSWORD", length = 55 )
+    @NonNull
+    @NotBlank
+    private String password;
+    @Column( name = "ROLE" )
+    @Enumerated( EnumType.STRING )
+    @NonNull
+    private RuoloEntity role;
+
+    @Override
+    public boolean equals ( Object o ) {
+        if( this == o ) {
+            return true;
+        }
+        if( o == null || Hibernate.getClass( this ) != Hibernate.getClass( o ) ) {
+            return false;
+        }
+        UtenteEntity utenteEntity = ( UtenteEntity ) o;
+        return getIdUtente() != null && Objects.equals( getIdUtente(), utenteEntity.getIdUtente() );
+    }
+
+    @Override
+    public int hashCode () {
+        return getClass().hashCode();
+    }
+}

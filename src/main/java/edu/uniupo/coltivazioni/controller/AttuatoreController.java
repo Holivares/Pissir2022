@@ -1,8 +1,7 @@
 package edu.uniupo.coltivazioni.controller;
 
-import edu.uniupo.coltivazioni.dto.DTOAttuatore;
-import edu.uniupo.coltivazioni.services.AttuatoreServices;
-import jakarta.validation.Valid;
+import edu.uniupo.coltivazioni.model.AttuatoreModel;
+import edu.uniupo.coltivazioni.service.AttuatoreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,49 +10,45 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-/**
- * @author
- * @author
- */
 @RestController
 @RequestMapping( "v1/attuatori" )
 public class AttuatoreController {
 
-    private final AttuatoreServices attuatoreServices;
+    private final AttuatoreService attuatoreService;
     private final Logger logger = LoggerFactory.getLogger( AttuatoreController.class );
 
     @Autowired
-    public AttuatoreController ( AttuatoreServices attuatoreServices ) {
-        this.attuatoreServices = attuatoreServices;
+    public AttuatoreController ( AttuatoreService attuatoreService ) {
+        this.attuatoreService = attuatoreService;
     }
 
     @PostMapping( produces = "application/json" )
     @ResponseStatus( value = HttpStatus.CREATED )
-    public DTOAttuatore createAtrtuatore ( @RequestBody @Valid DTOAttuatore dtoAttuatore ) {
-        logger.info( "i'm in the controller createAtrtuatore ..." );
-        return attuatoreServices.createAttuatore( dtoAttuatore );
+    public AttuatoreModel createAttuatore ( @RequestBody AttuatoreModel attuatoreModel ) {
+        logger.info( "i'm in the controller to create an Attuatore ..." );
+        return attuatoreService.createAttuatore( attuatoreModel );
 
     }
 
     @GetMapping( value = "/{idSerra}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.FOUND )
-    public DTOAttuatore findAttuatoreBySerra ( @PathVariable UUID idSerra ) {
-        logger.info( "i'm in the controller to find an attuatore by idSerra" );
-        return attuatoreServices.findAttuatoreByIdSerra( idSerra );
+    public AttuatoreModel findAttuatoreBySerra ( @PathVariable UUID idSerra ) {
+        logger.info( "i'm in the controller to find an attuatore by Serra id ..." );
+        return attuatoreService.findAttuatoreByIdSerra( idSerra );
     }
 
     @GetMapping( value = "/enable/{idAttuatore}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.OK )
-    public DTOAttuatore enableAttuatore ( @PathVariable UUID idAttuatore ) {
-        logger.info( "i'm in the controller to activate an attuatore" );
-        return attuatoreServices.enableAttuatore( idAttuatore );
+    public AttuatoreModel enableAttuatore ( @PathVariable UUID idAttuatore ) {
+        logger.info( "i'm in the controller to enable an attuatore ..." );
+        return attuatoreService.enableAttuatore( idAttuatore );
     }
 
     @GetMapping( value = "/disable/{idAttuatore}", produces = "application/json" )
     @ResponseStatus( HttpStatus.OK )
-    public DTOAttuatore disableAttuatore ( @PathVariable UUID idAttuatore ) {
-        logger.info( "i'm in he controller to disactivate an attuatore" );
-        return attuatoreServices.disableAttuatore( idAttuatore );
+    public AttuatoreModel disableAttuatore ( @PathVariable UUID idAttuatore ) {
+        logger.info( "i'm in he controller to disable an attuatore ..." );
+        return attuatoreService.disableAttuatore( idAttuatore );
     }
 
 }

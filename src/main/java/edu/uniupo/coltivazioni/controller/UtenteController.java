@@ -1,9 +1,9 @@
 package edu.uniupo.coltivazioni.controller;
 
-import edu.uniupo.coltivazioni.dto.DTODeleteResponse;
-import edu.uniupo.coltivazioni.dto.DTOUtente;
-import edu.uniupo.coltivazioni.dto.DTOUtenteAutenticazione;
-import edu.uniupo.coltivazioni.services.UtenteServices;
+import edu.uniupo.coltivazioni.model.DeleteResponseModel;
+import edu.uniupo.coltivazioni.model.UtenteAutenticazioneModel;
+import edu.uniupo.coltivazioni.model.UtenteModel;
+import edu.uniupo.coltivazioni.service.UtenteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,46 +12,42 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-/**
- * @author
- * @author
- */
 @RestController
 @RequestMapping( value = "v1/utenti" )
 public class UtenteController {
 
-    private final UtenteServices utenteServices;
+    private final UtenteService utenteService;
     private final Logger logger = LoggerFactory.getLogger( UtenteController.class );
 
     @Autowired
-    public UtenteController ( UtenteServices utenteServices ) {
-        this.utenteServices = utenteServices;
+    public UtenteController ( UtenteService utenteService ) {
+        this.utenteService = utenteService;
     }
 
     @PostMapping( produces = "application/json" )
     @ResponseStatus( value = HttpStatus.CREATED )
-    public DTOUtente createUtente ( @RequestBody DTOUtente dtoUtente ) {
-        logger.info( "i'm in the controller to create an utente" );
-        return utenteServices.createUtente( dtoUtente );
+    public UtenteModel createUtente ( @RequestBody UtenteModel utenteModel ) throws Exception {
+        logger.info( "i'm in the controller to create an utente ..." );
+        return utenteService.createUtente( utenteModel );
     }
 
     @PutMapping( produces = "application/json" )
     @ResponseStatus( value = HttpStatus.OK )
-    public DTOUtente updateUtente ( @RequestBody DTOUtente dtoUtente ) {
-        logger.info( "i'm in the controller to update an utente " );
-        return utenteServices.updateUtente( dtoUtente );
+    public UtenteModel updateUtente ( @RequestBody UtenteModel utenteModel ) throws Exception {
+        logger.info( "i'm in the controller to update an utente ..." );
+        return utenteService.updateUtente( utenteModel );
     }
 
-    @DeleteMapping( value = "/{idSerra}", produces = "application/json" )
+    @DeleteMapping( value = "/{idUtente}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.OK )
-    public DTODeleteResponse deleteUtenteById ( @PathVariable UUID idUtente ) {
-        logger.info( "i'm in the controller to delete an utente by idUtente" );
-        return utenteServices.deleteUtenteById( idUtente );
+    public DeleteResponseModel deleteUtenteById ( @PathVariable UUID idUtente ) throws Exception {
+        logger.info( "i'm in the controller to delete an utente by idUtente ..." );
+        return utenteService.deleteUtenteById( idUtente );
     }
 
     @PostMapping( value = "/utenteAutenticazione", produces = "application/json" )
-    public DTOUtente findUtenteByEmailAndPassword ( @RequestBody DTOUtenteAutenticazione dtoUtenteAutenticazione ) {
-        logger.info( "i'm in the controller to find utente by email and password" );
-        return utenteServices.findUtenteByEmailAndPassword( dtoUtenteAutenticazione.getEmail(), dtoUtenteAutenticazione.getPassword() );
+    public UtenteModel findUtenteByEmailAndPassword ( @RequestBody UtenteAutenticazioneModel utenteAutenticazioneModel ) throws Exception {
+        logger.info( "i'm in the controller to find utente by email and password ..." );
+        return utenteService.findUtenteByEmailAndPassword( utenteAutenticazioneModel );
     }
 }

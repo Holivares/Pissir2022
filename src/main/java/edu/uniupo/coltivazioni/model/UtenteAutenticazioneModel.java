@@ -11,9 +11,9 @@ import lombok.*;
 @Getter
 @Setter
 public class UtenteAutenticazioneModel implements ModelType {
-    @Email( message = "Authentication has failed" )
     @NotBlank( message = "Email field can't be empty or null" )
     @NotNull( message = "Email field can't be empty or null" )
+    @Email( message = "Authentication has failed" )
     @NonNull
     private String email;
     @Size( min = 4, max = 50, message = "Authentication has failed" )

@@ -1,7 +1,6 @@
 package edu.uniupo.coltivazioni.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -27,7 +26,6 @@ public class AziendaAgricolaEntity implements Serializable {
     @OneToOne( orphanRemoval = true )
     @JoinColumn( name = "ID_USER" )
     @NonNull
-    @Valid
     private UtenteEntity utenteEntity;
     @Column( name = "NAME", length = 25 )
     @NonNull

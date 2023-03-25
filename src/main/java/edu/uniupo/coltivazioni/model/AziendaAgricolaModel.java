@@ -1,7 +1,7 @@
 package edu.uniupo.coltivazioni.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -12,18 +12,20 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class AziendaAgricolaModel {
-    @JsonProperty( access = JsonProperty.Access.READ_ONLY )
+public class AziendaAgricolaModel implements ModelType {
+
     private UUID idAziendaAgricola;
-    @NotBlank( message = "Field can't be empty or null" )
+    @NotNull( message = "User id field can't be empty or null" )
     @NonNull
     private UUID idUtente;
-    @NotBlank( message = "Field can't be empty or null" )
+    @Size( min = 2, max = 25, message = "Name Field must contains an word in length of 2 to 25 characters long" )
+    @NotBlank( message = "User field can't be empty or null" )
+    @NotNull( message = "User field can't be empty or null" )
     @NonNull
-    @Size( min = 2, max = 25, message = "Must contains an word in length of 2 to 25 characters long" )
     private String nome;
-    @NotBlank( message = "Field can't be empty or null" )
+    @Size( min = 50, max = 100, message = "Description must contains an word in length of 25 to 100 characters long" )
+    @NotBlank( message = "Description field can't be empty or null" )
+    @NotNull( message = "Description field can't be empty or null" )
     @NonNull
-    @Size( min = 25, max = 100, message = "Must contains an word in length of 25 to 100 characters long" )
     private String descrizione;
 }

@@ -3,7 +3,11 @@ package edu.uniupo.coltivazioni.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
@@ -12,38 +16,36 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
-@RequiredArgsConstructor
 @Entity
+@ToString
+@NoArgsConstructor
 @Table( name = "PERSON", uniqueConstraints = @UniqueConstraint( columnNames = { "EMAIL" } ) )
 public class UtenteEntity implements Serializable {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.UUID )
     @Column( name = "ID_USER" )
+    @GeneratedValue( strategy = GenerationType.UUID )
     private UUID idUtente;
+    @NotNull
+    @NotBlank
     @Column( name = "NAME", length = 25 )
-    @NonNull
-    @NotBlank
     private String nome;
+    @NotNull
+    @NotBlank
     @Column( name = "FIRST_NAME", length = 40 )
-    @NonNull
-    @NotBlank
     private String cognome;
-    @Column( name = "EMAIL", length = 50 )
-    @NonNull
     @Email
+    @NotNull
     @NotBlank
+    @Column( name = "EMAIL", length = 50 )
     private String email;
-    @Column( name = "PASSWORD", length = 55 )
-    @NonNull
+    @NotNull
     @NotBlank
+    @Column( name = "PASSWORD", length = 55 )
     private String password;
+    @NotNull
     @Column( name = "ROLE" )
     @Enumerated( EnumType.STRING )
-    @NonNull
     private RuoloEntity role;
 
     @Override

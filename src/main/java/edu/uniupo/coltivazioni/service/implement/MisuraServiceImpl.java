@@ -2,15 +2,19 @@ package edu.uniupo.coltivazioni.service.implement;
 
 import edu.uniupo.coltivazioni.entity.MisuraEntity;
 import edu.uniupo.coltivazioni.mapper.ModelsToEntities;
+import edu.uniupo.coltivazioni.model.DefaultModel;
 import edu.uniupo.coltivazioni.model.MisuraModel;
 import edu.uniupo.coltivazioni.repository.MisuraRepository;
 import edu.uniupo.coltivazioni.service.MisuraService;
+import edu.uniupo.coltivazioni.utility.OptionalUnpacker;
 import org.mapstruct.factory.Mappers;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -19,6 +23,7 @@ public class MisuraServiceImpl implements MisuraService {
 
     private final MisuraRepository misuraRepository;
     private final ModelsToEntities mapper = Mappers.getMapper( ModelsToEntities.class );
+    private final Logger logger = LoggerFactory.getLogger( MisuraServiceImpl.class );
 
     @Autowired
     public MisuraServiceImpl ( MisuraRepository misuraRepository ) {
@@ -26,20 +31,26 @@ public class MisuraServiceImpl implements MisuraService {
     }
 
     @Override
-    public MisuraModel createMisura ( MisuraModel misuraModel ) {
+    public MisuraModel createMisura ( MisuraModel misuraModel ) throws Exception {
+        logger.info( "The find misura by his id method has been called ..." );
+        DefaultModel.checkModelType( misuraModel, this.getClass().getName(), "createMisura" );
         MisuraEntity misuraEntity = misuraRepository.save( mapper.modelToEntityOfMisura( misuraModel ) );
         return mapper.entityToModelOfMisura( misuraEntity );
     }
 
     @Override
-    public MisuraModel findMisuraById ( UUID idMisura ) {
-        Optional<MisuraEntity> misura = misuraRepository.findById( idMisura );
-        return mapper.entityToModelOfMisura( misura.orElse( new MisuraEntity() ) );
+    public MisuraModel findMisuraById ( UUID idMisura ) throws Exception {
+        logger.info( "The find misura by his id method has been called ..." );
+        MisuraEntity misura = OptionalUnpacker.unpackerOrThrows( misuraRepository.findById( idMisura ),
+                                                                 "Have not found data of misura with the given id" );
+        return mapper.entityToModelOfMisura( misura );
     }
 
     @Override
-    public MisuraModel findMisuraBySensoreId ( UUID idSensore ) {
-        Optional<MisuraEntity> misura = misuraRepository.findBySensoreEntityIdSensore( idSensore );
-        return mapper.entityToModelOfMisura( misura.orElse( new MisuraEntity() ) );
+    public List<MisuraModel> findMisuraBySensoreId ( UUID idSensore ) throws Exception {
+        logger.info( "The find misura by id sensore method has been called ..." );
+        List<MisuraEntity> misura = OptionalUnpacker.unpackerOrThrows( misuraRepository.findBySensoreEntityIdSensore( idSensore ),
+                                                                       "Have not found data of misura with the given id of sensore" );
+        return mapper.entityToModelListOfMisura( misura );
     }
 }

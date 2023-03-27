@@ -1,20 +1,22 @@
 package edu.uniupo.coltivazioni.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class MisuraModel {
+@NoArgsConstructor
+@AllArgsConstructor
+@RequiredArgsConstructor
+public class MisuraModel implements DefaultModel {
     private UUID idMisura;
+    @NonNull
+    @NotNull( message = "Id sensore  field can't be empty or null" )
     private UUID idSensore;
-    private Double umidita;
-    private Double luce;
-    private Double temperatura;
+    @NonNull
+    @NotNull( message = "Measure field can't be empty or null" )
+    private BigDecimal misura;
 }

@@ -8,6 +8,7 @@ import edu.uniupo.coltivazioni.model.DefaultModel;
 import edu.uniupo.coltivazioni.model.DeleteResponseModel;
 import edu.uniupo.coltivazioni.repository.AziendaAgricolaRepository;
 import edu.uniupo.coltivazioni.service.AziendaAgricolaService;
+import edu.uniupo.coltivazioni.service.thrower.ServiceThrower;
 import edu.uniupo.coltivazioni.utility.OptionalUnpacker;
 import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
@@ -23,6 +24,8 @@ import java.util.UUID;
 public class AziendaAgricolaServiceImpl implements AziendaAgricolaService {
     private final AziendaAgricolaRepository aziendaAgricolaRepository;
     private final ModelsToEntities mapper = Mappers.getMapper( ModelsToEntities.class );
+
+    private final ServiceThrower<Exception> serviceThrower = ( exception ) -> {throw exception;};
     private final Logger logger = LoggerFactory.getLogger( AziendaAgricolaServiceImpl.class );
 
     @Autowired
@@ -37,11 +40,10 @@ public class AziendaAgricolaServiceImpl implements AziendaAgricolaService {
         AziendaAgricolaEntity aziendaAgricola = OptionalUnpacker.unpacker( aziendaAgricolaRepository
                                                                                    .findByUtenteEntityIdUtente( aziendaAgricolaModel.getIdUtente() ) );
         if( aziendaAgricola != null ) {
-            throw new DuplicateEntityException( this.getClass().getName(), "createAziendaAgricola", "This user have already an azienda" );
-        } else {
-            AziendaAgricolaEntity azienda = aziendaAgricolaRepository.save( mapper.modelToEntityOfAziendaAgricola( aziendaAgricolaModel ) );
-            return mapper.entityToModelOfAziendaAgricola( azienda );
+            serviceThrower.thrower( new DuplicateEntityException( this.getClass().getName(), "createAziendaAgricola", "This user have already an azienda" ) );
         }
+        AziendaAgricolaEntity azienda = aziendaAgricolaRepository.save( mapper.modelToEntityOfAziendaAgricola( aziendaAgricolaModel ) );
+        return mapper.entityToModelOfAziendaAgricola( azienda );
     }
 
     @Override

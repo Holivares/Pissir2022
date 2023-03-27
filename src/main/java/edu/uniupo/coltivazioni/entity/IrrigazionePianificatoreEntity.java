@@ -1,7 +1,12 @@
 package edu.uniupo.coltivazioni.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
@@ -11,27 +16,32 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
+@ToString
+@NoArgsConstructor
 @Table( name = "IRRIGATION_SCHEDULER" )
 public class IrrigazionePianificatoreEntity implements Serializable {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.UUID )
     @Column( name = "ID_IRRIGATION_SCHEDULER" )
+    @GeneratedValue( strategy = GenerationType.UUID )
     private UUID idIrrigazionePianificatore;
+    @NotNull
     @ManyToOne
     @JoinColumn( name = "ID_AGRICULTURAL_HOLDING" )
     private AziendaAgricolaEntity aziendaAgricolaEntity;
+    @NotNull
     @ManyToOne
     @JoinColumn( name = "ID_GREENHOUSE" )
     private SerraEntity serraEntity;
+    @NotNull
+    @NotBlank
     @Column( name = "DESCRIPTION", length = 100 )
     private String descrizione;
+    @NotNull
     @Column( name = "EXECUTION_DATE" )
     private LocalDate esecuzioneData;
+    @NotNull
     @Embedded
     private ExecutionTimeEntity esecuzioneTempo;
 

@@ -4,22 +4,27 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import lombok.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
 @Embeddable
+@NoArgsConstructor
 public class StatoAttuatoreEntity implements Serializable {
 
-    @Enumerated( EnumType.STRING )
+    @NotNull
     @Column( name = "MODE" )
-    private AttuatoreModeEntity mode;
     @Enumerated( EnumType.STRING )
+    private AttuatoreModeEntity mode;
+    @NotNull
     @Column( name = "STATUS" )
+    @Enumerated( EnumType.STRING )
     private AttuatoreStatoEntity stato;
 }

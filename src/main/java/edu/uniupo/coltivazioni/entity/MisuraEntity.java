@@ -1,35 +1,37 @@
 package edu.uniupo.coltivazioni.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.UUID;
 
 @Getter
 @Setter
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
+@ToString
+@NoArgsConstructor
 @Table( name = "MEASURE" )
 public class MisuraEntity implements Serializable {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.UUID )
     @Column( name = "ID_MEASURE" )
+    @GeneratedValue( strategy = GenerationType.UUID )
     private UUID idMisura;
+    @NotNull
     @ManyToOne
     @JoinColumn( name = "ID_SENSOR" )
     private SensoreEntity sensoreEntity;
+    @NotNull
     @Column( name = "HUMIDITY_MEASURE", length = 4, precision = 2 )
-    private Double umidita;
-    @Column( name = "LIGHT_MEASURE", length = 4, precision = 2 )
-    private Double luce;
-    @Column( name = "TEMPERATURE_MEASURE", length = 4, precision = 2 )
-    private Double temperatura;
+    private BigDecimal misura;
 
     @Override
     public boolean equals ( Object o ) {

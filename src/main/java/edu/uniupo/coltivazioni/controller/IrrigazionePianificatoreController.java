@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -25,35 +26,37 @@ public class IrrigazionePianificatoreController {
 
     @PostMapping( produces = "application/json" )
     @ResponseStatus( value = HttpStatus.CREATED )
-    public IrrigazionePianificatoreModel createIrrigazionePianificatore ( @RequestBody IrrigazionePianificatoreModel irrigazionePianificatoreModel ) {
+    public IrrigazionePianificatoreModel createIrrigazionePianificatore ( @RequestBody IrrigazionePianificatoreModel irrigazionePianificatoreModel
+                                                                        ) throws Exception {
         logger.info( "i'm in the controller to create an pianificatore ..." );
         return irrigazionePianificatoreService.createIrrigazionePianificatore( irrigazionePianificatoreModel );
     }
 
     @PutMapping( produces = "application/json" )
     @ResponseStatus( value = HttpStatus.OK )
-    public IrrigazionePianificatoreModel updateIrrigazionePianificatore ( @RequestBody IrrigazionePianificatoreModel irrigazionePianificatoreModel ) {
+    public IrrigazionePianificatoreModel updateIrrigazionePianificatore ( @RequestBody IrrigazionePianificatoreModel irrigazionePianificatoreModel
+                                                                        ) throws Exception {
         logger.info( "i'm in the controller to update an pianificatore ..." );
         return irrigazionePianificatoreService.updateIrrigazionePianificatore( irrigazionePianificatoreModel );
     }
 
     @DeleteMapping( value = "/{idIrrigazionePianificatore}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.OK )
-    public DeleteResponseModel deleteIrrigazionePianificatore ( @PathVariable UUID idIrrigazionePianificatore ) {
+    public DeleteResponseModel deleteIrrigazionePianificatore ( @PathVariable UUID idIrrigazionePianificatore ) throws Exception {
         logger.info( "i'm in controller to delete an pianificatore ..." );
         return irrigazionePianificatoreService.deleteIrrigazionePianificatoreById( idIrrigazionePianificatore );
     }
 
     @GetMapping( value = "/{idAziendaAgricola}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.FOUND )
-    public IrrigazionePianificatoreModel findIrrigazionePianificatoreByIdAziendaAgricola ( @PathVariable UUID idAziendaAgricola ) {
+    public List<IrrigazionePianificatoreModel> findIrrigazionePianificatoreByIdAziendaAgricola ( @PathVariable UUID idAziendaAgricola ) throws Exception {
         logger.info( "i'm in the controller to find an pianificatore by AziendaAgricola id ..." );
         return irrigazionePianificatoreService.findIrrigazionePianificatoreByIdAziendaAgricola( idAziendaAgricola );
     }
 
     @GetMapping( value = "/{idSerra}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.FOUND )
-    public IrrigazionePianificatoreModel findIrrigazionePianificatoreByIdSerra ( @PathVariable UUID idSerra ) {
+    public List<IrrigazionePianificatoreModel> findIrrigazionePianificatoreByIdSerra ( @PathVariable UUID idSerra ) throws Exception {
         logger.info( "i'm in controller to find an pianificatore by Serra id ..." );
         return irrigazionePianificatoreService.findIrrigazionePianificatoreByIdserra( idSerra );
     }

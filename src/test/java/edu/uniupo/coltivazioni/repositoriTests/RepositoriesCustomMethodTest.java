@@ -90,6 +90,10 @@ public class RepositoriesCustomMethodTest {
     @Test
     @Disabled
     void findAziendaAgricolaByHimNome () {
+
+        String nome = aziendaAgricole.get(1).getNome();
+        Optional<AziendaAgricolaEntity> byNome = aziendaAgricolaRepository.findByNome(nome);
+
     }
 
     @Test

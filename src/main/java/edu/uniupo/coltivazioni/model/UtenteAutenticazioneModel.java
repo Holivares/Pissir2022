@@ -10,6 +10,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class UtenteAutenticazioneModel implements DefaultModel {
     @NonNull
     @Email( message = "Authentication has failed" )

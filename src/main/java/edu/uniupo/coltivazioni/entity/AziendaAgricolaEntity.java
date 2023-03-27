@@ -3,10 +3,7 @@ package edu.uniupo.coltivazioni.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
@@ -18,6 +15,8 @@ import java.util.UUID;
 @Entity
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@RequiredArgsConstructor
 @Table( name = "AGRICULTURAL_HOLDING", uniqueConstraints = @UniqueConstraint( columnNames = "NAME" ) )
 public class AziendaAgricolaEntity implements Serializable {
 
@@ -26,14 +25,17 @@ public class AziendaAgricolaEntity implements Serializable {
     @GeneratedValue( strategy = GenerationType.UUID )
     private UUID idAziendaAgricola;
     @NotNull
+    @NonNull
     @JoinColumn( name = "ID_USER" )
     @OneToOne( orphanRemoval = true )
     private UtenteEntity utenteEntity;
     @NotNull
+    @NonNull
     @NotBlank
     @Column( name = "NAME", length = 25 )
     private String nome;
     @NotNull
+    @NonNull
     @NotBlank
     @Column( name = "DESCRIPTION", length = 100 )
     private String descrizione;

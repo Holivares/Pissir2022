@@ -29,6 +29,11 @@ public abstract class ModelsToEntities {
     public abstract TipoAttuatoreModel entityToModelOfTipoAttuatore ( TipoAttuatoreEntity tipoAttuatoreEntity );
 
     public abstract AttuatoreModeModel entityToModelOfAttuatoreMode ( AttuatoreModeEntity attuatoreModeEntity );
+    public List<AttuatoreModel> entityToModelListOfAttuatore ( List<AttuatoreEntity> attuatoreEntities ) {
+        List<AttuatoreModel> attuatoreModels = new ArrayList<>();
+        attuatoreEntities.forEach( attuatoreEntity  -> attuatoreModels.add( entityToModelOfAttuatore( attuatoreEntity ) ) );
+        return attuatoreModels;
+    }
 
     public abstract AttuatoreStatoModel entityToModelOfAttuatoreStato ( AttuatoreStatoEntity attuatoreStatoEntity );
 
@@ -90,6 +95,12 @@ public abstract class ModelsToEntities {
     public abstract TipoAttuatoreEntity modelToEntityOfTipoAttuatore ( TipoAttuatoreModel tipoAttuatoreModel );
 
     public abstract AttuatoreModeEntity modelToEntityOfAttuatoreMode ( AttuatoreModeModel attuatoreModeModel );
+
+    public List<AttuatoreEntity> modelToEntityListOfAttuatore ( List<AttuatoreModel> attuatoreEntities ) {
+        List<AttuatoreEntity> attuatoreModels = new ArrayList<>();
+        attuatoreEntities.forEach( attuatoreModel ->  attuatoreModels.add( modelToEntityOfAttuatore( attuatoreModel ) ) );
+        return attuatoreModels;
+    }
 
     public abstract AttuatoreStatoEntity modelToEntityOfAttuatoreStato ( AttuatoreStatoModel attuatoreStatoModel );
 

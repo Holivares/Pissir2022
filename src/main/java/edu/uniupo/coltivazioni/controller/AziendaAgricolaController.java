@@ -43,23 +43,23 @@ public class AziendaAgricolaController {
         return aziendaAgricolaService.deleteAziendaAgricola( idAziendaAgricola );
     }
 
-    @GetMapping( value = "/by_utente/{idUtente}", produces = "application/json" )
+    @GetMapping( value = "/idUtente", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.FOUND )
-    public AziendaAgricolaModel findAziendaAgricolaByIdUser ( @PathVariable UUID idUtente ) throws Exception {
+    public AziendaAgricolaModel findAziendaAgricolaByIdUser ( @RequestParam UUID idUtente ) throws Exception {
         logger.info( "i'm in the controller to find an azienda agricola by User id ..." );
         return aziendaAgricolaService.findAziendaAgricolaByIdUser( idUtente );
     }
 
-    @GetMapping( value = "/by_identifiant/{idAziendaAgricola}", produces = "application/json" )
+    @GetMapping( value = "/{idAziendaAgricola}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.FOUND )
     public AziendaAgricolaModel findAziendaAgricolaById ( @PathVariable UUID idAziendaAgricola ) throws Exception {
         logger.info( "i'm in the controller to find an azienda agricola by AziendaAgricola id ..." );
         return aziendaAgricolaService.findAziendaAgricolaById( idAziendaAgricola );
     }
 
-    @GetMapping( value = "/by_name/{nome}", produces = "application/json" )
+    @GetMapping( value = "/nome", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.FOUND )
-    public AziendaAgricolaModel findAziendaAgricolaByName ( @PathVariable String nome ) throws Exception {
+    public AziendaAgricolaModel findAziendaAgricolaByName ( @RequestParam String nome ) throws Exception {
         logger.info( "i'm in the controller to find an azienda agricola by name ..." );
         return aziendaAgricolaService.findAziendaAgricolaByName( nome );
     }

@@ -9,6 +9,7 @@ public final class OptionalUnpacker<T extends Optional<R>, R> {
 
     private final R value;
 
+    //Costruttore
     private OptionalUnpacker ( T optional ) {
         this.value = optional.orElse( null );
     }

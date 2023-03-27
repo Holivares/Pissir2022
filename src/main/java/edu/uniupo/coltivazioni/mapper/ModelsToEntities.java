@@ -26,6 +26,12 @@ public abstract class ModelsToEntities {
 
     public abstract StatoAttuatoreModel entityToModelOfAttuatore ( StatoAttuatoreEntity statoAttuatoreEntity );
 
+    public List<AttuatoreModel> entityToModelListOfAttuatore ( List<AttuatoreEntity> attuatoreEntities ) {
+        List<AttuatoreModel> attuatoreModels = new ArrayList<>();
+        attuatoreEntities.forEach( attuatoreEntity -> attuatoreModels.add( entityToModelOfAttuatore( attuatoreEntity ) ) );
+        return attuatoreModels;
+    }
+
     public abstract TipoAttuatoreModel entityToModelOfTipoAttuatore ( TipoAttuatoreEntity tipoAttuatoreEntity );
 
     public abstract AttuatoreModeModel entityToModelOfAttuatoreMode ( AttuatoreModeEntity attuatoreModeEntity );
@@ -74,6 +80,12 @@ public abstract class ModelsToEntities {
     @Mapping( target = "serraEntity.idSerra", source = "idSerra" )
     @Mapping( target = "serraEntity", ignore = true )
     public abstract AttuatoreEntity modelToEntityOfAttuatore ( AttuatoreModel attuatoreModel );
+
+    public List<AttuatoreEntity> modelToEntityListOfAttuatore ( List<AttuatoreModel> attuatoreModels ) {
+        List<AttuatoreEntity> attuatoreEntities = new ArrayList<>();
+        attuatoreModels.forEach( attuatoreModel -> attuatoreEntities.add( modelToEntityOfAttuatore( attuatoreModel ) ) );
+        return attuatoreEntities;
+    }
 
     @Mapping( target = "aziendaAgricolaEntity.idAziendaAgricola", source = "idAziendaAgricola" )
     @Mapping( target = "aziendaAgricolaEntity", ignore = true )

@@ -30,7 +30,7 @@ public class UtenteEntityServiceTest {
 
     @Mock
     private UtenteRepository utenteRepository;
-    private final ModelsToEntities modelsToEntities = spy( Mappers.getMapper( ModelsToEntities.class ) );
+    private final ModelsToEntities mapper = spy( Mappers.getMapper( ModelsToEntities.class ) );
     private UtenteService utenteService;
 
     @BeforeEach
@@ -51,15 +51,15 @@ public class UtenteEntityServiceTest {
         //When
         doReturn( utenteEntity ).when( utenteRepository ).save( any( UtenteEntity.class ) );
 
-        when( modelsToEntities.modelToEntityOfUtente( utenteModel ) ).thenCallRealMethod();
-        when( modelsToEntities.entityToModelOfUtente( utenteEntity ) ).thenCallRealMethod();
+        when( mapper.modelToEntityOfUtente( utenteModel ) ).thenCallRealMethod();
+        when( mapper.entityToModelOfUtente( utenteEntity ) ).thenCallRealMethod();
 
         UtenteModel candidateForEvaluation = utenteService.createUtente( utenteModel );
 
         //Then
         verify( utenteRepository ).save( repositorySaveParamCaptor.capture() );
-        verify( modelsToEntities ).modelToEntityOfUtente( mapperParamDTOUtenteCaptor.capture() );
-        verify( modelsToEntities ).entityToModelOfUtente( mapperParamUtenteCaptor.capture() );
+        verify( mapper ).modelToEntityOfUtente( mapperParamDTOUtenteCaptor.capture() );
+        verify( mapper ).entityToModelOfUtente( mapperParamUtenteCaptor.capture() );
 
         assertThat( candidateForEvaluation ).hasNoNullFieldsOrProperties();
         assertThat( candidateForEvaluation ).isExactlyInstanceOf( UtenteModel.class );

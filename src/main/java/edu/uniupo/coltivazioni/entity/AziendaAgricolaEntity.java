@@ -2,7 +2,11 @@ package edu.uniupo.coltivazioni.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
@@ -11,29 +15,27 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
-@RequiredArgsConstructor
 @Entity
-@Table( name = "AGRICULTURAL_HOLDING" )
+@ToString
+@NoArgsConstructor
+@Table( name = "AGRICULTURAL_HOLDING", uniqueConstraints = @UniqueConstraint( columnNames = "NAME" ) )
 public class AziendaAgricolaEntity implements Serializable {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.UUID )
     @Column( name = "ID_AGRICULTURAL_HOLDING" )
+    @GeneratedValue( strategy = GenerationType.UUID )
     private UUID idAziendaAgricola;
-    @OneToOne( orphanRemoval = true )
+    @NotNull
     @JoinColumn( name = "ID_USER" )
-    @NonNull
+    @OneToOne( orphanRemoval = true )
     private UtenteEntity utenteEntity;
+    @NotNull
+    @NotBlank
     @Column( name = "NAME", length = 25 )
-    @NonNull
-    @NotBlank
     private String nome;
-    @Column( name = "DESCRIPTION", length = 100 )
-    @NonNull
+    @NotNull
     @NotBlank
+    @Column( name = "DESCRIPTION", length = 100 )
     private String descrizione;
 
     @Override

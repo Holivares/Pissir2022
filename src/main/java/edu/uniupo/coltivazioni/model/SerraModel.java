@@ -7,19 +7,19 @@ import lombok.*;
 
 import java.util.UUID;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@RequiredArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class SerraModel implements DefaultModel {
     private UUID idSerra;
+    @NonNull
     @NotNull( message = "Azienda agricola id field can't be empty or null" )
-    @NonNull
     private UUID idAziendaAgricola;
-    @Size( min = 50, max = 100, message = "Description must contains an word in length of 25 to 100 characters long" )
-    @NotBlank( message = "Description field can't be empty or null" )
-    @NotNull( message = "Description field can't be empty or null" )
     @NonNull
+    @NotNull( message = "Description field can't be empty or null" )
+    @NotBlank( message = "Description field can't be empty or null" )
+    @Size( min = 50, max = 100, message = "Description must contains an word in length of 25 to 100 characters long" )
     private String descrizione;
 }

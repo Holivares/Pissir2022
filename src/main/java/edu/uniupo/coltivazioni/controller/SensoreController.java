@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -24,14 +25,14 @@ public class SensoreController {
 
     @PostMapping( produces = "application/json" )
     @ResponseStatus( value = HttpStatus.CREATED )
-    public SensoreModel createSensore ( @RequestBody SensoreModel sensoreModel ) {
+    public SensoreModel createSensore ( @RequestBody SensoreModel sensoreModel ) throws Exception {
         logger.info( "i'm in the controller to create an sensore ..." );
         return sensoreService.createSensore( sensoreModel );
     }
 
     @GetMapping( value = "/{idSerra}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.FOUND )
-    public SensoreModel findSensoreByIdSerra ( @PathVariable UUID idSerra ) {
+    public List<SensoreModel> findSensoreByIdSerra ( @PathVariable UUID idSerra ) throws Exception {
         logger.info( "i'm in the controller to find an sensore by idSerra ..." );
         return sensoreService.findSensoreByIdSerra( idSerra );
     }

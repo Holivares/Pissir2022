@@ -7,8 +7,6 @@ import edu.uniupo.coltivazioni.validator.ModelValidator;
 import java.util.List;
 import java.util.Set;
 
-import static edu.uniupo.coltivazioni.service.UtenteService.serviceThrower;
-
 public interface DefaultModel {
 
     static <T extends DefaultModel> void isNull ( T t, ServiceThrower<Exception> serviceThrower, String className, String methodName ) throws Exception {
@@ -25,6 +23,7 @@ public interface DefaultModel {
     }
 
     static <T extends DefaultModel> void checkModelType ( T t, String className, String methodeName ) throws Exception {
+        ServiceThrower<Exception> serviceThrower = ( invalidModelException ) -> {throw invalidModelException;};
         T.isNull( t, serviceThrower, className, methodeName );
         t.validate( serviceThrower, className, methodeName );
     }

@@ -6,19 +6,19 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UtenteAutenticazioneModel implements DefaultModel {
-    @NotBlank( message = "Email field can't be empty or null" )
-    @NotNull( message = "Email field can't be empty or null" )
+    @NonNull
     @Email( message = "Authentication has failed" )
-    @NonNull
+    @NotNull( message = "Email field can't be empty or null" )
+    @NotBlank( message = "Email field can't be empty or null" )
     private String email;
-    @Size( min = 4, max = 50, message = "Authentication has failed" )
-    @NotBlank( message = "Password field can't be empty or null" )
-    @NotNull( message = "Password field can't be empty or null" )
     @NonNull
+    @NotNull( message = "Password field can't be empty or null" )
+    @NotBlank( message = "Password field can't be empty or null" )
+    @Size( min = 4, max = 50, message = "Authentication has failed" )
     private String password;
 }

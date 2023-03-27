@@ -11,7 +11,7 @@ import java.util.List;
 
 @Mapper()
 public abstract class ModelsToEntities {
-    //Converti un dao en dto
+
     @Mapping( target = "idSerra", source = "serraEntity.idSerra" )
     public abstract AttuatoreModel entityToModelOfAttuatore ( AttuatoreEntity attuatoreEntity );
 
@@ -40,18 +40,37 @@ public abstract class ModelsToEntities {
     @Mapping( target = "idSerra", source = "serraEntity.idSerra" )
     public abstract SensoreModel entityToModelOfSensore ( SensoreEntity sensoreEntity );
 
+    public List<SensoreModel> entityToModelListOfSensore ( List<SensoreEntity> sensoreEntities ) {
+        List<SensoreModel> sensoreModels = new ArrayList<>();
+        sensoreEntities.forEach( sensoreEntity -> sensoreModels.add( entityToModelOfSensore( sensoreEntity ) ) );
+        return sensoreModels;
+    }
+
     @Mapping( target = "idAziendaAgricola", source = "aziendaAgricolaEntity.idAziendaAgricola" )
     @Mapping( target = "idSerra", source = "serraEntity.idSerra" )
     public abstract IrrigazionePianificatoreModel entityToModelOfIrrigazionePianificatore ( IrrigazionePianificatoreEntity irrigazionePianificatoreEntity );
 
+    public List<IrrigazionePianificatoreModel> entityToModelListOfIrrigazionePianificatore (
+            List<IrrigazionePianificatoreEntity> irrigazionePianificatoreEntities
+                                                                                           ) {
+        List<IrrigazionePianificatoreModel> irrigazionePianificatoreModels = new ArrayList<>();
+        irrigazionePianificatoreEntities.forEach( irrigazionePianificatoreEntity -> irrigazionePianificatoreModels.add( entityToModelOfIrrigazionePianificatore( irrigazionePianificatoreEntity ) ) );
+        return irrigazionePianificatoreModels;
+    }
+
     @Mapping( target = "idSensore", source = "sensoreEntity.idSensore" )
     public abstract MisuraModel entityToModelOfMisura ( MisuraEntity misuraEntity );
+
+    public List<MisuraModel> entityToModelListOfMisura ( List<MisuraEntity> misuraEntities ) {
+        List<MisuraModel> misuraModels = new ArrayList<>();
+        misuraEntities.forEach( misuraEntity -> misuraModels.add( entityToModelOfMisura( misuraEntity ) ) );
+        return misuraModels;
+    }
 
     public abstract RuoloModel entityToModelOfRuolo ( RuoloEntity ruoloEntity );
 
     public abstract ExecutionTimeModel entityToModelOfExecutionTime ( ExecutionTimeEntity executionTimeEntity );
 
-    //converti dto en dao
     @Mapping( target = "serraEntity.idSerra", source = "idSerra" )
     @Mapping( target = "serraEntity", ignore = true )
     public abstract AttuatoreEntity modelToEntityOfAttuatore ( AttuatoreModel attuatoreModel );
@@ -84,15 +103,34 @@ public abstract class ModelsToEntities {
     @Mapping( target = "serraEntity", ignore = true )
     public abstract SensoreEntity modelToEntityOfSensore ( SensoreModel sensoreModel );
 
+    public List<SensoreEntity> modelToEntityListOfSensore ( List<SensoreModel> sensoreEntities ) {
+        List<SensoreEntity> sensoreModels = new ArrayList<>();
+        sensoreEntities.forEach( sensoreModel -> sensoreModels.add( modelToEntityOfSensore( sensoreModel ) ) );
+        return sensoreModels;
+    }
+
     @Mapping( target = "aziendaAgricolaEntity.idAziendaAgricola", source = "idAziendaAgricola" )
     @Mapping( target = "serraEntity.idSerra", source = "idSerra" )
     @Mapping( target = "aziendaAgricolaEntity", ignore = true )
     @Mapping( target = "serraEntity", ignore = true )
     public abstract IrrigazionePianificatoreEntity modelToEntityOfIrrigazionePianificatore ( IrrigazionePianificatoreModel irrigazionePianificatoreModel );
 
+    public List<IrrigazionePianificatoreEntity> modelToEntityListOfIrrigazionePianificatore ( List<IrrigazionePianificatoreModel> irrigazionePianificatoreModels
+                                                                                            ) {
+        List<IrrigazionePianificatoreEntity> irrigazionePianificatoreEntities = new ArrayList<>();
+        irrigazionePianificatoreModels.forEach( irrigazionePianificatoreModel -> irrigazionePianificatoreEntities.add( modelToEntityOfIrrigazionePianificatore( irrigazionePianificatoreModel ) ) );
+        return irrigazionePianificatoreEntities;
+    }
+
     @Mapping( target = "sensoreEntity.idSensore", source = "idSensore" )
     @Mapping( target = "sensoreEntity", ignore = true )
     public abstract MisuraEntity modelToEntityOfMisura ( MisuraModel misuraModel );
+
+    public List<MisuraEntity> modelToEntityListOfMisura ( List<MisuraModel> misuraModels ) {
+        List<MisuraEntity> misuraEntities = new ArrayList<>();
+        misuraModels.forEach( misuraEntity -> misuraEntities.add( modelToEntityOfMisura( misuraEntity ) ) );
+        return misuraEntities;
+    }
 
     public abstract RuoloEntity modelToEntityOfRuolo ( RuoloModel ruoloModel );
 
@@ -112,5 +150,13 @@ public abstract class ModelsToEntities {
     @Mapping( target = "aziendaAgricolaEntity.idAziendaAgricola", source = "idAziendaAgricola" )
     @Mapping( target = "aziendaAgricolaEntity", ignore = true )
     public abstract void updateSerraEntity ( SerraModel newSerra, @MappingTarget SerraEntity oldSerra );
+
+    @Mapping( target = "aziendaAgricolaEntity.idAziendaAgricola", source = "idAziendaAgricola" )
+    @Mapping( target = "serraEntity.idSerra", source = "idSerra" )
+    @Mapping( target = "aziendaAgricolaEntity", ignore = true )
+    @Mapping( target = "serraEntity", ignore = true )
+    public abstract void updateIrrigazionePianificatore ( IrrigazionePianificatoreModel newIrrigazionePianificatore,
+                                                          @MappingTarget IrrigazionePianificatoreEntity oldIrrigazionePianificatore
+                                                        );
 
 }

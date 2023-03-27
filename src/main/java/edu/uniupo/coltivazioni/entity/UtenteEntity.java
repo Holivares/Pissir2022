@@ -4,10 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
@@ -19,6 +16,8 @@ import java.util.UUID;
 @Entity
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@RequiredArgsConstructor
 @Table( name = "PERSON", uniqueConstraints = @UniqueConstraint( columnNames = { "EMAIL" } ) )
 public class UtenteEntity implements Serializable {
 
@@ -27,23 +26,28 @@ public class UtenteEntity implements Serializable {
     @GeneratedValue( strategy = GenerationType.UUID )
     private UUID idUtente;
     @NotNull
+    @NonNull
     @NotBlank
     @Column( name = "NAME", length = 25 )
     private String nome;
     @NotNull
+    @NonNull
     @NotBlank
     @Column( name = "FIRST_NAME", length = 40 )
     private String cognome;
     @Email
     @NotNull
+    @NonNull
     @NotBlank
     @Column( name = "EMAIL", length = 50 )
     private String email;
     @NotNull
+    @NonNull
     @NotBlank
     @Column( name = "PASSWORD", length = 55 )
     private String password;
     @NotNull
+    @NonNull
     @Column( name = "ROLE" )
     @Enumerated( EnumType.STRING )
     private RuoloEntity role;

@@ -2,10 +2,7 @@ package edu.uniupo.coltivazioni.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
@@ -17,6 +14,8 @@ import java.util.UUID;
 @Entity
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@RequiredArgsConstructor
 @Table( name = "SENSOR" )
 public class SensoreEntity implements Serializable {
 
@@ -25,10 +24,12 @@ public class SensoreEntity implements Serializable {
     @GeneratedValue( strategy = GenerationType.UUID )
     private UUID idSensore;
     @NotNull
+    @NonNull
     @ManyToOne
     @JoinColumn( name = "ID_GREENHOUSE" )
     private SerraEntity serraEntity;
     @NotNull
+    @NonNull
     @Column( name = "TYPE" )
     @Enumerated( EnumType.STRING )
     private TipoSensoreEntity tipo;

@@ -88,16 +88,26 @@ public class RepositoriesCustomMethodTest {
     }
 
     @Test
-    @Disabled
     void findAziendaAgricolaByHimNome () {
-
         String nome = aziendaAgricole.get(1).getNome();
-        Optional<AziendaAgricolaEntity> byNome = aziendaAgricolaRepository.findByNome(nome);
+        Optional<AziendaAgricolaEntity> candidateNomeToExcept = aziendaAgricolaRepository.findByNome(nome);
+        assertThat(candidateNomeToExcept).hasValueSatisfying(aziendaAgricolaEntity -> {
+            assertThat(aziendaAgricolaEntity).isExactlyInstanceOf(AziendaAgricolaEntity.class);
+            assertThat( aziendaAgricolaEntity.getUtenteEntity().getNome()).isEqualTo(aziendaAgricole.get(1).getUtenteEntity().getNome());
+            assertThat( aziendaAgricolaEntity.getIdAziendaAgricola() ).isEqualTo( aziendaAgricole.get( 1 ).getIdAziendaAgricola() );
+            assertThat( aziendaAgricolaEntity.getDescrizione() ).isNotBlank();
+        });
 
     }
 
     @Test
-    @Disabled
     void shouldFindAziendaAgricolaByHimId () {
+        UUID idAziendaAgricola = aziendaAgricole.get(0).getIdAziendaAgricola();
+        Optional<AziendaAgricolaEntity> candidateIdToExcept = aziendaAgricolaRepository.findById(idAziendaAgricola);
+        assertThat(candidateIdToExcept).hasValueSatisfying(aziendaAgricolaEntity -> {
+            assertThat(aziendaAgricolaEntity).isExactlyInstanceOf(AziendaAgricolaEntity.class);
+            assertThat(aziendaAgricolaEntity.getIdAziendaAgricola()).isEqualTo(aziendaAgricole.get(0).getIdAziendaAgricola());
+            assertThat(aziendaAgricolaEntity.getDescrizione()).isNotBlank();
+        });
     }
 }

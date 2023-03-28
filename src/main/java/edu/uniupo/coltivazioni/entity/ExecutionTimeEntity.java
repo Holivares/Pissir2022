@@ -14,13 +14,12 @@ import java.time.LocalTime;
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
+
 public class ExecutionTimeEntity implements Serializable {
-    @NotNull
+
     @NonNull
     @Column( name = "START_TIME" )
     private LocalTime startTime;
-    @NotNull
     @NonNull
     @Column( name = "END_TIME" )
     private LocalTime endTime;

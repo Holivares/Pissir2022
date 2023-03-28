@@ -15,16 +15,14 @@ import java.io.Serializable;
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
+
 public class StatoAttuatoreEntity implements Serializable {
 
     @NotNull
-    @NonNull
     @Column( name = "MODE" )
     @Enumerated( EnumType.STRING )
     private AttuatoreModeEntity mode;
     @NotNull
-    @NonNull
     @Column( name = "STATUS" )
     @Enumerated( EnumType.STRING )
     private AttuatoreStatoEntity stato;

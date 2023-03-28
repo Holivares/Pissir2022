@@ -9,13 +9,13 @@ import java.time.LocalTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
+
 public class ExecutionTimeModel {
     @NotNull( message = "Start time field can't be empty or null" )
-    @NonNull
+
     private LocalTime startTime;
     @NotNull( message = "End time field can't be empty or null" )
-    @NonNull
+
     private LocalTime endTime;
 
 }

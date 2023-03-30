@@ -1,7 +1,6 @@
 package edu.uniupo.coltivazioni.repositoriTests;
 
 import edu.uniupo.coltivazioni.entity.*;
-import edu.uniupo.coltivazioni.model.SensoreModel;
 import edu.uniupo.coltivazioni.repository.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,10 +74,10 @@ public class RepositoriesCustomMethodTest {
         sensori = sensoreRepository.saveAll(asList(sensoreEntity1, sensoreEntity2));
         //Instanzia di Attuatore
 
-        AttuatoreEntity attuatoreEntity1 = new AttuatoreEntity(serre.get(0),new StatoAttuatoreEntity(AttuatoreModeEntity.MANUALE,AttuatoreStatoEntity.ATTIVO),TipoAttuatoreEntity.ILLUMINAZIONE );
-        AttuatoreEntity attuatoreEntity2 = new AttuatoreEntity(serre.get(1),new StatoAttuatoreEntity(AttuatoreModeEntity.AUTOMATICO,AttuatoreStatoEntity.DISATTIVATO),TipoAttuatoreEntity.IRRIGAZIONE );
+        AttuatoreEntity attuatoreEntity1 = new AttuatoreEntity(serre.get(0), new StatoAttuatoreEntity(AttuatoreModeEntity.MANUALE, AttuatoreStatoEntity.ATTIVO), TipoAttuatoreEntity.ILLUMINAZIONE);
+        AttuatoreEntity attuatoreEntity2 = new AttuatoreEntity(serre.get(1), new StatoAttuatoreEntity(AttuatoreModeEntity.AUTOMATICO, AttuatoreStatoEntity.DISATTIVATO), TipoAttuatoreEntity.IRRIGAZIONE);
 
-        attuatori = attuatoreRepository.saveAll(asList(attuatoreEntity1,attuatoreEntity2));
+        attuatori = attuatoreRepository.saveAll(asList(attuatoreEntity1, attuatoreEntity2));
 
         //Instanzia di Misure
 
@@ -88,11 +87,11 @@ public class RepositoriesCustomMethodTest {
         //Instanzia di Irrigazione Pianificatore
 
         IrrigazionePianificatoreEntity pianificatore1 = new IrrigazionePianificatoreEntity(
-                aziendaAgricole.get(0),serre.get(0),"Pianificatore1", LocalDate.of(2023, 4, 12),new ExecutionTimeEntity(LocalTime.of(12,20,00),LocalTime.of(16, 00, 25)));
+                aziendaAgricole.get(0), serre.get(0), "Pianificatore1", LocalDate.of(2023, 4, 12), new ExecutionTimeEntity(LocalTime.of(12, 20, 10), LocalTime.of(16, 40, 25)));
         IrrigazionePianificatoreEntity pianificatore2 = new IrrigazionePianificatoreEntity(
-                aziendaAgricole.get(0),serre.get(0),"Pianificatore2",LocalDate.of(2023, 8, 12), new ExecutionTimeEntity(LocalTime.of(06, 30,40),LocalTime.of(10, 40, 30)));
+                aziendaAgricole.get(0), serre.get(0), "Pianificatore2", LocalDate.of(2023, 8, 12), new ExecutionTimeEntity(LocalTime.of(6, 30, 40), LocalTime.of(10, 40, 30)));
 
-        pianificatori  = pianificatoreRepository.saveAll(asList(pianificatore1,pianificatore2));
+        pianificatori = pianificatoreRepository.saveAll(asList(pianificatore1, pianificatore2));
 
     }
 
@@ -199,7 +198,7 @@ public class RepositoriesCustomMethodTest {
     void shouldFindAttuatoreByIdSerra() {
 
         UUID idSerra = serre.get(0).getIdSerra();
-        Optional<List<AttuatoreEntity>>candidateToExcept = attuatoreRepository.findBySerraEntityIdSerra(idSerra);
+        Optional<List<AttuatoreEntity>> candidateToExcept = attuatoreRepository.findBySerraEntityIdSerra(idSerra);
         assertThat(candidateToExcept).hasValueSatisfying(attuatoreList -> {
             assertThat(attuatoreList.get(0)).isExactlyInstanceOf(AttuatoreEntity.class);
             assertThat(attuatoreList.get(0).getStato()).isEqualTo(attuatori.get(0).getStato());
@@ -252,32 +251,33 @@ public class RepositoriesCustomMethodTest {
 
         });
     }
+
     @Test
-    void shouldFindIrrigazionePianificatoreByIdAziendaAgricola(){
+    void shouldFindIrrigazionePianificatoreByIdAziendaAgricola() {
         UUID idAziendaAgricola = aziendaAgricole.get(0).getIdAziendaAgricola();
         Optional<List<IrrigazionePianificatoreEntity>> candidateToExcept = pianificatoreRepository.findByAziendaAgricolaEntityIdAziendaAgricola(idAziendaAgricola);
-        assertThat(candidateToExcept).hasValueSatisfying(irrigazionePianificatore ->{
+        assertThat(candidateToExcept).hasValueSatisfying(irrigazionePianificatore -> {
             assertThat(irrigazionePianificatore.get(0)).isExactlyInstanceOf(IrrigazionePianificatoreEntity.class);
             assertThat(irrigazionePianificatore.get(0).getAziendaAgricolaEntity().getIdAziendaAgricola()).isEqualTo(idAziendaAgricola);
             assertThat(irrigazionePianificatore.get(0).getDescrizione()).isNotBlank();
             assertThat(irrigazionePianificatore.get(0).getEsecuzioneTempo()).isEqualTo(pianificatori.get(0).getEsecuzioneTempo());
             assertThat(irrigazionePianificatore.get(0).getEsecuzioneData()).isEqualTo(pianificatori.get(0).getEsecuzioneData());
-        } );
+        });
 
     }
+
     @Test
-    void shouldFindIrrigazionePianificatoreByIdserra(){
+    void shouldFindIrrigazionePianificatoreByIdserra() {
         System.out.println(serre.size());
         UUID idSerra = serre.get(0).getIdSerra();
-        Optional<List<IrrigazionePianificatoreEntity>>candidateToExcept = pianificatoreRepository.findBySerraEntityIdSerra(idSerra);
-        assertThat(candidateToExcept).hasValueSatisfying(irrigazionePianificatore ->{
+        Optional<List<IrrigazionePianificatoreEntity>> candidateToExcept = pianificatoreRepository.findBySerraEntityIdSerra(idSerra);
+        assertThat(candidateToExcept).hasValueSatisfying(irrigazionePianificatore -> {
             System.out.println(irrigazionePianificatore.size());
             assertThat(irrigazionePianificatore.get(0)).isExactlyInstanceOf(IrrigazionePianificatoreEntity.class);
             assertThat(irrigazionePianificatore.get(0).getDescrizione()).isNotBlank();
             assertThat(irrigazionePianificatore.get(0).getEsecuzioneTempo()).isEqualTo(pianificatori.get(0).getEsecuzioneTempo());
             assertThat(irrigazionePianificatore.get(0).getEsecuzioneData()).isEqualTo(pianificatori.get(0).getEsecuzioneData());
-        } );
-
+        });
 
     }
 

@@ -16,13 +16,16 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 
+
 public class StatoAttuatoreEntity implements Serializable {
 
     @NotNull
+
     @Column( name = "MODE" )
     @Enumerated( EnumType.STRING )
     private AttuatoreModeEntity mode;
     @NotNull
+
     @Column( name = "STATUS" )
     @Enumerated( EnumType.STRING )
     private AttuatoreStatoEntity stato;

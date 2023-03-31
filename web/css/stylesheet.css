@@ -7,14 +7,14 @@ html, body {
 }
 
 
-form.nav-login {
-    width: clamp(60%, 40rem, 50%);
+form.nav-login, section.login-content {
     max-width: max-content;
 }
 
 .navbar-collapse:has(form.nav-login) {
     justify-content: space-between;
     flex-grow: 0.5;
+    animation: leftToRiht 0.5s both;
 }
 
 .btn:first-child:active {
@@ -32,4 +32,13 @@ form.nav-login {
 .column-gap-3x2 {
     column-gap: 3rem;
     row-gap: 2rem;
+}
+
+@keyframes leftToRiht {
+    0% {
+        transform: translateX(-10rem);
+    }
+    100% {
+        transform: translateX(0px);
+    }
 }

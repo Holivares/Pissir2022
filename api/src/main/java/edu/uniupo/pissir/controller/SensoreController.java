@@ -2,6 +2,7 @@ package edu.uniupo.pissir.controller;
 
 import edu.uniupo.pissir.model.SensoreModel;
 import edu.uniupo.pissir.service.SensoreService;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,15 +26,15 @@ public class SensoreController {
 
     @PostMapping( produces = "application/json" )
     @ResponseStatus( value = HttpStatus.CREATED )
-    public SensoreModel createSensore ( @RequestBody SensoreModel sensoreModel ) throws Exception {
+    public SensoreModel createSensore ( HttpSession session, @RequestBody SensoreModel sensoreModel ) throws Exception {
         logger.info( "i'm in the controller to create an sensore ..." );
-        return sensoreService.createSensore( sensoreModel );
+        return sensoreService.createSensore( session, sensoreModel );
     }
 
     @GetMapping( value = "/{idSerra}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.FOUND )
-    public List<SensoreModel> findSensoreByIdSerra ( @PathVariable UUID idSerra ) throws Exception {
+    public List<SensoreModel> findSensoreByIdSerra ( HttpSession session, @PathVariable UUID idSerra ) throws Exception {
         logger.info( "i'm in the controller to find an sensore by idSerra ..." );
-        return sensoreService.findSensoreByIdSerra( idSerra );
+        return sensoreService.findSensoreByIdSerra( session, idSerra );
     }
 }

@@ -7,6 +7,7 @@ import edu.uniupo.pissir.model.MisuraModel;
 import edu.uniupo.pissir.repository.MisuraRepository;
 import edu.uniupo.pissir.service.MisuraService;
 import edu.uniupo.pissir.utility.OptionalUnpacker;
+import jakarta.servlet.http.HttpSession;
 import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,7 @@ public class MisuraServiceImpl implements MisuraService {
     }
 
     @Override
-    public MisuraModel createMisura ( MisuraModel misuraModel ) throws Exception {
+    public MisuraModel createMisura ( HttpSession session, MisuraModel misuraModel ) throws Exception {
         logger.info( "The find misura by his id method has been called ..." );
         DefaultModel.checkModelType( misuraModel, this.getClass().getName(), "createMisura" );
         MisuraEntity misuraEntity = misuraRepository.save( mapper.modelToEntityOfMisura( misuraModel ) );
@@ -39,7 +40,7 @@ public class MisuraServiceImpl implements MisuraService {
     }
 
     @Override
-    public MisuraModel findMisuraById ( UUID idMisura ) throws Exception {
+    public MisuraModel findMisuraById ( HttpSession session, UUID idMisura ) throws Exception {
         logger.info( "The find misura by his id method has been called ..." );
         MisuraEntity misura = OptionalUnpacker.unpackerOrThrows( misuraRepository.findById( idMisura ),
                                                                  "Have not found data of misura with the given id" );
@@ -47,7 +48,7 @@ public class MisuraServiceImpl implements MisuraService {
     }
 
     @Override
-    public List<MisuraModel> findMisuraBySensoreId ( UUID idSensore ) throws Exception {
+    public List<MisuraModel> findMisuraBySensoreId ( HttpSession session, UUID idSensore ) throws Exception {
         logger.info( "The find misura by id sensore method has been called ..." );
         List<MisuraEntity> misura = OptionalUnpacker.unpackerOrThrows( misuraRepository.findBySensoreEntityIdSensore( idSensore ),
                                                                        "Have not found data of misura with the given id of sensore" );

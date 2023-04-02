@@ -3,6 +3,7 @@ package edu.uniupo.pissir.controller;
 import edu.uniupo.pissir.model.DeleteResponseModel;
 import edu.uniupo.pissir.model.IrrigazionePianificatoreModel;
 import edu.uniupo.pissir.service.IrrigazionePianificatoreService;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,39 +27,42 @@ public class IrrigazionePianificatoreController {
 
     @PostMapping( produces = "application/json" )
     @ResponseStatus( value = HttpStatus.CREATED )
-    public IrrigazionePianificatoreModel createIrrigazionePianificatore ( @RequestBody IrrigazionePianificatoreModel irrigazionePianificatoreModel
+    public IrrigazionePianificatoreModel createIrrigazionePianificatore ( HttpSession session,
+                                                                          @RequestBody IrrigazionePianificatoreModel irrigazionePianificatoreModel
                                                                         ) throws Exception {
         logger.info( "i'm in the controller to create an pianificatore ..." );
-        return irrigazionePianificatoreService.createIrrigazionePianificatore( irrigazionePianificatoreModel );
+        return irrigazionePianificatoreService.createIrrigazionePianificatore( session, irrigazionePianificatoreModel );
     }
 
     @PutMapping( produces = "application/json" )
     @ResponseStatus( value = HttpStatus.OK )
-    public IrrigazionePianificatoreModel updateIrrigazionePianificatore ( @RequestBody IrrigazionePianificatoreModel irrigazionePianificatoreModel
+    public IrrigazionePianificatoreModel updateIrrigazionePianificatore ( HttpSession session,
+                                                                          @RequestBody IrrigazionePianificatoreModel irrigazionePianificatoreModel
                                                                         ) throws Exception {
         logger.info( "i'm in the controller to update an pianificatore ..." );
-        return irrigazionePianificatoreService.updateIrrigazionePianificatore( irrigazionePianificatoreModel );
+        return irrigazionePianificatoreService.updateIrrigazionePianificatore( session, irrigazionePianificatoreModel );
     }
 
     @DeleteMapping( value = "/{idIrrigazionePianificatore}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.OK )
-    public DeleteResponseModel deleteIrrigazionePianificatore ( @PathVariable UUID idIrrigazionePianificatore ) throws Exception {
+    public DeleteResponseModel deleteIrrigazionePianificatore ( HttpSession session, @PathVariable UUID idIrrigazionePianificatore ) throws Exception {
         logger.info( "i'm in controller to delete an pianificatore ..." );
-        return irrigazionePianificatoreService.deleteIrrigazionePianificatoreById( idIrrigazionePianificatore );
+        return irrigazionePianificatoreService.deleteIrrigazionePianificatoreById( session, idIrrigazionePianificatore );
     }
 
     @GetMapping( value = "/{idAziendaAgricola}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.FOUND )
-    public List<IrrigazionePianificatoreModel> findIrrigazionePianificatoreByIdAziendaAgricola ( @PathVariable UUID idAziendaAgricola ) throws Exception {
+    public List<IrrigazionePianificatoreModel> findIrrigazionePianificatoreByIdAziendaAgricola ( HttpSession session,
+                                                                                                 @PathVariable UUID idAziendaAgricola ) throws Exception {
         logger.info( "i'm in the controller to find an pianificatore by AziendaAgricola id ..." );
-        return irrigazionePianificatoreService.findIrrigazionePianificatoreByIdAziendaAgricola( idAziendaAgricola );
+        return irrigazionePianificatoreService.findIrrigazionePianificatoreByIdAziendaAgricola( session, idAziendaAgricola );
     }
 
     @GetMapping( value = "/{idSerra}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.FOUND )
-    public List<IrrigazionePianificatoreModel> findIrrigazionePianificatoreByIdSerra ( @PathVariable UUID idSerra ) throws Exception {
+    public List<IrrigazionePianificatoreModel> findIrrigazionePianificatoreByIdSerra ( HttpSession session, @PathVariable UUID idSerra ) throws Exception {
         logger.info( "i'm in controller to find an pianificatore by Serra id ..." );
-        return irrigazionePianificatoreService.findIrrigazionePianificatoreByIdserra( idSerra );
+        return irrigazionePianificatoreService.findIrrigazionePianificatoreByIdserra( session, idSerra );
     }
 
 }

@@ -2,6 +2,7 @@ package edu.uniupo.pissir.controller;
 
 import edu.uniupo.pissir.model.MisuraModel;
 import edu.uniupo.pissir.service.MisuraService;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,22 +26,22 @@ public class MisuraController {
 
     @PostMapping( produces = "application/json" )
     @ResponseStatus( value = HttpStatus.CREATED )
-    public MisuraModel createMisura ( @RequestBody MisuraModel misuraModel ) throws Exception {
+    public MisuraModel createMisura ( HttpSession session, @RequestBody MisuraModel misuraModel ) throws Exception {
         logger.info( "i'm in the controller to create an misura ..." );
-        return misuraService.createMisura( misuraModel );
+        return misuraService.createMisura( session, misuraModel );
     }
 
     @GetMapping( value = "/{idMisura}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.OK )
-    public MisuraModel findMisuraById ( @PathVariable UUID idMisura ) throws Exception {
+    public MisuraModel findMisuraById ( HttpSession session, @PathVariable UUID idMisura ) throws Exception {
         logger.info( "i'm in the controller to find misura by id ..." );
-        return misuraService.findMisuraById( idMisura );
+        return misuraService.findMisuraById( session, idMisura );
     }
 
     @GetMapping( value = "/{idSensore}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.OK )
-    public List<MisuraModel> findMisuraByIdSensore ( @PathVariable UUID idSensore ) throws Exception {
+    public List<MisuraModel> findMisuraByIdSensore ( HttpSession session, @PathVariable UUID idSensore ) throws Exception {
         logger.info( "i'm in the controller to find misura by sensore id ..." );
-        return misuraService.findMisuraBySensoreId( idSensore );
+        return misuraService.findMisuraBySensoreId( session, idSensore );
     }
 }

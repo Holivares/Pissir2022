@@ -8,6 +8,7 @@ import edu.uniupo.pissir.model.SerraModel;
 import edu.uniupo.pissir.repository.SerraRepository;
 import edu.uniupo.pissir.service.SerraService;
 import edu.uniupo.pissir.utility.OptionalUnpacker;
+import jakarta.servlet.http.HttpSession;
 import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,7 @@ public class SerraServiceImpl implements SerraService {
     }
 
     @Override
-    public SerraModel createSerra ( SerraModel serraModel ) throws Exception {
+    public SerraModel createSerra ( HttpSession session, SerraModel serraModel ) throws Exception {
         logger.info( "The create serra method has been called ..." );
         DefaultModel.checkModelType( serraModel, this.getClass().getName(), "createSerra" );
         SerraEntity serraEntity = serraRepository.save( mapper.modelToEntityOfSerra( serraModel ) );
@@ -38,7 +39,7 @@ public class SerraServiceImpl implements SerraService {
     }
 
     @Override
-    public SerraModel updateSerra ( SerraModel serraModel ) throws Exception {
+    public SerraModel updateSerra ( HttpSession session, SerraModel serraModel ) throws Exception {
         logger.info( "The update serra method has been called ..." );
         DefaultModel.checkModelType( serraModel, this.getClass().getName(), "updateSerra" );
         SerraEntity oldSerra = OptionalUnpacker.unpackerOrThrows( serraRepository.findById( serraModel.getIdSerra() ),
@@ -48,7 +49,7 @@ public class SerraServiceImpl implements SerraService {
     }
 
     @Override
-    public DeleteResponseModel deleteSerra ( UUID idSerra ) throws Exception {
+    public DeleteResponseModel deleteSerra ( HttpSession session, UUID idSerra ) throws Exception {
         logger.info( "The delete serra method has been called ..." );
         SerraEntity serraEntity = OptionalUnpacker.unpackerOrThrows( serraRepository.findById( idSerra ),
                                                                      "Not found data of this serra in server" );
@@ -57,7 +58,7 @@ public class SerraServiceImpl implements SerraService {
     }
 
     @Override
-    public List<SerraModel> findSerraByIdAziendaAgricola ( UUID idAziendaAgricola ) throws Exception {
+    public List<SerraModel> findSerraByIdAziendaAgricola ( HttpSession session, UUID idAziendaAgricola ) throws Exception {
         logger.info( "The find serra with id of azienda method has been called ..." );
         List<SerraEntity> serre = OptionalUnpacker.unpackerOrThrows( serraRepository.findByAziendaAgricolaEntityIdAziendaAgricola( idAziendaAgricola ),
                                                                      "Have not found data of serra with the given id of azienda" );

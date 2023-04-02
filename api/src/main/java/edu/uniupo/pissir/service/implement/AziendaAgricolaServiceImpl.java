@@ -10,6 +10,7 @@ import edu.uniupo.pissir.repository.AziendaAgricolaRepository;
 import edu.uniupo.pissir.service.AziendaAgricolaService;
 import edu.uniupo.pissir.service.thrower.ServiceThrower;
 import edu.uniupo.pissir.utility.OptionalUnpacker;
+import jakarta.servlet.http.HttpSession;
 import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,6 @@ import java.util.UUID;
 public class AziendaAgricolaServiceImpl implements AziendaAgricolaService {
     private final AziendaAgricolaRepository aziendaAgricolaRepository;
     private final ModelsToEntities mapper = Mappers.getMapper( ModelsToEntities.class );
-
     private final ServiceThrower<Exception> serviceThrower = ( exception ) -> {throw exception;};
     private final Logger logger = LoggerFactory.getLogger( AziendaAgricolaServiceImpl.class );
 
@@ -34,7 +34,7 @@ public class AziendaAgricolaServiceImpl implements AziendaAgricolaService {
     }
 
     @Override
-    public AziendaAgricolaModel createAziendaAgricola ( AziendaAgricolaModel aziendaAgricolaModel ) throws Exception {
+    public AziendaAgricolaModel createAziendaAgricola ( HttpSession session, AziendaAgricolaModel aziendaAgricolaModel ) throws Exception {
         logger.info( "The create aziendaAgricola method has been called ..." );
         DefaultModel.checkModelType( aziendaAgricolaModel, this.getClass().getName(), "createAziendaAgricola" );
         AziendaAgricolaEntity aziendaAgricola = OptionalUnpacker.unpacker( aziendaAgricolaRepository
@@ -47,7 +47,7 @@ public class AziendaAgricolaServiceImpl implements AziendaAgricolaService {
     }
 
     @Override
-    public AziendaAgricolaModel updateAziendaAgricola ( AziendaAgricolaModel aziendaAgricolaModel ) throws Exception {
+    public AziendaAgricolaModel updateAziendaAgricola ( HttpSession session, AziendaAgricolaModel aziendaAgricolaModel ) throws Exception {
         logger.info( "The update aziendaAgricola method has been called ..." );
         DefaultModel.checkModelType( aziendaAgricolaModel, this.getClass().getName(), "updateAziendaAgricola" );
         AziendaAgricolaEntity oldAziendaAgricola =
@@ -58,7 +58,7 @@ public class AziendaAgricolaServiceImpl implements AziendaAgricolaService {
     }
 
     @Override
-    public DeleteResponseModel deleteAziendaAgricola ( UUID idAziendaAgricola ) throws Exception {
+    public DeleteResponseModel deleteAziendaAgricola ( HttpSession session, UUID idAziendaAgricola ) throws Exception {
         logger.info( "The delete aziendaAgricola method has been called ..." );
         AziendaAgricolaEntity aziendaAgricola = OptionalUnpacker.unpackerOrThrows( aziendaAgricolaRepository.findById( idAziendaAgricola ),
                                                                                    "Not found data of this azienda in server" );
@@ -67,15 +67,16 @@ public class AziendaAgricolaServiceImpl implements AziendaAgricolaService {
     }
 
     @Override
-    public AziendaAgricolaModel findAziendaAgricolaByIdUser ( UUID idUtente ) throws Exception {
+    public AziendaAgricolaModel findAziendaAgricolaByIdUser ( HttpSession session, UUID idUtente ) throws Exception {
         logger.info( "The find aziendaAgricola by id of user method has been called ..." );
+        logger.info( "session is registered by role : " + session.getAttribute( "role" ) );
         AziendaAgricolaEntity aziendaAgricola = OptionalUnpacker.unpackerOrThrows( aziendaAgricolaRepository.findByUtenteEntityIdUtente( idUtente ),
                                                                                    "Not found data of this azienda in server" );
         return mapper.entityToModelOfAziendaAgricola( aziendaAgricola );
     }
 
     @Override
-    public AziendaAgricolaModel findAziendaAgricolaById ( UUID idAziendaAgricola ) throws Exception {
+    public AziendaAgricolaModel findAziendaAgricolaById ( HttpSession session, UUID idAziendaAgricola ) throws Exception {
         logger.info( "The find aziendaAgricola with his id method has been called ..." );
         AziendaAgricolaEntity aziendaAgricola = OptionalUnpacker.unpackerOrThrows( aziendaAgricolaRepository.findById( idAziendaAgricola ),
                                                                                    "Not found data of this azienda in server" );
@@ -83,7 +84,7 @@ public class AziendaAgricolaServiceImpl implements AziendaAgricolaService {
     }
 
     @Override
-    public AziendaAgricolaModel findAziendaAgricolaByName ( String nome ) throws Exception {
+    public AziendaAgricolaModel findAziendaAgricolaByName ( HttpSession session, String nome ) throws Exception {
         logger.info( "The find aziendaAgricola with his name method has been called ..." );
         AziendaAgricolaEntity aziendaAgricola = OptionalUnpacker.unpackerOrThrows( aziendaAgricolaRepository.findByNome( nome ),
                                                                                    "Not found data of this azienda in server" );

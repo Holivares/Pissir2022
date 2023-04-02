@@ -3,6 +3,7 @@ package edu.uniupo.pissir.controller;
 import edu.uniupo.pissir.model.AziendaAgricolaModel;
 import edu.uniupo.pissir.model.DeleteResponseModel;
 import edu.uniupo.pissir.service.AziendaAgricolaService;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,43 +25,43 @@ public class AziendaAgricolaController {
 
     @PostMapping( produces = "application/json" )
     @ResponseStatus( value = HttpStatus.CREATED )
-    public AziendaAgricolaModel createAziendaAgricola ( @RequestBody AziendaAgricolaModel aziendaAgricolaModel ) throws Exception {
+    public AziendaAgricolaModel createAziendaAgricola ( HttpSession session, @RequestBody AziendaAgricolaModel aziendaAgricolaModel ) throws Exception {
         logger.info( "i'm in the controller to create an azienda agricola ..." );
-        return aziendaAgricolaService.createAziendaAgricola( aziendaAgricolaModel );
+        return aziendaAgricolaService.createAziendaAgricola( session, aziendaAgricolaModel );
     }
 
     @PutMapping( produces = "application/json" )
     @ResponseStatus( value = HttpStatus.OK )
-    public AziendaAgricolaModel updateAziendaAgricola ( @RequestBody AziendaAgricolaModel aziendaAgricolaModel ) throws Exception {
+    public AziendaAgricolaModel updateAziendaAgricola ( HttpSession session, @RequestBody AziendaAgricolaModel aziendaAgricolaModel ) throws Exception {
         logger.info( "i'm in the controller to update an azienda agricola ..." );
-        return aziendaAgricolaService.updateAziendaAgricola( aziendaAgricolaModel );
+        return aziendaAgricolaService.updateAziendaAgricola( session, aziendaAgricolaModel );
     }
 
     @DeleteMapping( value = "/{idAziendaAgricola}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.OK )
-    public DeleteResponseModel deleteAziendaAgricola ( @PathVariable UUID idAziendaAgricola ) throws Exception {
+    public DeleteResponseModel deleteAziendaAgricola ( HttpSession session, @PathVariable UUID idAziendaAgricola ) throws Exception {
         logger.info( "i'm in the controller to delete an azienda agricola ..." );
-        return aziendaAgricolaService.deleteAziendaAgricola( idAziendaAgricola );
+        return aziendaAgricolaService.deleteAziendaAgricola( session, idAziendaAgricola );
     }
 
     @GetMapping( value = "/by_utente/{idUtente}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.FOUND )
-    public AziendaAgricolaModel findAziendaAgricolaByIdUser ( @PathVariable UUID idUtente ) throws Exception {
+    public AziendaAgricolaModel findAziendaAgricolaByIdUser ( HttpSession session, @PathVariable UUID idUtente ) throws Exception {
         logger.info( "i'm in the controller to find an azienda agricola by User id ..." );
-        return aziendaAgricolaService.findAziendaAgricolaByIdUser( idUtente );
+        return aziendaAgricolaService.findAziendaAgricolaByIdUser( session, idUtente );
     }
 
     @GetMapping( value = "/by_identifiant/{idAziendaAgricola}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.FOUND )
-    public AziendaAgricolaModel findAziendaAgricolaById ( @PathVariable UUID idAziendaAgricola ) throws Exception {
+    public AziendaAgricolaModel findAziendaAgricolaById ( HttpSession session, @PathVariable UUID idAziendaAgricola ) throws Exception {
         logger.info( "i'm in the controller to find an azienda agricola by AziendaAgricola id ..." );
-        return aziendaAgricolaService.findAziendaAgricolaById( idAziendaAgricola );
+        return aziendaAgricolaService.findAziendaAgricolaById( session, idAziendaAgricola );
     }
 
     @GetMapping( value = "/by_name/{nome}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.FOUND )
-    public AziendaAgricolaModel findAziendaAgricolaByName ( @PathVariable String nome ) throws Exception {
+    public AziendaAgricolaModel findAziendaAgricolaByName ( HttpSession session, @PathVariable String nome ) throws Exception {
         logger.info( "i'm in the controller to find an azienda agricola by name ..." );
-        return aziendaAgricolaService.findAziendaAgricolaByName( nome );
+        return aziendaAgricolaService.findAziendaAgricolaByName( session, nome );
     }
 }

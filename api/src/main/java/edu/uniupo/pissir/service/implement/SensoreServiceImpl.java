@@ -7,6 +7,7 @@ import edu.uniupo.pissir.model.SensoreModel;
 import edu.uniupo.pissir.repository.SensoreRepository;
 import edu.uniupo.pissir.service.SensoreService;
 import edu.uniupo.pissir.utility.OptionalUnpacker;
+import jakarta.servlet.http.HttpSession;
 import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +30,7 @@ public class SensoreServiceImpl implements SensoreService {
     }
 
     @Override
-    public SensoreModel createSensore ( SensoreModel sensoreModel ) throws Exception {
+    public SensoreModel createSensore ( HttpSession session, SensoreModel sensoreModel ) throws Exception {
         logger.info( "The create sensore method has been called ..." );
         DefaultModel.checkModelType( sensoreModel, this.getClass().getName(), "createSensore" );
         SensoreEntity sensoreEntity = sensoreRepository.save( mapper.modelToEntityOfSensore( sensoreModel ) );
@@ -37,7 +38,7 @@ public class SensoreServiceImpl implements SensoreService {
     }
 
     @Override
-    public List<SensoreModel> findSensoreByIdSerra ( UUID idSerra ) throws Exception {
+    public List<SensoreModel> findSensoreByIdSerra ( HttpSession session, UUID idSerra ) throws Exception {
         logger.info( "The find sensore by id serra method has been called ..." );
         List<SensoreEntity> sensore = OptionalUnpacker.unpackerOrThrows( sensoreRepository.findBySerraEntityIdSerra( idSerra ),
                                                                          "Have not found data of sensore with the given id of serra" );

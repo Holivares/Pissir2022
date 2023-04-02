@@ -8,6 +8,7 @@ import edu.uniupo.pissir.model.DefaultModel;
 import edu.uniupo.pissir.repository.AttuatoreRepository;
 import edu.uniupo.pissir.service.AttuatoreService;
 import edu.uniupo.pissir.utility.OptionalUnpacker;
+import jakarta.servlet.http.HttpSession;
 import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,7 @@ public class AttuatoreServiceImpl implements AttuatoreService {
     }
 
     @Override
-    public AttuatoreModel createAttuatore ( AttuatoreModel attuatoreModel ) throws Exception {
+    public AttuatoreModel createAttuatore ( HttpSession session, AttuatoreModel attuatoreModel ) throws Exception {
         logger.info( "The create attuatore method has been called ..." );
         DefaultModel.checkModelType( attuatoreModel, AttuatoreServiceImpl.class.getName(), "createAttuatore" );
         AttuatoreEntity attuatoreEntity = attuatoreRepository.save( mapper.modelToEntityOfAttuatore( attuatoreModel ) );
@@ -41,7 +42,7 @@ public class AttuatoreServiceImpl implements AttuatoreService {
     }
 
     @Override
-    public List<AttuatoreModel> findAttuatoreByIdSerra ( UUID idSerra ) throws Exception {
+    public List<AttuatoreModel> findAttuatoreByIdSerra ( HttpSession session, UUID idSerra ) throws Exception {
         logger.info( "The update attuatore method has been called..." );
         List<AttuatoreEntity> attuatoreEntityList = OptionalUnpacker.unpackerOrThrows( attuatoreRepository.findBySerraEntityIdSerra( idSerra ), "Not found data " +
                                                                                                                                                 "of this " +
@@ -51,7 +52,7 @@ public class AttuatoreServiceImpl implements AttuatoreService {
     }
 
     @Override
-    public AttuatoreModel enableAttuatore ( UUID idAttuatore ) throws Exception {
+    public AttuatoreModel enableAttuatore ( HttpSession session, UUID idAttuatore ) throws Exception {
         logger.info( "The enable attuatore method has been called..." );
         AttuatoreEntity attuatoreEntity = OptionalUnpacker.unpackerOrThrows( attuatoreRepository.findById( idAttuatore ), "Not found data of this attuatore in " +
                                                                                                                           "server" );
@@ -60,7 +61,7 @@ public class AttuatoreServiceImpl implements AttuatoreService {
     }
 
     @Override
-    public AttuatoreModel disableAttuatore ( UUID idAttuatore ) throws Exception {
+    public AttuatoreModel disableAttuatore ( HttpSession session, UUID idAttuatore ) throws Exception {
         logger.info( "The disable attuatore method has been called..." );
         AttuatoreEntity attuatoreEntity = OptionalUnpacker.unpackerOrThrows( attuatoreRepository.findById( idAttuatore ), "Not found data of this attuatore in " +
                                                                                                                           "server" );

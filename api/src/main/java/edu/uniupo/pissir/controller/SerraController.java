@@ -3,6 +3,7 @@ package edu.uniupo.pissir.controller;
 import edu.uniupo.pissir.model.DeleteResponseModel;
 import edu.uniupo.pissir.model.SerraModel;
 import edu.uniupo.pissir.service.SerraService;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,30 +27,30 @@ public class SerraController {
 
     @PostMapping( produces = "application/json" )
     @ResponseStatus( value = HttpStatus.CREATED )
-    public SerraModel createSerra ( @RequestBody SerraModel serraModel ) throws Exception {
+    public SerraModel createSerra ( HttpSession session, @RequestBody SerraModel serraModel ) throws Exception {
         logger.info( "i'm in the controller to create an serra ..." );
-        return serraService.createSerra( serraModel );
+        return serraService.createSerra( session, serraModel );
     }
 
     @PutMapping( produces = "application/json" )
     @ResponseStatus( value = HttpStatus.OK )
-    public SerraModel updateSerra ( @RequestBody SerraModel serraModel ) throws Exception {
+    public SerraModel updateSerra ( HttpSession session, @RequestBody SerraModel serraModel ) throws Exception {
         logger.info( "i'm in the controller to update an serra ..." );
-        return serraService.updateSerra( serraModel );
+        return serraService.updateSerra( session, serraModel );
     }
 
     @DeleteMapping( value = "/{idSerra}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.OK )
-    public DeleteResponseModel deleteSerra ( @PathVariable UUID idSerra ) throws Exception {
+    public DeleteResponseModel deleteSerra ( HttpSession session, @PathVariable UUID idSerra ) throws Exception {
         logger.info( "i'm in the controller to delete an serra ..." );
-        return serraService.deleteSerra( idSerra );
+        return serraService.deleteSerra( session, idSerra );
     }
 
     @GetMapping( value = "/{idAziendaAgricola}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.FOUND )
-    public List<SerraModel> findSerraByIdAziendaAgricola ( @PathVariable UUID idAziendaAgricola ) throws Exception {
+    public List<SerraModel> findSerraByIdAziendaAgricola ( HttpSession session, @PathVariable UUID idAziendaAgricola ) throws Exception {
         logger.info( "i'm in the controller to find an serra by AziendaAgricola id ..." );
-        return serraService.findSerraByIdAziendaAgricola( idAziendaAgricola );
+        return serraService.findSerraByIdAziendaAgricola( session, idAziendaAgricola );
     }
 
 }

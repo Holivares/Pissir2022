@@ -8,6 +8,7 @@ import edu.uniupo.pissir.model.UtenteModel;
 import edu.uniupo.pissir.repository.UtenteRepository;
 import edu.uniupo.pissir.service.UtenteService;
 import edu.uniupo.pissir.service.implement.UtenteServiceImpl;
+import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,6 +31,8 @@ public class UtenteEntityServiceTest {
 
     @Mock
     private UtenteRepository utenteRepository;
+    @Mock
+    private HttpSession session;
     private final ModelsToEntities mapper = spy( Mappers.getMapper( ModelsToEntities.class ) );
     private UtenteService utenteService;
 
@@ -54,7 +57,7 @@ public class UtenteEntityServiceTest {
         when( mapper.modelToEntityOfUtente( utenteModel ) ).thenCallRealMethod();
         when( mapper.entityToModelOfUtente( utenteEntity ) ).thenCallRealMethod();
 
-        UtenteModel candidateForEvaluation = utenteService.createUtente( utenteModel );
+        UtenteModel candidateForEvaluation = utenteService.createUtente( session, utenteModel );
 
         //Then
         verify( utenteRepository ).save( repositorySaveParamCaptor.capture() );

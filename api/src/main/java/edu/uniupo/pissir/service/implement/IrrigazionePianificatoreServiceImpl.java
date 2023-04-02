@@ -9,6 +9,7 @@ import edu.uniupo.pissir.model.IrrigazionePianificatoreModel;
 import edu.uniupo.pissir.repository.IrrigazionePianificatoreRepository;
 import edu.uniupo.pissir.service.IrrigazionePianificatoreService;
 import edu.uniupo.pissir.utility.OptionalUnpacker;
+import jakarta.servlet.http.HttpSession;
 import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,8 @@ public class IrrigazionePianificatoreServiceImpl implements IrrigazionePianifica
     }
 
     @Override
-    public IrrigazionePianificatoreModel createIrrigazionePianificatore ( IrrigazionePianificatoreModel irrigazionePianificatoreModel ) throws Exception {
+    public IrrigazionePianificatoreModel createIrrigazionePianificatore ( HttpSession session,
+                                                                          IrrigazionePianificatoreModel irrigazionePianificatoreModel ) throws Exception {
         logger.info( "The create irrigation planing method has been called ..." );
         DefaultModel.checkModelType( irrigazionePianificatoreModel, this.getClass().getName(), "createIrrigazionePianificatore" );
         IrrigazionePianificatoreEntity pianificatore =
@@ -42,7 +44,7 @@ public class IrrigazionePianificatoreServiceImpl implements IrrigazionePianifica
     }
 
     @Override
-    public IrrigazionePianificatoreModel updateIrrigazionePianificatore ( IrrigazionePianificatoreModel irrigazionePianificatoreModel
+    public IrrigazionePianificatoreModel updateIrrigazionePianificatore ( HttpSession session, IrrigazionePianificatoreModel irrigazionePianificatoreModel
                                                                         ) throws NotFoundEntityException {
         logger.info( "The update irrigation planing method has been called ..." );
         IrrigazionePianificatoreEntity oldIrrigazionePianificatore =
@@ -53,7 +55,7 @@ public class IrrigazionePianificatoreServiceImpl implements IrrigazionePianifica
     }
 
     @Override
-    public DeleteResponseModel deleteIrrigazionePianificatoreById ( UUID idIrrigazionePianificatore ) throws Exception {
+    public DeleteResponseModel deleteIrrigazionePianificatoreById ( HttpSession session, UUID idIrrigazionePianificatore ) throws Exception {
         logger.info( "The delete irrigation planing method has been called ..." );
         IrrigazionePianificatoreEntity irrigazionePianificatore =
                 OptionalUnpacker.unpackerOrThrows( irrigazionePianificatoreRepository.findById( idIrrigazionePianificatore ),
@@ -63,7 +65,7 @@ public class IrrigazionePianificatoreServiceImpl implements IrrigazionePianifica
     }
 
     @Override
-    public List<IrrigazionePianificatoreModel> findIrrigazionePianificatoreByIdAziendaAgricola ( UUID idAziendaAgricola ) throws Exception {
+    public List<IrrigazionePianificatoreModel> findIrrigazionePianificatoreByIdAziendaAgricola ( HttpSession session, UUID idAziendaAgricola ) throws Exception {
         logger.info( "The find irrigation planing by id of azienda agricola method has called ..." );
         List<IrrigazionePianificatoreEntity> irrigazionePianificatoreEntities =
                 OptionalUnpacker.unpackerOrThrows( irrigazionePianificatoreRepository.findByAziendaAgricolaEntityIdAziendaAgricola( idAziendaAgricola ),
@@ -72,7 +74,7 @@ public class IrrigazionePianificatoreServiceImpl implements IrrigazionePianifica
     }
 
     @Override
-    public List<IrrigazionePianificatoreModel> findIrrigazionePianificatoreByIdserra ( UUID idSerra ) throws Exception {
+    public List<IrrigazionePianificatoreModel> findIrrigazionePianificatoreByIdserra ( HttpSession session, UUID idSerra ) throws Exception {
         logger.info( "The find irrigation planing by id of serra method called ..." );
         List<IrrigazionePianificatoreEntity> irrigazionePianificatoreEntities =
                 OptionalUnpacker.unpackerOrThrows( irrigazionePianificatoreRepository.findBySerraEntityIdSerra( idSerra ),

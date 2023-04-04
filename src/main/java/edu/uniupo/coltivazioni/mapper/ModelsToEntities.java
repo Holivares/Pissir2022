@@ -5,10 +5,10 @@ import edu.uniupo.coltivazioni.model.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-
 @Mapper()
 public abstract class ModelsToEntities {
 

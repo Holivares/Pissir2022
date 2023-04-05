@@ -5,7 +5,7 @@ import edu.uniupo.coltivazioni.model.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.springframework.stereotype.Component;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,9 +55,7 @@ public abstract class ModelsToEntities {
     @Mapping( target = "idSerra", source = "serraEntity.idSerra" )
     public abstract IrrigazionePianificatoreModel entityToModelOfIrrigazionePianificatore ( IrrigazionePianificatoreEntity irrigazionePianificatoreEntity );
 
-    public List<IrrigazionePianificatoreModel> entityToModelListOfIrrigazionePianificatore (
-            List<IrrigazionePianificatoreEntity> irrigazionePianificatoreEntities
-                                                                                           ) {
+    public List<IrrigazionePianificatoreModel> entityToModelListOfIrrigazionePianificatore (List<IrrigazionePianificatoreEntity> irrigazionePianificatoreEntities) {
         List<IrrigazionePianificatoreModel> irrigazionePianificatoreModels = new ArrayList<>();
         irrigazionePianificatoreEntities.forEach( irrigazionePianificatoreEntity -> irrigazionePianificatoreModels.add( entityToModelOfIrrigazionePianificatore( irrigazionePianificatoreEntity ) ) );
         return irrigazionePianificatoreModels;

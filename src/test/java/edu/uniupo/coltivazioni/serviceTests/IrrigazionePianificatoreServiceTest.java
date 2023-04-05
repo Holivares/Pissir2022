@@ -8,7 +8,6 @@ import edu.uniupo.coltivazioni.repository.IrrigazionePianificatoreRepository;
 import edu.uniupo.coltivazioni.service.IrrigazionePianificatoreService;
 import edu.uniupo.coltivazioni.service.implement.IrrigazionePianificatoreServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -39,17 +38,16 @@ public class IrrigazionePianificatoreServiceTest {
     private IrrigazionePianificatoreModel irrigazionePianificatoreModel;
     private AziendaAgricolaEntity aziendaAgricolaEntity;
     private SerraEntity serraEntity;
-    private UtenteEntity utenteEntity;
 
 
     @BeforeEach
     void setUp() {
-
+        //Appel du costruttore
         pianificatoreService = new IrrigazionePianificatoreServiceImpl(pianificatoreRepository);
 
         irrigazionePianificatoreModel = new IrrigazionePianificatoreModel();
 
-        utenteEntity = new UtenteEntity(UUID.randomUUID(), "Holivares", "Ngali", "evrardngali12@gmil.com", "1424", RuoloEntity.AGRICOLTORE);
+        UtenteEntity utenteEntity = new UtenteEntity(UUID.randomUUID(), "Holivares", "Ngali", "evrardngali12@gmil.com", "1424", RuoloEntity.AGRICOLTORE);
 
         aziendaAgricolaEntity = new AziendaAgricolaEntity(UUID.randomUUID(), utenteEntity, "Azienda 1", "this is a first azienda for my test implementation");
 
@@ -110,29 +108,28 @@ public class IrrigazionePianificatoreServiceTest {
     }
 
     @Test
-    @Disabled
     public void shouldFindIrrigazionePianificatoreByIdAziendaAgricola() throws Throwable{
 
         //Given
         ArgumentCaptor<UUID> repositoryFindParamPianificatoreCaptor = ArgumentCaptor.forClass(UUID.class);
 
         //When
-        doReturn(Optional.of(irrigazionePianificatoreEntity)).when(pianificatoreRepository).findByAziendaAgricolaEntityIdAziendaAgricola(any(UUID.class));
-        IrrigazionePianificatoreModel byIdAziendaAgricola = (IrrigazionePianificatoreModel) pianificatoreService.findIrrigazionePianificatoreByIdAziendaAgricola(UUID.randomUUID());
+        doReturn(Optional.of(List.of(irrigazionePianificatoreEntity))).when(pianificatoreRepository).findByAziendaAgricolaEntityIdAziendaAgricola(any(UUID.class));
+        pianificatoreService.findIrrigazionePianificatoreByIdAziendaAgricola(UUID.randomUUID());
+
 
         //Then
-        verify(pianificatoreRepository).findById(repositoryFindParamPianificatoreCaptor.capture());
+        verify(pianificatoreRepository).findByAziendaAgricolaEntityIdAziendaAgricola(repositoryFindParamPianificatoreCaptor.capture());
     }
 
     @Test
-    @Disabled
     public void shouldFindIrrigazionePianificatoreByIdserra() throws Throwable{
 
         //Given
         ArgumentCaptor<UUID> repositoryFindParamPianificatoreCaptor = ArgumentCaptor.forClass(UUID.class);
 
         //When
-        doReturn(Optional.of(irrigazionePianificatoreEntity)).when(pianificatoreRepository).findBySerraEntityIdSerra(any(UUID.class));
+        doReturn(Optional.of(List.of(irrigazionePianificatoreEntity))).when(pianificatoreRepository).findBySerraEntityIdSerra(any(UUID.class));
         List<IrrigazionePianificatoreModel> pianificatoreByIdserra = pianificatoreService.findIrrigazionePianificatoreByIdserra(UUID.randomUUID());
 
         //Then

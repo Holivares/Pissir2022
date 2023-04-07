@@ -11,8 +11,8 @@
     <title>Login Page</title>
 </head>
 <body class="vh-100">
-<header class="container">
-    <nav class="navbar navbar-expand-lg align-content-center bg-body-tertiary">
+<header class="container position-fixed pe-0 ps-0">
+    <nav class="navbar navbar-expand-lg position-fixed flex-column align-content-center justify-content-center bg-body-tertiary pt-3 pb-3 w-100">
         <div class="container-fluid p-0 content-nav flex-nowrap">
             <button class="hstack gap-2 btn pt-0 pb-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-menu" aria-controls="collapse-menu"
                     aria-expanded="false">
@@ -33,7 +33,8 @@
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="pianificatore-tab" data-bs-toggle="tab" data-bs-target="#pianificatore-tab-pane" type="button" role="tab"
+                            <button class="nav-link" id="pianificatore-tab" data-bs-toggle="tab" data-bs-target="#pianificatore-tab-pane" type="button"
+                                    role="tab"
                                     aria-controls="pianificatore-tab-pane" aria-selected="false">Pianificatore
                             </button>
                         </li>
@@ -42,7 +43,8 @@
                 <section class="login-content d-flex justify-content-end align-items-center text-center">
                     <form class="nav-login d-none d-lg-flex align-items-center input-group input-group-sm pe-3" role="form">
                         <input class="form-control rounded-3 me-2" id="email-data" type="email" placeholder="Enter email" aria-label="Email" required>
-                        <input class="form-control rounded-3 me-2" id="password-data" type="password" placeholder="Enter password" aria-label="Password" required>
+                        <input class="form-control rounded-3 me-2" id="password-data" type="password" placeholder="Enter password" aria-label="Password"
+                               required>
                         <button class="btn btn-light btn-sm rounded-3 text-capitalize fw-semibold fst-italic" id="sign-in" type="button">sign-in</button>
                     </form>
                     <h6 class="after-login m-0 p-3 d-none">Hello </h6>
@@ -52,7 +54,12 @@
     </nav>
 </header>
 <main class="container">
-    <div class="poster container px-0 pb-2">
+    <div class="poster container px-0 pb-2" style="padding-top: 60px;">
+        <div class="container position-fixed text-danger p-2" style="overflow: hidden">
+            <p class="erreur-blog d-inline-block d-none bg-body-secondary position-relative opacity-100 fw-bold py-0 px-2 m-0 rounded" style="width: max-content;">
+            Message text
+            </p>
+        </div>
         <img class="img-fluid" src="images/poster.jpg" alt="poster of site">
     </div>
     <div class="tab-content" id="myTabContent">
@@ -72,19 +79,20 @@
                 <div class="container-fluid py-5">
                     <section class="row column-gap-3x2">
                         <form class="add-serra d-none d-lg-flex align-items-center input-group input-group-sm pe-3" role="form">
-                            <textarea class="form-control rounded-3 me-2 min-h-10" type="email" placeholder="Enter description of greenhouse"
+                            <textarea class="form-control rounded-3 me-2 min-h-10" id="input-add-greenhouse" placeholder="Enter description of greenhouse"
                                       aria-label="Description"></textarea>
                             <button class="btn btn-light btn-sm rounded-3 text-capitalize fw-semibold fst-italic" id="btn-add-serra" type="button">Add</button>
                         </form>
                         <table class="table table-responsive table-dark table-hover align-middle">
                             <thead class="table-light">
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col">Serra No.</th>
                                 <th class="w-75" scope="col">Description</th>
                                 <th class="text-center" scope="col">Details</th>
+                                <th class="text-center" scope="col">Delete</th>
                             </tr>
                             </thead>
-                            <tbody class="table-group-divider">
+                            <tbody class="table-group-divider" id="serra-table-tbody">
                             </tbody>
                         </table>
                     </section>
@@ -109,12 +117,56 @@
     <p class="text-center text-body-secondary">© 2023 Company, Inc</p>
 </footer>
 <div class="hidden-template">
-    <template class="serra-table-body">
+    <template class="serra-table-body" id="serra-template-tbody-row">
         <tr>
-            <th class="row-number" scope="row"><span class="row-id d-none"></span></th>
+            <th class="row-number" scope="row"></th>
             <td class="row-description w-75"></td>
             <td class="row-details text-center">
-                <button class="btn btn-light btn-sm rounded-3 text-capitalize fw-semibold fst-italic" type="submit">Details</button>
+                <button class="serra-details btn btn-light btn-sm rounded-3 text-capitalize fw-semibold fst-italic" data-bs-toggle="modal"
+                        data-bs-target="#details-serra" type="button">Details</button>
+            </td>
+            <td class="row-details text-center">
+                <button class="serra-delete btn btn-light btn-sm rounded-3 text-capitalize fw-semibold fst-italic" type="button">Delete</button>
+            </td>
+        </tr>
+    </template>
+    <template class="details-table-template">
+        <div class="modal fade" id="details-serra" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="details-serra"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Details of serra</h1>
+                        <p class="description-serra fs-2"></p>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-responsive table-dark table-hover align-middle">
+                            <thead class="table-light">
+                            <tr>
+                                <th scope="col">No.</th>
+                                <th class="w-75" scope="col">Type</th>
+                                <th class="text-center" scope="col">measure</th>
+                                <th class="text-center" scope="col">Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-group-divider" id="table-tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template class="table-body-template">
+        <tr>
+            <th class="row-number" scope="row"></th>
+            <td class="row-type"></td>
+            <td class="row-measure"></td>
+            <td class="row-delete text-center">
+                <button class="serra-details btn btn-light btn-sm rounded-3 text-capitalize fw-semibold fst-italic" data-bs-toggle="modal"
+                        data-bs-target="#details-serra" type="button">Delete
+                </button>
             </td>
         </tr>
     </template>

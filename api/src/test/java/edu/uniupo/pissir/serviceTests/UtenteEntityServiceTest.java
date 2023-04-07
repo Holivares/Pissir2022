@@ -6,6 +6,7 @@ import edu.uniupo.pissir.mapper.ModelsToEntities;
 import edu.uniupo.pissir.model.RuoloModel;
 import edu.uniupo.pissir.model.UtenteModel;
 import edu.uniupo.pissir.repository.UtenteRepository;
+import edu.uniupo.pissir.service.IotConnectionService;
 import edu.uniupo.pissir.service.UtenteService;
 import edu.uniupo.pissir.service.implement.UtenteServiceImpl;
 import jakarta.servlet.http.HttpSession;
@@ -32,13 +33,15 @@ public class UtenteEntityServiceTest {
     @Mock
     private UtenteRepository utenteRepository;
     @Mock
+    private IotConnectionService iotConnectionService;
+    @Mock
     private HttpSession session;
     private final ModelsToEntities mapper = spy( Mappers.getMapper( ModelsToEntities.class ) );
     private UtenteService utenteService;
 
     @BeforeEach
     void setUp () {
-        utenteService = new UtenteServiceImpl( utenteRepository );
+        utenteService = new UtenteServiceImpl( utenteRepository, iotConnectionService );
     }
 
     @Test

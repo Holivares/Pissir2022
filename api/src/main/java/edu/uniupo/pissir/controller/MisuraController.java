@@ -28,6 +28,8 @@ public class MisuraController {
     @ResponseStatus( value = HttpStatus.CREATED )
     public MisuraModel createMisura ( HttpSession session, @RequestBody MisuraModel misuraModel ) throws Exception {
         logger.info( "i'm in the controller to create an misura ..." );
+        System.out.println( "****** misuraModel = " + misuraModel.getIdSensore() );
+        System.out.println( "****** misuraModel = " + misuraModel.getMisura() );
         return misuraService.createMisura( session, misuraModel );
     }
 

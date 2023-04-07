@@ -8,6 +8,7 @@ import edu.uniupo.pissir.model.DeleteResponseModel;
 import edu.uniupo.pissir.model.UtenteAutenticazioneModel;
 import edu.uniupo.pissir.model.UtenteModel;
 import edu.uniupo.pissir.repository.UtenteRepository;
+import edu.uniupo.pissir.service.IotConnectionService;
 import edu.uniupo.pissir.service.UtenteService;
 import edu.uniupo.pissir.service.thrower.ServiceThrower;
 import edu.uniupo.pissir.utility.OptionalUnpacker;
@@ -25,12 +26,14 @@ import java.util.UUID;
 public class UtenteServiceImpl implements UtenteService {
 
     private final UtenteRepository utenteRepository;
+    private final IotConnectionService iotConnectionService;
     private final ModelsToEntities mapper = Mappers.getMapper( ModelsToEntities.class );
     private final ServiceThrower<Exception> serviceThrower = ( exception ) -> {throw exception;};
     private final Logger logger = LoggerFactory.getLogger( UtenteServiceImpl.class );
 
-    public UtenteServiceImpl ( UtenteRepository utenteRepository ) {
+    public UtenteServiceImpl ( UtenteRepository utenteRepository, IotConnectionService iotConnectionService ) {
         this.utenteRepository = utenteRepository;
+        this.iotConnectionService = iotConnectionService;
     }
 
     @Override
@@ -69,7 +72,9 @@ public class UtenteServiceImpl implements UtenteService {
         if( !utente.getPassword().equals( utenteAutenticazioneModel.getPassword() ) ) {
             serviceThrower.thrower( new NotFoundEntityException( this.getClass().getName(), "findUtenteByEmailAndPassword", "Authentication has failed" ) );
         }
+
         session.setAttribute( "role", utente.getRole().toString() );
+        iotConnectionService.getConnection( utente );
         return mapper.entityToModelOfUtente( utente );
     }
 }

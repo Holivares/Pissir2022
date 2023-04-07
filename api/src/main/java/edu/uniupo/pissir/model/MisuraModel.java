@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor( force = true )
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class MisuraModel implements DefaultModel {

@@ -28,8 +28,6 @@ public class MisuraController {
     @ResponseStatus( value = HttpStatus.CREATED )
     public MisuraModel createMisura ( HttpSession session, @RequestBody MisuraModel misuraModel ) throws Exception {
         logger.info( "i'm in the controller to create an misura ..." );
-        System.out.println( "****** misuraModel = " + misuraModel.getIdSensore() );
-        System.out.println( "****** misuraModel = " + misuraModel.getMisura() );
         return misuraService.createMisura( session, misuraModel );
     }
 
@@ -40,7 +38,7 @@ public class MisuraController {
         return misuraService.findMisuraById( session, idMisura );
     }
 
-    @GetMapping( value = "/{idSensore}", produces = "application/json" )
+    @GetMapping( value = "/by-sensore/{idSensore}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.OK )
     public List<MisuraModel> findMisuraByIdSensore ( HttpSession session, @PathVariable UUID idSensore ) throws Exception {
         logger.info( "i'm in the controller to find misura by sensore id ..." );

@@ -2,6 +2,9 @@ let loginUrl = "http://127.0.0.1:8080/v1/utenti/utenteAutenticazione";
 let getAziendaByUserIDUrl = "http://127.0.0.1:8080/v1/aziende/by_utente/";
 let addSerraUrl = "http://127.0.0.1:8080/v1/serre";
 let getSerraByIdAziendaUrl = "http://127.0.0.1:8080/v1/serre/";
+let deleteSerraUrl = "http://127.0.0.1:8080/v1/serre/";
+let getSensoreUrl = "http://127.0.0.1:8080/v1/sensori/";
+let getMisuraUrl = "http://127.0.0.1:8080/v1/misure/by-sensore/";
 
 
 let signIn = document.getElementById("sign-in");
@@ -82,6 +85,18 @@ signIn.addEventListener("click", () => {
                             element.addEventListener("click", (event) => {
                                 const idSerra = event.target.getAttribute("data-id-serra");
                                 const row = event.target.parentElement.parentElement;
+                                let deleteSerraRequest = new Request((deleteSerraUrl + idSerra), {
+                                    method: "DELETE",
+                                    headers: {"Content-Type": "application/json;charset=UTF-8"},
+                                })
+                                fetch(deleteSerraRequest).then(response => response.json()).then(json => {
+                                    if (json.hasOwnProperty("messages")) {
+                                        console.log("Delete serra error caught: " + json.messages)
+                                        throw new Error(json.messages)
+                                    } else {
+                                        console.log(json)
+                                    }
+                                })
                             })
                         })
 
@@ -89,7 +104,20 @@ signIn.addEventListener("click", () => {
                             element.addEventListener("click", (event) => {
                                 const idSerra = event.target.getAttribute("data-id-serra");
                                 const row = event.target.parentElement.parentElement;
+                                let getSensoreRequest = new Request((getSensoreUrl + idSerra), {
+                                    method: "GET",
+                                    headers: {"Content-Type": "application/json;charset=UTF-8"}
+                                })
 
+                                fetch(getSensoreRequest).then(response => response.json()).then(json => {
+                                    if (json.hasOwnProperty("messages")) {
+                                        console.log("Find sensore error caught: " + json.messages)
+                                        throw new Error(json.messages)
+                                    } else {
+                                        let sensoreArray = json;
+
+                                    }
+                                })
                             })
                         })
                     })

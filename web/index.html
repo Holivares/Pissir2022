@@ -124,39 +124,37 @@
             <td class="row-details text-center">
                 <button class="serra-details btn btn-light btn-sm rounded-3 text-capitalize fw-semibold fst-italic" data-bs-toggle="modal"
                         data-bs-target="#details-serra" type="button">Details</button>
+                <div class="modal fade" id="details-serra" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="details-serra"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Details of serra</h1>
+                                <p class="description-serra fs-2"></p>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table table-responsive table-dark table-hover align-middle">
+                                    <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">No.</th>
+                                        <th class="text-center" scope="col">Type</th>
+                                        <th class="text-center" scope="col">measure</th>
+                                        <th class="text-center" scope="col">Delete</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="table-group-divider" id="table-tbody">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </td>
             <td class="row-details text-center">
                 <button class="serra-delete btn btn-light btn-sm rounded-3 text-capitalize fw-semibold fst-italic" type="button">Delete</button>
             </td>
         </tr>
-    </template>
-    <template class="details-table-template">
-        <div class="modal fade" id="details-serra" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="details-serra"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Details of serra</h1>
-                        <p class="description-serra fs-2"></p>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <table class="table table-responsive table-dark table-hover align-middle">
-                            <thead class="table-light">
-                            <tr>
-                                <th scope="col">No.</th>
-                                <th class="w-75" scope="col">Type</th>
-                                <th class="text-center" scope="col">measure</th>
-                                <th class="text-center" scope="col">Delete</th>
-                            </tr>
-                            </thead>
-                            <tbody class="table-group-divider" id="table-tbody">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
     </template>
     <template class="table-body-template">
         <tr>

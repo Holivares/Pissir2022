@@ -30,7 +30,7 @@ public class SensoreEntity implements Serializable {
     private SerraEntity serraEntity;
     @NotNull
     @NonNull
-    @Column( name = "TYPE" )
+    @Column( name = "TYPES" )
     @Enumerated( EnumType.STRING )
     private TipoSensoreEntity tipo;
 

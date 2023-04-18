@@ -13,7 +13,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @ToString
-@NoArgsConstructor
+@NoArgsConstructor( force = true )
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Table( name = "ACTUATOR" )

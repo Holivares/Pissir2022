@@ -14,7 +14,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @ToString
-@NoArgsConstructor
+@NoArgsConstructor( force = true )
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Table( name = "MEASURE" )
@@ -31,7 +31,7 @@ public class MisuraEntity implements Serializable {
     private SensoreEntity sensoreEntity;
     @NotNull
     @NonNull
-    @Column( name = "HUMIDITY_MEASURE", length = 4, precision = 2 )
+    @Column( name = "MEASURES", length = 4, precision = 2 )
     private BigDecimal misura;
 
     @Override

@@ -126,7 +126,7 @@
                         data-bs-target="#details-serra" type="button">Details</button>
                 <div class="modal fade" id="details-serra" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="details-serra"
                      aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-xl">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Details of serra</h1>
@@ -139,11 +139,11 @@
                                     <tr>
                                         <th scope="col">No.</th>
                                         <th class="text-center" scope="col">Type</th>
-                                        <th class="text-center" scope="col">measure</th>
-                                        <th class="text-center" scope="col">Delete</th>
+                                        <th class="text-center" scope="col">Measure</th>
+                                        <th class="text-center" scope="col">Actuator</th>
                                     </tr>
                                     </thead>
-                                    <tbody class="table-group-divider" id="table-tbody">
+                                    <tbody class="table-group-divider" id="sensore-table-tbody">
                                     </tbody>
                                 </table>
                             </div>
@@ -156,15 +156,30 @@
             </td>
         </tr>
     </template>
-    <template class="table-body-template">
+    <template class="table-body-template" id="serra-details-table">
         <tr>
             <th class="row-number" scope="row"></th>
             <td class="row-type"></td>
             <td class="row-measure"></td>
-            <td class="row-delete text-center">
-                <button class="serra-details btn btn-light btn-sm rounded-3 text-capitalize fw-semibold fst-italic" data-bs-toggle="modal"
-                        data-bs-target="#details-serra" type="button">Delete
-                </button>
+            <td class="row-actuator p-0">
+                <table class="table table-responsive table-dark table-hover align-middle m-0 border-start">
+                    <thead class="table-dark">
+                    <tr>
+                        <th class="text-center" scope="col">Status</th>
+                        <th class="text-center" scope="col">Change Status</th>
+                    </tr>
+                    </thead>
+                    <tbody style="border: none transparent;">
+                    <tr>
+                        <td class="row-status"></td>
+                        <td class="row-change-status">
+                            <button class="change-status btn btn-light btn-sm rounded-3 text-capitalize fw-semibold fst-italic" type="button">
+                                Change-status
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </td>
         </tr>
     </template>

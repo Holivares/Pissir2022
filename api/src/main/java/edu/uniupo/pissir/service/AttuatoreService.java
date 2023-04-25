@@ -15,4 +15,8 @@ public interface AttuatoreService {
     AttuatoreModel enableAttuatore ( HttpSession session, UUID idAttuatore ) throws Exception;
 
     AttuatoreModel disableAttuatore ( HttpSession session, UUID idAttuatore ) throws Exception;
+
+    AttuatoreModel getManualModeAttuatore ( HttpSession session, UUID idAttuatore ) throws Exception;
+
+    AttuatoreModel getAutomatiqueModeAttuatore ( HttpSession session, UUID idAttuatore ) throws Exception;
 }

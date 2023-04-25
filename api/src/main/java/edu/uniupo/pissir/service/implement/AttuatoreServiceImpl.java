@@ -1,7 +1,9 @@
 package edu.uniupo.pissir.service.implement;
 
 import edu.uniupo.pissir.entity.AttuatoreEntity;
+import edu.uniupo.pissir.entity.AttuatoreModeEntity;
 import edu.uniupo.pissir.entity.AttuatoreStatoEntity;
+import edu.uniupo.pissir.exception.NotFoundEntityException;
 import edu.uniupo.pissir.mapper.ModelsToEntities;
 import edu.uniupo.pissir.model.AttuatoreModel;
 import edu.uniupo.pissir.model.DefaultModel;
@@ -66,6 +68,24 @@ public class AttuatoreServiceImpl implements AttuatoreService {
         AttuatoreEntity attuatoreEntity = OptionalUnpacker.unpackerOrThrows( attuatoreRepository.findById( idAttuatore ), "Not found data of this attuatore in " +
                                                                                                                           "server" );
         attuatoreEntity.getStato().setStato( AttuatoreStatoEntity.DISATTIVATO );
+        return mapper.entityToModelOfAttuatore( attuatoreEntity );
+    }
+
+    @Override
+    public AttuatoreModel getManualModeAttuatore ( HttpSession session, UUID idAttuatore ) throws Exception {
+        logger.info( "The get mode manual of attuatore method has been called..." );
+        AttuatoreEntity attuatoreEntity = OptionalUnpacker.unpackerOrThrows( attuatoreRepository.findById( idAttuatore ), "Not found data of this attuatore in " +
+                                                                                                                          "server" );
+        attuatoreEntity.getStato().setMode( AttuatoreModeEntity.MANUALE);
+        return mapper.entityToModelOfAttuatore( attuatoreEntity );
+    }
+
+    @Override
+    public AttuatoreModel getAutomatiqueModeAttuatore ( HttpSession session, UUID idAttuatore ) throws Exception {
+        logger.info( "The get mode automatique of attuatore method has been called..." );
+        AttuatoreEntity attuatoreEntity = OptionalUnpacker.unpackerOrThrows( attuatoreRepository.findById( idAttuatore ), "Not found data of this attuatore in " +
+                                                                                                                          "server" );
+        attuatoreEntity.getStato().setMode( AttuatoreModeEntity.AUTOMATICO );
         return mapper.entityToModelOfAttuatore( attuatoreEntity );
     }
 

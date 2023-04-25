@@ -104,6 +104,15 @@
             <div class="p-5 mb-4 bg-body-tertiary rounded-3">
                 <div class="container-fluid py-5">
                     <section class="row column-gap-3x2">
+                        <form class="d-lg-flex align-items-center input-group input-group-sm pe-3" role="form">
+                            <textarea class="d-block form-control rounded-3 me-2 min-h-10" id="descrizione-planing" placeholder="Enter description of planning" aria-label="Description" required></textarea>
+                            <div class="d-block">
+                                <input class="form-control rounded-3 me-2 mb-2" id="date-execution-planing" type="date" placeholder="Enter a date" required>
+                                <input class="form-control rounded-3 me-2 mb-2" id="time-begin" type="time" placeholder="Enter time begin" required>
+                                <input class="form-control rounded-3 me-2 mb-2" id="time-end" type="time" placeholder="Enter time end" required>
+                            </div>
+                            <button class="btn btn-light btn-sm rounded-3 text-capitalize fw-semibold fst-italic mx-3" id="setPlanning" type="button">sign-in</button>
+                        </form>
                     </section>
                 </div>
             </div>
@@ -165,12 +174,20 @@
                 <table class="table table-responsive table-dark table-hover align-middle m-0 border-start">
                     <thead class="table-dark">
                     <tr>
+                        <th class="text-center" scope="col">Mode</th>
+                        <th class="text-center" scope="col">Change Mode</th>
                         <th class="text-center" scope="col">Status</th>
                         <th class="text-center" scope="col">Change Status</th>
                     </tr>
                     </thead>
                     <tbody style="border: none transparent;">
                     <tr>
+                        <td class="row-mode"></td>
+                        <td class="row-change-mode">
+                            <button class="change-mode btn btn-light btn-sm rounded-3 text-capitalize fw-semibold fst-italic" type="button">
+                                Change-mode
+                            </button>
+                        </td>
                         <td class="row-status"></td>
                         <td class="row-change-status">
                             <button class="change-status btn btn-light btn-sm rounded-3 text-capitalize fw-semibold fst-italic" type="button">

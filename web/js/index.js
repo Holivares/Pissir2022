@@ -6,6 +6,10 @@ let deleteSerraUrl = "http://127.0.0.1:8080/v1/serre/";
 let getSensoreUrl = "http://127.0.0.1:8080/v1/sensori/";
 let getMisuraUrl = "http://127.0.0.1:8080/v1/misure/by-sensore/";
 let getAttuatoriByIdSerra = "http://127.0.0.1:8080/v1/attuatori/";
+let changeAttuatoreToAutomatiqueModeUrl = "http://127.0.0.1:8080/v1/attuatori/automatique_mode/";
+let changeAttuatoreToManualModeUrl = "http://127.0.0.1:8080/v1/attuatori/manuel_mode/";
+let changeAttuatoreToEnableStatusUrl = "http://127.0.0.1:8080/v1/attuatori/enable/";
+let changeAttuatoreToDisableStatusUrl = "http://127.0.0.1:8080/v1/attuatori/disable/";
 
 
 let signIn = document.getElementById("sign-in");
@@ -21,8 +25,11 @@ let inputAddSerra = document.getElementById("input-add-greenhouse");
 let serraTableTbodyRow = document.getElementById("serra-template-tbody-row");
 let serraTableTbody = document.getElementById("serra-table-tbody");
 let detailsSerraTableTbody = document.getElementById("serra-details-table");
-let serraTableDetails = document.getElementsByClassName("serra-details");
-let serraTableDelete = document.getElementsByClassName("serra-delete");
+let descriptionPlanning = document.getElementById("descrizione-planing");
+let dateExecution = document.getElementById("date-execution-planing");
+let timeBeginning = document.getElementById("time-begin");
+let timeEnded = document.getElementById("time-end");
+let addPlanningButton = document.getElementById("setPlanning");
 
 
 let user = null;
@@ -35,18 +42,169 @@ function addRowInSerraTable(json, index) {
     cloneSerraTableTbodyRow.querySelector(".row-number").textContent = index;
 
     if (json.hasOwnProperty("idSerra")) {
-        cloneSerraTableTbodyRow.querySelector(".serra-delete").setAttribute("data-id-serra", json.idSerra);
-        cloneSerraTableTbodyRow.querySelector(".serra-details").setAttribute("data-id-serra", json.idSerra);
+        let serraDelete = cloneSerraTableTbodyRow.querySelector(".serra-delete");
+        serraDelete.setAttribute("data-id-serra", json.idSerra);
+        clickDeleteRowSerra(serraDelete);
+        let serraDetails = cloneSerraTableTbodyRow.querySelector(".serra-details");
+        serraDetails.setAttribute("data-id-serra", json.idSerra);
+        clickDetailsRowSerra(serraDetails);
     }
     cloneSerraTableTbodyRow.querySelector(".row-description").textContent = json.descrizione;
     serraTableTbody.appendChild(cloneSerraTableTbodyRow);
 }
 
-let setAttuatore = (attuatore, rowStatus, rowChangeStatus) => {
+let setAttuatore = (attuatore, rowMode, rowStatus, rowChangeMode, rowChangeStatus) => {
     rowStatus.textContent = attuatore.stato.stato;
+    rowMode.textContent = attuatore.stato.mode;
     rowChangeStatus.setAttribute("data-id-attuatore", attuatore.idAttuatore);
+    rowChangeMode.setAttribute("data-id-attuatore", attuatore.idAttuatore);
+
+    rowChangeMode.addEventListener("click", (event) => {
+        let currentMode = event.target.parentElement.previousElementSibling.textContent
+        if(currentMode === "MANUALE"){
+            fetch(changeAttuatoreToAutomatiqueModeUrl + event.target.getAttribute("data-id-attuatore")).then(response => response.json()).then(json => {
+                if (json.hasOwnProperty("messages")) {
+                    console.log("Find sensore error caught: " + json.messages)
+                    throw new Error(json.messages)
+                } else {
+                    event.target.parentElement.previousElementSibling.textContent = json.stato.mode
+                }
+            })
+        } else {
+            fetch(changeAttuatoreToManualModeUrl + event.target.getAttribute("data-id-attuatore")).then(response => response.json()).then(json => {
+                if (json.hasOwnProperty("messages")) {
+                    console.log("Find sensore error caught: " + json.messages)
+                    throw new Error(json.messages)
+                } else {
+                    event.target.parentElement.previousElementSibling.textContent = json.stato.mode
+                }
+            })
+        }
+    })
+    rowChangeStatus.addEventListener("click", (event) => {
+        let currentMode = event.target.parentElement.previousElementSibling.textContent
+        if (currentMode === "DISATTIVATO") {
+            fetch(changeAttuatoreToEnableStatusUrl + event.target.getAttribute("data-id-attuatore")).then(response => response.json()).then(json => {
+                if (json.hasOwnProperty("messages")) {
+                    console.log("Find sensore error caught: " + json.messages)
+                    throw new Error(json.messages)
+                } else {
+                    event.target.parentElement.previousElementSibling.textContent = json.stato.stato
+                }
+            })
+        } else {
+            fetch(changeAttuatoreToDisableStatusUrl + event.target.getAttribute("data-id-attuatore")).then(response => response.json()).then(json => {
+                if (json.hasOwnProperty("messages")) {
+                    console.log("Find sensore error caught: " + json.messages)
+                    throw new Error(json.messages)
+                } else {
+                    event.target.parentElement.previousElementSibling.textContent = json.stato.stato
+                }
+            })
+        }
+    })
 }
 
+
+let clickDetailsRowSerra = (element) => {
+    if(element !== null){
+        element.addEventListener("click", (event) => {
+            while (serraTableTbody.querySelector("#sensore-table-tbody").firstChild) {
+                serraTableTbody.querySelector("#sensore-table-tbody").firstChild.remove();
+            }
+            const idSerra = event.target.getAttribute("data-id-serra");
+            const row = event.target.parentElement.parentElement;
+            let getSensoreRequest = new Request((getSensoreUrl + idSerra), {
+                method: "GET",
+                headers: {"Content-Type": "application/json;charset=UTF-8"}
+            })
+
+            fetch(getSensoreRequest).then(response => response.json()).then(json => {
+                if (json.hasOwnProperty("messages")) {
+                    console.log("Find sensore error caught: " + json.messages)
+                    throw new Error(json.messages)
+                } else {
+                    let detailsListNumber = 0;
+                    json.forEach(sensore => {
+                        const cloneDetailsSerraTableTbody = detailsSerraTableTbody.content.cloneNode(true);
+                        const rowNumber = cloneDetailsSerraTableTbody.querySelector(".row-number");
+                        const rowType = cloneDetailsSerraTableTbody.querySelector(".row-type");
+                        const rowMeasure = cloneDetailsSerraTableTbody.querySelector(".row-measure");
+                        const rowStatus = cloneDetailsSerraTableTbody.querySelector(".row-status");
+                        const rowMode = cloneDetailsSerraTableTbody.querySelector(".row-mode");
+                        const rowChangeMode = cloneDetailsSerraTableTbody.querySelector(".change-mode");
+                        const rowChangeStatus = cloneDetailsSerraTableTbody.querySelector(".change-status");
+                        rowNumber.textContent = detailsListNumber + 1;
+                        if (sensore.hasOwnProperty("tipo")) {
+                            rowType.textContent = sensore.tipo
+                        }
+                        if (sensore.hasOwnProperty("idSensore")) {
+                            rowNumber.setAttribute("data-id-sensore", sensore.idSensore)
+                            fetch(getMisuraUrl + sensore.idSensore).then(response => response.json()).then(json => {
+                                if (json.hasOwnProperty("messages")) {
+                                    console.log("Find sensore error caught: " + json.messages)
+                                    throw new Error(json.messages)
+                                } else {
+                                    const measure = json[0];
+                                    if (measure.hasOwnProperty("misura")) {
+                                        rowMeasure.textContent = measure.misura;
+                                    }
+                                }
+                            })
+                        }
+                        if (sensore.hasOwnProperty("idSerra")) {
+                            let getAttuatoriRequest = new Request(getAttuatoriByIdSerra + sensore.idSerra, {
+                                method: "GET",
+                                headers: {"Content-Type": "application/json;charset=UTF-8"}
+                            })
+                            fetch(getAttuatoriRequest).then(response => response.json()).then(json => {
+                                if (json.hasOwnProperty("messages")) {
+                                    console.log("Find sensore error caught: " + json.messages)
+                                    throw new Error(json.messages)
+                                } else {
+                                    json.forEach(attuatore => {
+                                        if ((sensore.hasOwnProperty("tipo")) && (attuatore.hasOwnProperty("tipo"))) {
+                                            if ((sensore.tipo === "LUCE") && (attuatore.tipo === "ILLUMINAZIONE")) {
+                                                setAttuatore(attuatore, rowMode, rowStatus, rowChangeMode, rowChangeStatus)
+                                            } else if ((sensore.tipo === "TEMPERATURA") && (attuatore.tipo === "RISCALDAMENTO")) {
+                                                setAttuatore(attuatore, rowMode, rowStatus, rowChangeMode, rowChangeStatus)
+                                            } else if ((sensore.tipo === "UMIDITA") && (attuatore.tipo === "IRRIGAZIONE")) {
+                                                setAttuatore(attuatore, rowMode, rowStatus, rowChangeMode, rowChangeStatus)
+                                            }
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                        serraTableTbody.querySelector("#sensore-table-tbody").appendChild(cloneDetailsSerraTableTbody);
+                        detailsListNumber++;
+                    })
+                }
+            })
+        })
+    }
+}
+
+let clickDeleteRowSerra = (element) => {
+    element.addEventListener("click", (event) => {
+        const idSerra = event.target.getAttribute("data-id-serra");
+        const row = event.target.parentElement.parentElement;
+        let deleteSerraRequest = new Request((deleteSerraUrl + idSerra), {
+            method: "DELETE",
+            headers: {"Content-Type": "application/json;charset=UTF-8"},
+            mode: "cors"
+        })
+        fetch(deleteSerraRequest).then(response => response.json()).then(json => {
+            if (json.hasOwnProperty("messages")) {
+                console.log("Delete serra error caught: " + json.messages)
+                throw new Error(json.messages)
+            } else {
+                row.remove();
+                console.log(json);
+            }
+        })
+    })
+}
 signIn.addEventListener("click", () => {
 
     let payload = {"email": emailInput.value, "password": passwordInput.value};
@@ -95,102 +253,6 @@ signIn.addEventListener("click", () => {
                                 for (const i in json) {
                                     addRowInSerraTable(json[i], (parseInt(i) + 1));
                                 }
-
-                                Array.from(serraTableDelete).forEach((element) => {
-                                    element.addEventListener("click", (event) => {
-                                        const idSerra = event.target.getAttribute("data-id-serra");
-                                        const row = event.target.parentElement.parentElement;
-                                        let deleteSerraRequest = new Request((deleteSerraUrl + idSerra), {
-                                            method: "DELETE",
-                                            headers: {"Content-Type": "application/json;charset=UTF-8"},
-                                            mode: "cors"
-                                        })
-                                        fetch(deleteSerraRequest).then(response => response.json()).then(json => {
-                                            if (json.hasOwnProperty("messages")) {
-                                                console.log("Delete serra error caught: " + json.messages)
-                                                throw new Error(json.messages)
-                                            } else {
-                                                row.remove();
-                                                console.log(json);
-                                            }
-                                        })
-                                    })
-                                })
-
-                                Array.from(serraTableDetails).forEach((element) => {
-                                    element.addEventListener("click", (event) => {
-                                        while (serraTableTbody.querySelector("#sensore-table-tbody").firstChild) {
-                                            serraTableTbody.querySelector("#sensore-table-tbody").firstChild.remove();
-                                        }
-                                        const idSerra = event.target.getAttribute("data-id-serra");
-                                        const row = event.target.parentElement.parentElement;
-                                        let getSensoreRequest = new Request((getSensoreUrl + idSerra), {
-                                            method: "GET",
-                                            headers: {"Content-Type": "application/json;charset=UTF-8"}
-                                        })
-
-                                        fetch(getSensoreRequest).then(response => response.json()).then(json => {
-                                            if (json.hasOwnProperty("messages")) {
-                                                console.log("Find sensore error caught: " + json.messages)
-                                                throw new Error(json.messages)
-                                            } else {
-                                                let detailsListNumber = 0;
-                                                json.forEach(sensore => {
-                                                    const cloneDetailsSerraTableTbody = detailsSerraTableTbody.content.cloneNode(true);
-                                                    const rowNumber = cloneDetailsSerraTableTbody.querySelector(".row-number");
-                                                    const rowType = cloneDetailsSerraTableTbody.querySelector(".row-type");
-                                                    const rowMeasure = cloneDetailsSerraTableTbody.querySelector(".row-measure");
-                                                    const rowStatus = cloneDetailsSerraTableTbody.querySelector(".row-status");
-                                                    const rowChangeStatus = cloneDetailsSerraTableTbody.querySelector(".row-change-status");
-                                                    rowNumber.textContent = detailsListNumber + 1;
-                                                    if (sensore.hasOwnProperty("tipo")) {
-                                                        rowType.textContent = sensore.tipo
-                                                    }
-                                                    if (sensore.hasOwnProperty("idSensore")) {
-                                                        rowNumber.setAttribute("data-id-sensore", sensore.idSensore)
-                                                        fetch(getMisuraUrl + sensore.idSensore).then(response => response.json()).then(json => {
-                                                            if (json.hasOwnProperty("messages")) {
-                                                                console.log("Find sensore error caught: " + json.messages)
-                                                                throw new Error(json.messages)
-                                                            } else {
-                                                                const measure = json[0];
-                                                                if (measure.hasOwnProperty("misura")) {
-                                                                    rowMeasure.textContent = measure.misura;
-                                                                }
-                                                            }
-                                                        })
-                                                    }
-                                                    if(sensore.hasOwnProperty("idSerra")){
-                                                        let getAttuatoriRequest = new Request(getAttuatoriByIdSerra + sensore.idSerra, {
-                                                            method: "GET",
-                                                            headers: {"Content-Type": "application/json;charset=UTF-8"}
-                                                        })
-                                                        fetch(getAttuatoriRequest).then(response => response.json()).then(json => {
-                                                            if (json.hasOwnProperty("messages")) {
-                                                                console.log("Find sensore error caught: " + json.messages)
-                                                                throw new Error(json.messages)
-                                                            } else {
-                                                                json.forEach(attuatore => {
-                                                                    if ((sensore.hasOwnProperty("tipo")) && (attuatore.hasOwnProperty("tipo"))) {
-                                                                        if ((sensore.tipo === "LUCE") && (attuatore.tipo === "ILLUMINAZIONE")) {
-                                                                            setAttuatore(attuatore, rowStatus, rowChangeStatus)
-                                                                        } else if((sensore.tipo === "TEMPERATURA") && (attuatore.tipo === "RISCALDAMENTO")){
-                                                                            setAttuatore(attuatore, rowStatus, rowChangeStatus)
-                                                                        } else if((sensore.tipo === "UMIDITA") && (attuatore.tipo === "IRRIGAZIONE")){
-                                                                            setAttuatore(attuatore, rowStatus, rowChangeStatus)
-                                                                        }
-                                                                    }
-                                                                })
-                                                            }
-                                                        })
-                                                    }
-                                                    serraTableTbody.querySelector("#sensore-table-tbody").appendChild(cloneDetailsSerraTableTbody);
-                                                    detailsListNumber++;
-                                                })
-                                            }
-                                        })
-                                    })
-                                })
                             }
                         })
                     }
@@ -228,3 +290,12 @@ addSerra.addEventListener("click", () => {
         }
     })
 }, false)
+
+addPlanningButton.addEventListener("click", () => {
+    let description = descriptionPlanning.value
+    let date = dateExecution.value
+    let begin = timeBeginning.value
+    let end = timeEnded.value
+
+    console.log(description + " **** " + date + " **** " + begin + "****" + end)
+})

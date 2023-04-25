@@ -11,7 +11,7 @@ import java.util.UUID;
 @Setter
 @Getter
 @ToString
-@NoArgsConstructor
+@NoArgsConstructor( force = true )
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class IrrigazionePianificatoreModel implements DefaultModel {

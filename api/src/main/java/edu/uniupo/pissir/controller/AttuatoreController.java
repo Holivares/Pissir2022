@@ -53,4 +53,18 @@ public class AttuatoreController {
         return attuatoreService.disableAttuatore( session, idAttuatore );
     }
 
+    @GetMapping( value = "/manuel_mode/{idAttuatore}", produces = "application/json" )
+    @ResponseStatus( value = HttpStatus.OK )
+    public AttuatoreModel getManualModeAttuatore ( HttpSession session, @PathVariable UUID idAttuatore ) throws Exception {
+        logger.info( "i'm in the controller to change mode of attuatore to manuel ..." );
+        return attuatoreService.getManualModeAttuatore( session, idAttuatore );
+    }
+
+    @GetMapping( value = "/automatique_mode/{idAttuatore}", produces = "application/json" )
+    @ResponseStatus( HttpStatus.OK )
+    public AttuatoreModel getAutomatiqueModeAttuatore ( HttpSession session, @PathVariable UUID idAttuatore ) throws Exception {
+        logger.info( "i'm in he controller to change mode of attuatore to automatique ..." );
+        return attuatoreService.getAutomatiqueModeAttuatore( session, idAttuatore );
+    }
+
 }

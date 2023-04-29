@@ -63,7 +63,7 @@
         <img class="img-fluid" src="images/poster.jpg" alt="poster of site">
     </div>
     <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="azienda-tab-pane" role="tabpanel" aria-labelledby="azienda-tab" tabindex="0">
+        <div class="azienda-fade tab-pane fade show active" id="azienda-tab-pane" role="tabpanel" aria-labelledby="azienda-tab" tabindex="0">
             <h1 class="text-center fst-italic">WELCOME TO <span id="azienda-name"></span></h1>
             <div class="p-5 mb-4 bg-body-tertiary rounded-3">
                 <div class="container-fluid py-5">
@@ -73,7 +73,7 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="serra-tab-pane" role="tabpanel" aria-labelledby="serra-tab serra-tab-bis" tabindex="0">
+        <div class="serra-fade tab-pane fade" id="serra-tab-pane" role="tabpanel" aria-labelledby="serra-tab serra-tab-bis" tabindex="0">
             <h1 class="text-center fst-italic">YOUR GREENHOUSES LIST</h1>
             <div class="p-5 mb-4 bg-body-tertiary rounded-3">
                 <div class="container-fluid py-5">
@@ -89,6 +89,7 @@
                                 <th scope="col">Serra No.</th>
                                 <th class="w-75" scope="col">Description</th>
                                 <th class="text-center" scope="col">Details</th>
+                                <th class="text-center" scope="col">Pianificatore</th>
                                 <th class="text-center" scope="col">Delete</th>
                             </tr>
                             </thead>
@@ -99,20 +100,35 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="pianificatore-tab-pane" role="tabpanel" aria-labelledby="pianificatore-tab" tabindex="0">
+        <div class="pianificatore-fade tab-pane fade" id="pianificatore-tab-pane" role="tabpanel" aria-labelledby="pianificatore-tab" tabindex="0">
             <h1 class="text-center fst-italic">YOUR IRRIGATION PLANING</h1>
             <div class="p-5 mb-4 bg-body-tertiary rounded-3">
                 <div class="container-fluid py-5">
                     <section class="row column-gap-3x2">
-                        <form class="d-lg-flex align-items-center input-group input-group-sm pe-3" role="form">
+                        <form class="align-items-center input-group input-group-sm pe-3 d-none pianificatore-form" role="form">
                             <textarea class="d-block form-control rounded-3 me-2 min-h-10" id="descrizione-planing" placeholder="Enter description of planning" aria-label="Description" required></textarea>
                             <div class="d-block">
                                 <input class="form-control rounded-3 me-2 mb-2" id="date-execution-planing" type="date" placeholder="Enter a date" required>
                                 <input class="form-control rounded-3 me-2 mb-2" id="time-begin" type="time" placeholder="Enter time begin" required>
                                 <input class="form-control rounded-3 me-2 mb-2" id="time-end" type="time" placeholder="Enter time end" required>
                             </div>
-                            <button class="btn btn-light btn-sm rounded-3 text-capitalize fw-semibold fst-italic mx-3" id="setPlanning" type="button">sign-in</button>
+                            <button class="btn btn-light btn-sm rounded-3 text-capitalize fw-semibold fst-italic mx-3" id="setPlanning" type="button">Add</button>
                         </form>
+                    </section>
+                    <section>
+                        <table class="table table-responsive table-dark table-hover align-middle">
+                            <thead class="table-light">
+                            <tr>
+                                <th scope="col">No.</th>
+                                <th class="text-center" scope="col">Description</th>
+                                <th class="text-center" scope="col">StartDate</th>
+                                <th class="text-center" scope="col">StartTime</th>
+                                <th class="text-center" scope="col">EndTime</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-group-divider" id="pianificatore-table-tbody">
+                            </tbody>
+                        </table>
                     </section>
                 </div>
             </div>
@@ -160,6 +176,9 @@
                     </div>
                 </div>
             </td>
+           <td>
+               <button class="serra-pianificatore btn btn-light btn-sm rounded-3 text-capitalize fw-semibold fst-italic" type="button">Pianificatore</button>
+           </td>
             <td class="row-details text-center">
                 <button class="serra-delete btn btn-light btn-sm rounded-3 text-capitalize fw-semibold fst-italic" type="button">Delete</button>
             </td>

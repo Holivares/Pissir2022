@@ -21,95 +21,95 @@ public class PublishTask {
     private final LightPublisher lightPublisher;
     private final TemperaturePublisher temperaturePublisher;
     private final HumidityPublisher humidityPublisher;
-    private final Logger logger = LoggerFactory.getLogger( PublishTask.class );
+    private final Logger logger = LoggerFactory.getLogger(PublishTask.class);
 
     @Autowired
-    public PublishTask ( LightPublisher lightPublisher, TemperaturePublisher temperaturePublisher, HumidityPublisher humidityPublisher ) {
+    public PublishTask(LightPublisher lightPublisher, TemperaturePublisher temperaturePublisher, HumidityPublisher humidityPublisher) {
         this.lightPublisher = lightPublisher;
         this.temperaturePublisher = temperaturePublisher;
         this.humidityPublisher = humidityPublisher;
     }
 
-    @Scheduled( cron = "3 * * * * ?" )
+    @Scheduled(cron = "3 * * * * ?")
     public void runLightPublish() {
-        logger.info( "publisher publish light measure at time " + LocalDateTime.now() );
+        logger.info("publisher publish light measure at time " + LocalDateTime.now());
         Map<UUID, Integer> allReadyPublish = new HashMap<>();
         List<SensoreModel> luceSensore = SensoreInfos.INSTANCE.getSensoreClassificationByType().values().stream()
-                                                          .flatMap( entryByType -> entryByType.stream()
-                                                                                              .filter( sensoreModel -> sensoreModel.getTipo() == TipoSensoreModel.LUCE ) )
-                                                          .toList();
-        publishEvent( allReadyPublish, luceSensore, "light" );
+                .flatMap(entryByType -> entryByType.stream()
+                        .filter(sensoreModel -> sensoreModel.getTipo() == TipoSensoreModel.LUCE))
+                .toList();
+        publishEvent(allReadyPublish, luceSensore, "light");
     }
 
-    @Scheduled( cron = "2 * * * * ?" )
-    public void runTemperaturePublish () {
-        logger.info( "publisher publish temperature measure at time " + LocalDateTime.now() );
+    @Scheduled(cron = "2 * * * * ?")
+    public void runTemperaturePublish() {
+        logger.info("publisher publish temperature measure at time " + LocalDateTime.now());
         Map<UUID, Integer> allReadyPublish = new HashMap<>();
         List<SensoreModel> temperaturaSensore = SensoreInfos.INSTANCE.getSensoreClassificationByType().values().stream()
-                                                          .flatMap( entryByType -> entryByType.stream()
-                                                                                              .filter( sensoreModel -> sensoreModel.getTipo() == TipoSensoreModel.TEMPERATURA ) )
-                                                          .toList();
+                .flatMap(entryByType -> entryByType.stream()
+                        .filter(sensoreModel -> sensoreModel.getTipo() == TipoSensoreModel.TEMPERATURA))
+                .toList();
         publishEvent(allReadyPublish, temperaturaSensore, "temperature");
     }
 
-    @Scheduled( cron = "1 * * * * ?" )
-    public void runHumidityPublish () {
-        logger.info( "publisher publish humidity measure at time " + LocalDateTime.now() );
+    @Scheduled(cron = "1 * * * * ?")
+    public void runHumidityPublish() {
+        logger.info("publisher publish humidity measure at time " + LocalDateTime.now());
         Map<UUID, Integer> allReadyPublish = new HashMap<>();
         List<SensoreModel> umiditaSensore = SensoreInfos.INSTANCE.getSensoreClassificationByType().values().stream()
-                                                          .flatMap( entryByType -> entryByType.stream()
-                                                                                              .filter( sensoreModel -> sensoreModel.getTipo() == TipoSensoreModel.UMIDITA ) )
-                                                          .toList();
-        publishEvent( allReadyPublish, umiditaSensore, "humidity" );
+                .flatMap(entryByType -> entryByType.stream()
+                        .filter(sensoreModel -> sensoreModel.getTipo() == TipoSensoreModel.UMIDITA))
+                .toList();
+        publishEvent(allReadyPublish, umiditaSensore, "humidity");
     }
 
-    private void publishEvent ( Map<UUID, Integer> allReadyPublish, List<SensoreModel> sensoreModels, String type ) {
-        switch( type ) {
-            case "humidity" -> sensoreModels.forEach( sensore -> {
+    private void publishEvent(Map<UUID, Integer> allReadyPublish, List<SensoreModel> sensoreModels, String type) {
+        switch (type) {
+            case "humidity" -> sensoreModels.forEach(sensore -> {
                 try {
-                    if( allReadyPublish.containsKey( sensore.getIdSensore() ) ) {
-                        if( allReadyPublish.get( sensore.getIdSensore() )<=4 ) {
-                            humidityPublisher.publish( String.valueOf( new Random().nextInt( 100 ) ), sensore.getIdSensore().toString() );
-                            allReadyPublish.put( sensore.getIdSensore(), ( allReadyPublish.get( sensore.getIdSensore() ) + 1 ) );
+                    if (allReadyPublish.containsKey(sensore.getIdSensore())) {
+                        if (allReadyPublish.get(sensore.getIdSensore()) <= 4) {
+                            humidityPublisher.publish(String.valueOf(new Random().nextInt(100)), sensore.getIdSensore().toString());
+                            allReadyPublish.put(sensore.getIdSensore(), (allReadyPublish.get(sensore.getIdSensore()) + 1));
                         }
                     } else {
-                        humidityPublisher.publish( String.valueOf( new Random().nextInt( 100 ) ), sensore.getIdSensore().toString() );
-                        allReadyPublish.put( sensore.getIdSensore(), 1 );
+                        humidityPublisher.publish(String.valueOf(new Random().nextInt(100)), sensore.getIdSensore().toString());
+                        allReadyPublish.put(sensore.getIdSensore(), 1);
                     }
-                } catch( MqttException e ) {
-                    throw new RuntimeException( e );
+                } catch (MqttException e) {
+                    throw new RuntimeException(e);
                 }
-            } );
-            case "temperature" -> sensoreModels.forEach( sensore -> {
+            });
+            case "temperature" -> sensoreModels.forEach(sensore -> {
                 try {
-                    if( allReadyPublish.containsKey( sensore.getIdSensore() ) ) {
-                        if( allReadyPublish.get( sensore.getIdSensore() )<=4 ) {
-                            temperaturePublisher.publish( String.valueOf( new Random().nextInt( 100 ) ), sensore.getIdSensore().toString() );
-                            allReadyPublish.put( sensore.getIdSensore(), ( allReadyPublish.get( sensore.getIdSensore() ) + 1 ) );
+                    if (allReadyPublish.containsKey(sensore.getIdSensore())) {
+                        if (allReadyPublish.get(sensore.getIdSensore()) <= 4) {
+                            temperaturePublisher.publish(String.valueOf(new Random().nextInt(100)), sensore.getIdSensore().toString());
+                            allReadyPublish.put(sensore.getIdSensore(), (allReadyPublish.get(sensore.getIdSensore()) + 1));
                         }
                     } else {
-                        temperaturePublisher.publish( String.valueOf( new Random().nextInt( 100 ) ), sensore.getIdSensore().toString() );
-                        allReadyPublish.put( sensore.getIdSensore(), 1 );
+                        temperaturePublisher.publish(String.valueOf(new Random().nextInt(100)), sensore.getIdSensore().toString());
+                        allReadyPublish.put(sensore.getIdSensore(), 1);
                     }
-                } catch( MqttException e ) {
-                    throw new RuntimeException( e );
+                } catch (MqttException e) {
+                    throw new RuntimeException(e);
                 }
-            } );
-            case "light" -> sensoreModels.forEach( sensore -> {
+            });
+            case "light" -> sensoreModels.forEach(sensore -> {
                 try {
-                    if( allReadyPublish.containsKey( sensore.getIdSensore() ) ) {
-                        if( allReadyPublish.get( sensore.getIdSensore() )<=4 ) {
-                            lightPublisher.publish( String.valueOf( new Random().nextInt( 100 ) ), sensore.getIdSensore().toString() );
-                            allReadyPublish.put( sensore.getIdSensore(), ( allReadyPublish.get( sensore.getIdSensore() ) + 1 ) );
+                    if (allReadyPublish.containsKey(sensore.getIdSensore())) {
+                        if (allReadyPublish.get(sensore.getIdSensore()) <= 4) {
+                            lightPublisher.publish(String.valueOf(new Random().nextInt(100)), sensore.getIdSensore().toString());
+                            allReadyPublish.put(sensore.getIdSensore(), (allReadyPublish.get(sensore.getIdSensore()) + 1));
                         }
                     } else {
-                        lightPublisher.publish( String.valueOf( new Random().nextInt( 100 ) ), sensore.getIdSensore().toString() );
-                        allReadyPublish.put( sensore.getIdSensore(), 1 );
+                        lightPublisher.publish(String.valueOf(new Random().nextInt(100)), sensore.getIdSensore().toString());
+                        allReadyPublish.put(sensore.getIdSensore(), 1);
                     }
-                } catch( MqttException e ) {
-                    throw new RuntimeException( e );
+                } catch (MqttException e) {
+                    throw new RuntimeException(e);
                 }
-            } );
+            });
         }
     }
 

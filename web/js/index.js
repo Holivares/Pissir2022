@@ -10,8 +10,9 @@ let changeAttuatoreToAutomatiqueModeUrl = "http://127.0.0.1:8080/v1/attuatori/au
 let changeAttuatoreToManualModeUrl = "http://127.0.0.1:8080/v1/attuatori/manuel_mode/";
 let changeAttuatoreToEnableStatusUrl = "http://127.0.0.1:8080/v1/attuatori/enable/";
 let changeAttuatoreToDisableStatusUrl = "http://127.0.0.1:8080/v1/attuatori/disable/"
-let pianificatoreUrl ="http://127.0.0.1:8080/v1/piani";
-
+let pianificatoreUrl = "http://127.0.0.1:8080/v1/piani";
+let getPianificatoreByIdSerraUrl = "http://127.0.0.1:8080/v1/piani/serra/";
+let getPianificatoreByIdAziendaAgricolaUrl = "http://127.0.0.1:8080/v1/piani/azienda/";
 
 
 let signIn = document.getElementById("sign-in");
@@ -35,13 +36,52 @@ let pianificatoreTab = document.getElementById("pianificatore-tab");
 let pianificatoreTabPane = document.getElementById("pianificatore-tab-pane");
 let aziendaTab = document.getElementById("azienda-tab");
 let serraTab = document.getElementById("serra-tab");
+let pianificatoreTabBody = document.getElementById("pianificatore-table-tbody");
 
 
 let user = null;
 let azienda = null;
 let listOfSerraNumber = 0;
 let currentIdSerra = null;
+let listOfPianificatoreNumber = 0;
 
+
+function getAllPianificatore() {
+    let id = currentIdSerra;
+    let url = getPianificatoreByIdSerraUrl;
+    if(!currentIdSerra){
+        id = azienda.idAziendaAgricola;
+        url = getPianificatoreByIdAziendaAgricolaUrl;
+    }
+    fetch(url + id).then(response => response.json()).then(json => {
+        if (json.hasOwnProperty("messages")) {
+            console.log("Find pianificatore error caught: " + json.messages)
+            throw new Error(json.messages)
+        } else {
+            listOfPianificatoreNumber = 0;
+            while(pianificatoreTabBody.firstChild){
+                pianificatoreTabBody.firstChild.remove();
+
+            }
+            json.forEach(pianificatore => {
+                let pianificatoreRowClone = document.getElementById("pianificatore-template-tbody-row").content.cloneNode(true);
+                let rowNumber = pianificatoreRowClone.querySelector(".row-number");
+                let rowDescription = pianificatoreRowClone.querySelector(".row-description");
+                let rowDate = pianificatoreRowClone.querySelector(".row-startdate");
+                let rowStartTime = pianificatoreRowClone.querySelector(".row-starttime");
+                let rowEndTime = pianificatoreRowClone.querySelector(".row-endtime");
+                let rowButtonEdit = pianificatoreRowClone.querySelector(".row-edit").content;
+                rowNumber.textContent = listOfPianificatoreNumber + 1;
+                rowDescription.textContent = pianificatore.descrizione;
+                rowDate.textContent = pianificatore.esecuzioneData;
+                rowStartTime.textContent = pianificatore.esecuzioneTempo.startTime;
+                rowEndTime.textContent = pianificatore.esecuzioneTempo.endTime;
+                pianificatoreTabBody.appendChild(pianificatoreRowClone);
+                listOfPianificatoreNumber++;
+            })
+        }
+    })
+}
 
 function addRowInSerraTable(json, index) {
     const cloneSerraTableTbodyRow = serraTableTbodyRow.content.cloneNode(true);
@@ -56,20 +96,20 @@ function addRowInSerraTable(json, index) {
         clickDetailsRowSerra(serraDetails);
         let serraPianificatoreButton = cloneSerraTableTbodyRow.querySelector(".serra-pianificatore");
         serraPianificatoreButton.setAttribute("data-id-serra", json.idSerra);
-        serraPianificatoreButton.addEventListener("click", (event)=>{
+        serraPianificatoreButton.addEventListener("click", (event) => {
             currentIdSerra = event.target.getAttribute("data-id-serra")
-            if(aziendaTab.classList.contains("active")){
+            if (aziendaTab.classList.contains("active")) {
                 aziendaTab.classList.remove("active");
                 aziendaTab.setAttribute("aria-selected", "false");
-                aziendaTab.setAttribute("tabindex","-1");
+                aziendaTab.setAttribute("tabindex", "-1");
                 document.querySelector(".azienda-fade").classList.remove("active")
                 document.querySelector(".azienda-fade").classList.remove("show")
 
             }
-            if(serraTab.classList.contains("active")){
+            if (serraTab.classList.contains("active")) {
                 serraTab.classList.remove("active");
                 serraTab.setAttribute("aria-selected", "false");
-                serraTab.setAttribute("tabindex","-1");
+                serraTab.setAttribute("tabindex", "-1");
                 document.querySelector(".serra-fade").classList.remove("active")
                 document.querySelector(".serra-fade").classList.remove("show")
             }
@@ -81,6 +121,8 @@ function addRowInSerraTable(json, index) {
             let form = pianificatoreTabPane.querySelector(".pianificatore-form");
             form.classList.remove("d-none");
             form.classList.add("d-lg-flex");
+            //permet d'appeler une url
+            getAllPianificatore();
         })
 
     }
@@ -96,10 +138,10 @@ let setAttuatore = (attuatore, rowMode, rowStatus, rowChangeMode, rowChangeStatu
 
     rowChangeMode.addEventListener("click", (event) => {
         let currentMode = event.target.parentElement.previousElementSibling.textContent
-        if(currentMode === "MANUALE"){
+        if (currentMode === "MANUALE") {
             fetch(changeAttuatoreToAutomatiqueModeUrl + event.target.getAttribute("data-id-attuatore")).then(response => response.json()).then(json => {
                 if (json.hasOwnProperty("messages")) {
-                    console.log("Find sensore error caught: " + json.messages)
+                    console.log("Find attuatore error caught: " + json.messages)
                     throw new Error(json.messages)
                 } else {
                     event.target.parentElement.previousElementSibling.textContent = json.stato.mode
@@ -108,7 +150,7 @@ let setAttuatore = (attuatore, rowMode, rowStatus, rowChangeMode, rowChangeStatu
         } else {
             fetch(changeAttuatoreToManualModeUrl + event.target.getAttribute("data-id-attuatore")).then(response => response.json()).then(json => {
                 if (json.hasOwnProperty("messages")) {
-                    console.log("Find sensore error caught: " + json.messages)
+                    console.log("Find attuatore error caught: " + json.messages)
                     throw new Error(json.messages)
                 } else {
                     event.target.parentElement.previousElementSibling.textContent = json.stato.mode
@@ -142,7 +184,7 @@ let setAttuatore = (attuatore, rowMode, rowStatus, rowChangeMode, rowChangeStatu
 
 
 let clickDetailsRowSerra = (element) => {
-    if(element !== null){
+    if (element !== null) {
         element.addEventListener("click", (event) => {
             while (serraTableTbody.querySelector("#sensore-table-tbody").firstChild) {
                 serraTableTbody.querySelector("#sensore-table-tbody").firstChild.remove();
@@ -267,7 +309,7 @@ signIn.addEventListener("click", () => {
 
             if (user.hasOwnProperty("idUtente")) {
                 fetch(getAziendaByUserIDUrl + user.idUtente).then(response => response.json()).then(json => {
-                    if(json.hasOwnProperty("messages")){
+                    if (json.hasOwnProperty("messages")) {
                         console.log("Delete serra error caught: " + json.messages)
                         throw new Error(json.messages)
                     } else {
@@ -315,7 +357,7 @@ addSerra.addEventListener("click", () => {
             body: JSON.stringify(payload)
         })
 
-    fetch(addSerraRequest).then(response => response.json()).then( json => {
+    fetch(addSerraRequest).then(response => response.json()).then(json => {
         if (json.hasOwnProperty("messages")) {
             console.log("Add serra error caught: " + json.messages)
             throw new Error(json.messages)
@@ -335,32 +377,34 @@ addPlanningButton.addEventListener("click", () => {
     let payload = {
         "idAziendaAgricola": azienda.idAziendaAgricola,
         "idSerra": currentIdSerra,
-        "descrizione": descriptionPlanning,
-        "esecuzioneData": dateExecution,
+        "descrizione": description,
+        "esecuzioneData": date,
         "esecuzioneTempo": {
-            "startTime": timeBeginning,
-            "endTime": timeEnded
+            "startTime": begin,
+            "endTime": end
         }
     }
     let addPlanningRequest = new Request(pianificatoreUrl,
         {
             method: "POST",
-            headers:{"Content-Type": "application/json;charset=UTF-8"},
+            headers: {"Content-Type": "application/json;charset=UTF-8"},
             body: JSON.stringify(payload)
         })
-    fetch(addPlanningRequest).then(response => response.json()).then(json =>{
-        if(json.hasOwnProperty("messages")){
+    fetch(addPlanningRequest).then(response => response.json()).then(json => {
+        if (json.hasOwnProperty("messages")) {
             console.log("Add pianificatore error caught: " + json.messages)
             throw new Error(json.messages)
-        }else{
-            console.log("*******", JSON.stringify(json));
+        } else {
+
         }
     })
 
     console.log(description + " **** " + date + " **** " + begin + "****" + end)
 })
-pianificatoreTab.addEventListener("click", (event)=>{
+pianificatoreTab.addEventListener("click", (event) => {
     let form = pianificatoreTabPane.querySelector(".pianificatore-form");
     form.classList.add("d-none");
     form.classList.remove("d-lg-flex");
+    currentIdSerra = null;
+    getAllPianificatore();
 })

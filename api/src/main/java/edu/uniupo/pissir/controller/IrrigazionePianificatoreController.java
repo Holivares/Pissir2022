@@ -50,7 +50,7 @@ public class IrrigazionePianificatoreController {
         return irrigazionePianificatoreService.deleteIrrigazionePianificatoreById( session, idIrrigazionePianificatore );
     }
 
-    @GetMapping( value = "/{idAziendaAgricola}", produces = "application/json" )
+    @GetMapping( value = "/azienda/{idAziendaAgricola}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.FOUND )
     public List<IrrigazionePianificatoreModel> findIrrigazionePianificatoreByIdAziendaAgricola ( HttpSession session,
                                                                                                  @PathVariable UUID idAziendaAgricola ) throws Exception {
@@ -58,7 +58,7 @@ public class IrrigazionePianificatoreController {
         return irrigazionePianificatoreService.findIrrigazionePianificatoreByIdAziendaAgricola( session, idAziendaAgricola );
     }
 
-    @GetMapping( value = "/{idSerra}", produces = "application/json" )
+    @GetMapping( value = "/serra/{idSerra}", produces = "application/json" )
     @ResponseStatus( value = HttpStatus.FOUND )
     public List<IrrigazionePianificatoreModel> findIrrigazionePianificatoreByIdSerra ( HttpSession session, @PathVariable UUID idSerra ) throws Exception {
         logger.info( "i'm in controller to find an pianificatore by Serra id ..." );

@@ -25,7 +25,7 @@ public class AttuatoreEntity implements Serializable {
     private UUID idAttuatore;
     @NotNull
     @NonNull
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.REMOVE}, optional = false)
     @JoinColumn( name = "ID_GREENHOUSE" )
     private SerraEntity serraEntity;
     @NotNull

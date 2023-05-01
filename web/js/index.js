@@ -37,7 +37,7 @@ let pianificatoreTabPane = document.getElementById("pianificatore-tab-pane");
 let aziendaTab = document.getElementById("azienda-tab");
 let serraTab = document.getElementById("serra-tab");
 let pianificatoreTabBody = document.getElementById("pianificatore-table-tbody");
-
+let pianificatoreDetailsForm = document.getElementById("details-pianificatore");
 
 let user = null;
 let azienda = null;
@@ -45,6 +45,89 @@ let listOfSerraNumber = 0;
 let currentIdSerra = null;
 let listOfPianificatoreNumber = 0;
 
+
+function addPianificatoreInTBody(pianificatore) {
+        let pianificatoreRowClone = document.getElementById("pianificatore-template-tbody-row").content.cloneNode(true);
+        let rowNumber = pianificatoreRowClone.querySelector(".row-number");
+        let rowDescription = pianificatoreRowClone.querySelector(".row-description");
+        let rowDate = pianificatoreRowClone.querySelector(".row-startdate");
+        let rowStartTime = pianificatoreRowClone.querySelector(".row-starttime");
+        let rowEndTime = pianificatoreRowClone.querySelector(".row-endtime");
+        let rowButtonEdit = pianificatoreRowClone.querySelector("#updatePianificatore");
+        rowNumber.textContent = listOfPianificatoreNumber + 1;
+        rowDescription.textContent = pianificatore.descrizione;
+        rowDate.textContent = pianificatore.esecuzioneData;
+        rowStartTime.textContent = pianificatore.esecuzioneTempo.startTime;
+        rowEndTime.textContent = pianificatore.esecuzioneTempo.endTime;
+        if(pianificatore.idSerra){
+            rowButtonEdit.setAttribute("data-id-serra", pianificatore.idSerra);
+
+        }
+        if(pianificatore.idAziendaAgricola){
+            rowButtonEdit.setAttribute("data-id-azienda", pianificatore.idAziendaAgricola);
+
+        }
+        if(pianificatore.idIrrigazionePianificatore){
+            rowButtonEdit.setAttribute("data-id-pianificatore", pianificatore.idIrrigazionePianificatore);
+
+        }
+
+        rowButtonEdit.addEventListener("click", (event)=>{
+            const currentEditButton = event.target;
+            let editDescription = pianificatoreDetailsForm.querySelector("#description-edit-planing");
+            let editDate = pianificatoreDetailsForm.querySelector("#date-executione-edit-planing");
+            let editStartTime = pianificatoreDetailsForm.querySelector("#time-edit-begin");
+            let editEndTime = pianificatoreDetailsForm.querySelector("#time-edit-end");
+            let EditButton = pianificatoreDetailsForm.querySelector("#edit-planing");
+            EditButton.setAttribute("data-id-serra", currentEditButton.getAttribute("data-id-serra"));
+            EditButton.setAttribute("data-id-azienda", currentEditButton.getAttribute("data-id-azienda"));
+            EditButton.setAttribute("data-id-pianificatore", currentEditButton.getAttribute("data-id-pianificatore"));
+            editDescription.value = currentEditButton.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.textContent;
+            editDate.value = currentEditButton.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.textContent;
+            editStartTime.value = currentEditButton.parentElement.previousElementSibling.previousElementSibling.textContent;
+            editEndTime.value = currentEditButton.parentElement.previousElementSibling.textContent;
+
+            EditButton.addEventListener("click", (event)=>{
+                let payload = {
+                    "idIrrigazionePianificatore": event.target.getAttribute("data-id-pianificatore") ,
+                    "idAziendaAgricola": event.target.getAttribute("data-id-azienda"),
+                    "idSerra": event.target.getAttribute("data-id-serra"),
+                    "descrizione": editDescription.value,
+                    "esecuzioneData": editDate.value,
+                    "esecuzioneTempo": {
+                        "startTime": editStartTime.value,
+                        "endTime": editEndTime.value
+                    }
+                }
+                let request = new Request(pianificatoreUrl,{
+                    method: "PUT",
+                    headers: {"Content-Type": "application/json;charset=UTF-8"},
+                    body: JSON.stringify(payload)
+                })
+                fetch(request).then(response => response.json()).then(json => {
+                    if (json.hasOwnProperty("messages")) {
+                        console.log("Add serra error caught: " + json.messages)
+                        throw new Error(json.messages)
+                    } else {
+                        let currentRow = currentEditButton.parentElement.parentElement;
+                        let rowDescription = currentRow.querySelector(".row-description");
+                        let rowDate = currentRow.querySelector(".row-startdate");
+                        let rowStartTime = currentRow.querySelector(".row-starttime");
+                        let rowEndTime = currentRow.querySelector(".row-endtime");
+                        rowDescription.textContent = json.descrizione;
+                        rowDate.textContent = json.esecuzioneData;
+                        rowStartTime.textContent = json.esecuzioneTempo.startTime;
+                        rowEndTime.textContent = json.esecuzioneTempo.endTime;
+                        document.querySelector("#pianificatore-close-botton").click();
+                    }
+                })
+            })
+        })
+
+        pianificatoreTabBody.appendChild(pianificatoreRowClone);
+        listOfPianificatoreNumber++;
+
+}
 
 function getAllPianificatore() {
     let id = currentIdSerra;
@@ -63,22 +146,7 @@ function getAllPianificatore() {
                 pianificatoreTabBody.firstChild.remove();
 
             }
-            json.forEach(pianificatore => {
-                let pianificatoreRowClone = document.getElementById("pianificatore-template-tbody-row").content.cloneNode(true);
-                let rowNumber = pianificatoreRowClone.querySelector(".row-number");
-                let rowDescription = pianificatoreRowClone.querySelector(".row-description");
-                let rowDate = pianificatoreRowClone.querySelector(".row-startdate");
-                let rowStartTime = pianificatoreRowClone.querySelector(".row-starttime");
-                let rowEndTime = pianificatoreRowClone.querySelector(".row-endtime");
-                let rowButtonEdit = pianificatoreRowClone.querySelector(".row-edit").content;
-                rowNumber.textContent = listOfPianificatoreNumber + 1;
-                rowDescription.textContent = pianificatore.descrizione;
-                rowDate.textContent = pianificatore.esecuzioneData;
-                rowStartTime.textContent = pianificatore.esecuzioneTempo.startTime;
-                rowEndTime.textContent = pianificatore.esecuzioneTempo.endTime;
-                pianificatoreTabBody.appendChild(pianificatoreRowClone);
-                listOfPianificatoreNumber++;
-            })
+            json.forEach(pianificatore =>addPianificatoreInTBody(pianificatore))
         }
     })
 }
@@ -395,7 +463,7 @@ addPlanningButton.addEventListener("click", () => {
             console.log("Add pianificatore error caught: " + json.messages)
             throw new Error(json.messages)
         } else {
-
+            addPianificatoreInTBody(json)
         }
     })
 
@@ -408,3 +476,4 @@ pianificatoreTab.addEventListener("click", (event) => {
     currentIdSerra = null;
     getAllPianificatore();
 })
+

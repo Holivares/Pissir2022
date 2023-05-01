@@ -26,7 +26,7 @@ public class MisuraEntity implements Serializable {
     private UUID idMisura;
     @NotNull
     @NonNull
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.REMOVE}, optional = false)
     @JoinColumn( name = "ID_SENSOR" )
     private SensoreEntity sensoreEntity;
     @NotNull

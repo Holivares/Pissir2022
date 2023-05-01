@@ -6,6 +6,8 @@ import edu.uniupo.pissir.model.DefaultModel;
 import edu.uniupo.pissir.model.DeleteResponseModel;
 import edu.uniupo.pissir.model.SerraModel;
 import edu.uniupo.pissir.repository.SerraRepository;
+import edu.uniupo.pissir.service.AttuatoreService;
+import edu.uniupo.pissir.service.SensoreService;
 import edu.uniupo.pissir.service.SerraService;
 import edu.uniupo.pissir.utility.OptionalUnpacker;
 import jakarta.servlet.http.HttpSession;
@@ -25,10 +27,16 @@ public class SerraServiceImpl implements SerraService {
     private final SerraRepository serraRepository;
     private final ModelsToEntities mapper = Mappers.getMapper( ModelsToEntities.class );
     private final Logger logger = LoggerFactory.getLogger( SerraServiceImpl.class );
+    private final SensoreService sensoreService;
+    private final AttuatoreService attuatoreService;
 
-    public SerraServiceImpl ( SerraRepository serraRepository ) {
+    public SerraServiceImpl (SerraRepository serraRepository, SensoreService sensoreService, AttuatoreService attuatoreService) {
         this.serraRepository = serraRepository;
+        this.sensoreService = sensoreService;
+        this.attuatoreService = attuatoreService;
     }
+
+
 
     @Override
     public SerraModel createSerra ( HttpSession session, SerraModel serraModel ) throws Exception {

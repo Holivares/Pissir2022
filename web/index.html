@@ -131,6 +131,29 @@
                             <tbody class="table-group-divider" id="pianificatore-table-tbody">
                             </tbody>
                         </table>
+                        <div class="modal fade" id="details-pianificatore" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="details-serra"
+                             aria-hidden="true">
+                            <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" >Details of pianificatore</h1>
+                                        <p class="description-serra fs-2"></p>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="pianificatore-close-botton"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="align-items-center input-group input-group-sm pe-3 d-flex pianificatore-form" role="form">
+                                            <textarea class="d-block form-control rounded-3 me-2 min-h-10" id="description-edit-planing" placeholder="Enter description of planning" aria-label="Description" required></textarea>
+                                            <div class="d-block">
+                                                <input class="form-control rounded-3 me-2 mb-2" id="date-executione-edit-planing" type="date" placeholder="Enter a date" required>
+                                                <input class="form-control rounded-3 me-2 mb-2" id="time-edit-begin" type="time" placeholder="Enter time begin" required>
+                                                <input class="form-control rounded-3 me-2 mb-2" id="time-edit-end" type="time" placeholder="Enter time end" required>
+                                            </div>
+                                            <button class="btn btn-light btn-sm rounded-3 text-capitalize fw-semibold fst-italic mx-3" id="edit-planing" type="button">Update</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
                 </div>
             </div>
@@ -221,25 +244,6 @@
             </td>
         </tr>
     </template>
-    <template class="serra-card-template">
-        <div class="card mb-3 ps-0 pe-1" style="width: 550px;">
-            <div class="row g-0">
-                <div class="col-md-5">
-                    <img src="images/image2.png" class="img-fluid object-fit-cover rounded-start h-100" alt="...">
-                </div>
-                <div class="col-md-7">
-                    <div class="card-body px-1 d-grid h-100">
-                        <h5 class="card-title"></h5>
-                        <p class="card-text"></p>
-                        <button class="btn btn-light btn-sm align-self-end rounded-3 w-25 text-capitalize fw-semibold fst-italic"
-                                style="justify-self:center;">
-                            Details
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </template>
     <template class="pianificatore-table-body" id="pianificatore-template-tbody-row">
         <tr>
             <th class="row-number" scope="row"></th>
@@ -248,10 +252,11 @@
             <td class="row-starttime"></td>
             <td class="row-endtime"></td>
             <td class="row-edit">
-                <button class="btn btn-light btn-sm align-self-end rounded-3 text-capitalize fw-semibold fst-italic"
-                        style="justify-self:center;">
+                <button class="btn btn-light btn-sm align-self-end rounded-3 text-capitalize fw-semibold fst-italic" id =updatePianificatore
+                        style="justify-self:center;" data-bs-toggle="modal" data-bs-target="#details-pianificatore">
                     edit
                 </button>
+
             </td>
 
         </tr>

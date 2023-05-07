@@ -1,5 +1,6 @@
 package edu.uniupo.pissir.controller;
 
+import edu.uniupo.pissir.exception.NotAutorizedActionException;
 import edu.uniupo.pissir.model.MisuraModel;
 import edu.uniupo.pissir.service.MisuraService;
 import jakarta.servlet.http.HttpSession;
@@ -28,6 +29,9 @@ public class MisuraController {
     @ResponseStatus( value = HttpStatus.CREATED )
     public MisuraModel createMisura ( HttpSession session, @RequestBody MisuraModel misuraModel ) throws Exception {
         logger.info( "i'm in the controller to create an misura ..." );
+        if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
+            throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
+        }
         return misuraService.createMisura( session, misuraModel );
     }
 

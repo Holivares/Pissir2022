@@ -89,4 +89,10 @@ public class AttuatoreServiceImpl implements AttuatoreService {
         return mapper.entityToModelOfAttuatore( attuatoreEntity );
     }
 
+    @Override
+    public void deleteAttuatoreById ( HttpSession session, UUID idAttuatore ) {
+        logger.info( "Delete attuatore method has been called..." );
+        attuatoreRepository.delete( OptionalUnpacker.unpacker( attuatoreRepository.findById( idAttuatore ) ) );
+    }
+
 }

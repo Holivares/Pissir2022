@@ -34,6 +34,13 @@ public class ApplicationHandlerException {
         return new ApplicationError( notFoundEntityException.getStatus(), List.of( notFoundEntityException.getMessage() ) );
     }
 
+    @ExceptionHandler( NotFoundEntityException.class )
+    @ResponseStatus( value = HttpStatus.BAD_REQUEST )
+    public ApplicationError handleNotAutorizedActionException ( NotAutorizedActionException notAutorizedActionException ) {
+        logger.info( "NotAutorizedActionException caught with messages : %s".formatted( notAutorizedActionException.getMessage() ) );
+        return new ApplicationError( notAutorizedActionException.getStatus(), List.of( notAutorizedActionException.getMessage() ) );
+    }
+
     @ExceptionHandler( DuplicateEntityException.class )
     @ResponseStatus( value = HttpStatus.BAD_REQUEST )
     public ApplicationError handleDuplicateAziendaAgricola ( DuplicateEntityException duplicateEntityException ) {

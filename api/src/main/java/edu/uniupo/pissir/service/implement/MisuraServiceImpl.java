@@ -54,4 +54,13 @@ public class MisuraServiceImpl implements MisuraService {
                                                                        "Have not found data of misura with the given id of sensore" );
         return mapper.entityToModelListOfMisura( misura );
     }
+
+    @Override
+    public void deleteAllMisura ( HttpSession session, UUID idSensore ) throws Exception {
+        logger.info( "Delete all misura method has been called ..." );
+        List<MisuraModel> misure = findMisuraBySensoreId( session, idSensore );
+        if( misure.size() != 0){
+            misure.forEach( misura -> misuraRepository.delete( mapper.modelToEntityOfMisura( misura ) ) );
+        }
+    }
 }

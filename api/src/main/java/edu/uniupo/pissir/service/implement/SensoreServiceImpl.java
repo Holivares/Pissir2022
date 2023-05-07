@@ -5,6 +5,7 @@ import edu.uniupo.pissir.mapper.ModelsToEntities;
 import edu.uniupo.pissir.model.DefaultModel;
 import edu.uniupo.pissir.model.SensoreModel;
 import edu.uniupo.pissir.repository.SensoreRepository;
+import edu.uniupo.pissir.service.MisuraService;
 import edu.uniupo.pissir.service.SensoreService;
 import edu.uniupo.pissir.utility.OptionalUnpacker;
 import jakarta.servlet.http.HttpSession;
@@ -23,10 +24,13 @@ public class SensoreServiceImpl implements SensoreService {
 
     private final SensoreRepository sensoreRepository;
     private final ModelsToEntities mapper = Mappers.getMapper( ModelsToEntities.class );
+
+    private final MisuraService misuraService;
     private final Logger logger = LoggerFactory.getLogger( SensoreServiceImpl.class );
 
-    public SensoreServiceImpl ( SensoreRepository sensoreRepository ) {
+    public SensoreServiceImpl ( SensoreRepository sensoreRepository, MisuraService misuraService ) {
         this.sensoreRepository = sensoreRepository;
+        this.misuraService = misuraService;
     }
 
     @Override
@@ -43,5 +47,12 @@ public class SensoreServiceImpl implements SensoreService {
         List<SensoreEntity> sensore = OptionalUnpacker.unpackerOrThrows( sensoreRepository.findBySerraEntityIdSerra( idSerra ),
                                                                          "Have not found data of sensore with the given id of serra" );
         return mapper.entityToModelListOfSensore( sensore );
+    }
+
+    @Override
+    public void deleteSensoreByIdSensore ( HttpSession session, UUID idSensore ) throws Exception {
+        logger.info( "Delete sensore by id sensore method has been called ..." );
+        misuraService.deleteAllMisura(session, idSensore);
+        sensoreRepository.delete( OptionalUnpacker.unpacker( sensoreRepository.findById( idSensore ) ) );
     }
 }

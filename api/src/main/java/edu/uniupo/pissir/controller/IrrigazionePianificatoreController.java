@@ -1,5 +1,6 @@
 package edu.uniupo.pissir.controller;
 
+import edu.uniupo.pissir.exception.NotAutorizedActionException;
 import edu.uniupo.pissir.model.DeleteResponseModel;
 import edu.uniupo.pissir.model.IrrigazionePianificatoreModel;
 import edu.uniupo.pissir.service.IrrigazionePianificatoreService;
@@ -31,6 +32,9 @@ public class IrrigazionePianificatoreController {
                                                                           @RequestBody IrrigazionePianificatoreModel irrigazionePianificatoreModel
                                                                         ) throws Exception {
         logger.info( "i'm in the controller to create an pianificatore ..." );
+        if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
+            throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
+        }
         return irrigazionePianificatoreService.createIrrigazionePianificatore( session, irrigazionePianificatoreModel );
     }
 
@@ -40,6 +44,9 @@ public class IrrigazionePianificatoreController {
                                                                           @RequestBody IrrigazionePianificatoreModel irrigazionePianificatoreModel
                                                                         ) throws Exception {
         logger.info( "i'm in the controller to update an pianificatore ..." );
+        if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
+            throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
+        }
         return irrigazionePianificatoreService.updateIrrigazionePianificatore( session, irrigazionePianificatoreModel );
     }
 
@@ -47,6 +54,9 @@ public class IrrigazionePianificatoreController {
     @ResponseStatus( value = HttpStatus.OK )
     public DeleteResponseModel deleteIrrigazionePianificatore ( HttpSession session, @PathVariable UUID idIrrigazionePianificatore ) throws Exception {
         logger.info( "i'm in controller to delete an pianificatore ..." );
+        if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
+            throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
+        }
         return irrigazionePianificatoreService.deleteIrrigazionePianificatoreById( session, idIrrigazionePianificatore );
     }
 

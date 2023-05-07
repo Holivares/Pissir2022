@@ -10,4 +10,5 @@ public interface SensoreService {
     SensoreModel createSensore ( HttpSession session, SensoreModel sensoreModel ) throws Exception;
 
     List<SensoreModel> findSensoreByIdSerra ( HttpSession session, UUID idSerra ) throws Exception;
+    void deleteSensoreByIdSensore( HttpSession session, UUID idSensore) throws Exception;
 }

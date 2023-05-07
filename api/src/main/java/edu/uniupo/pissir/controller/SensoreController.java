@@ -1,5 +1,6 @@
 package edu.uniupo.pissir.controller;
 
+import edu.uniupo.pissir.exception.NotAutorizedActionException;
 import edu.uniupo.pissir.model.SensoreModel;
 import edu.uniupo.pissir.service.SensoreService;
 import jakarta.servlet.http.HttpSession;
@@ -28,6 +29,9 @@ public class SensoreController {
     @ResponseStatus( value = HttpStatus.CREATED )
     public SensoreModel createSensore ( HttpSession session, @RequestBody SensoreModel sensoreModel ) throws Exception {
         logger.info( "i'm in the controller to create an sensore ..." );
+        if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
+            throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
+        }
         return sensoreService.createSensore( session, sensoreModel );
     }
 

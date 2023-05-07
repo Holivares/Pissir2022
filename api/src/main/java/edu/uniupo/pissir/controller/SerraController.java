@@ -1,5 +1,6 @@
 package edu.uniupo.pissir.controller;
 
+import edu.uniupo.pissir.exception.NotAutorizedActionException;
 import edu.uniupo.pissir.model.DeleteResponseModel;
 import edu.uniupo.pissir.model.SerraModel;
 import edu.uniupo.pissir.service.SerraService;
@@ -29,6 +30,9 @@ public class SerraController {
     @ResponseStatus( value = HttpStatus.CREATED )
     public SerraModel createSerra ( HttpSession session, @RequestBody SerraModel serraModel ) throws Exception {
         logger.info( "i'm in the controller to create an serra ..." );
+        if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
+            throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
+        }
         return serraService.createSerra( session, serraModel );
     }
 
@@ -36,6 +40,9 @@ public class SerraController {
     @ResponseStatus( value = HttpStatus.OK )
     public SerraModel updateSerra ( HttpSession session, @RequestBody SerraModel serraModel ) throws Exception {
         logger.info( "i'm in the controller to update an serra ..." );
+        if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
+            throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
+        }
         return serraService.updateSerra( session, serraModel );
     }
 
@@ -43,6 +50,9 @@ public class SerraController {
     @ResponseStatus( value = HttpStatus.OK )
     public DeleteResponseModel deleteSerra ( HttpSession session, @PathVariable UUID idSerra ) throws Exception {
         logger.info( "i'm in the controller to delete an serra ..." );
+        if(session.getAttribute( "role" ) == "COLLABORATORE"){
+            throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you");
+        }
         return serraService.deleteSerra( session, idSerra );
     }
 

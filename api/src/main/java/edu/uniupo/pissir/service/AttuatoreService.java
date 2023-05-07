@@ -19,4 +19,6 @@ public interface AttuatoreService {
     AttuatoreModel getManualModeAttuatore ( HttpSession session, UUID idAttuatore ) throws Exception;
 
     AttuatoreModel getAutomatiqueModeAttuatore ( HttpSession session, UUID idAttuatore ) throws Exception;
+
+    void deleteAttuatoreById( HttpSession session, UUID idAttuatore);
 }

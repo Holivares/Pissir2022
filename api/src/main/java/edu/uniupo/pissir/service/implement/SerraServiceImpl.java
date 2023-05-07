@@ -2,11 +2,10 @@ package edu.uniupo.pissir.service.implement;
 
 import edu.uniupo.pissir.entity.SerraEntity;
 import edu.uniupo.pissir.mapper.ModelsToEntities;
-import edu.uniupo.pissir.model.DefaultModel;
-import edu.uniupo.pissir.model.DeleteResponseModel;
-import edu.uniupo.pissir.model.SerraModel;
+import edu.uniupo.pissir.model.*;
 import edu.uniupo.pissir.repository.SerraRepository;
 import edu.uniupo.pissir.service.AttuatoreService;
+import edu.uniupo.pissir.service.IrrigazionePianificatoreService;
 import edu.uniupo.pissir.service.SensoreService;
 import edu.uniupo.pissir.service.SerraService;
 import edu.uniupo.pissir.utility.OptionalUnpacker;
@@ -29,11 +28,14 @@ public class SerraServiceImpl implements SerraService {
     private final Logger logger = LoggerFactory.getLogger( SerraServiceImpl.class );
     private final SensoreService sensoreService;
     private final AttuatoreService attuatoreService;
+    private final IrrigazionePianificatoreService irrigazionePianificatoreService;
 
-    public SerraServiceImpl (SerraRepository serraRepository, SensoreService sensoreService, AttuatoreService attuatoreService) {
+    public SerraServiceImpl ( SerraRepository serraRepository, SensoreService sensoreService, AttuatoreService attuatoreService,
+                              IrrigazionePianificatoreService irrigazionePianificatoreService ) {
         this.serraRepository = serraRepository;
         this.sensoreService = sensoreService;
         this.attuatoreService = attuatoreService;
+        this.irrigazionePianificatoreService = irrigazionePianificatoreService;
     }
 
 
@@ -61,6 +63,34 @@ public class SerraServiceImpl implements SerraService {
         logger.info( "The delete serra method has been called ..." );
         SerraEntity serraEntity = OptionalUnpacker.unpackerOrThrows( serraRepository.findById( idSerra ),
                                                                      "Not found data of this serra in server" );
+
+        List<SensoreModel> sensores = sensoreService.findSensoreByIdSerra( session, idSerra );
+        if(sensores.size() != 0){
+            sensores.forEach( sensore -> {
+                try {
+                    sensoreService.deleteSensoreByIdSensore( session, sensore.getIdSensore() );
+                } catch( Exception e ) {
+                    throw new RuntimeException( e );
+                }
+            } );
+        }
+
+        List<AttuatoreModel> attuatores = attuatoreService.findAttuatoreByIdSerra( session, idSerra );
+        if(attuatores.size() != 0){
+            attuatores.forEach( attuatore -> attuatoreService.deleteAttuatoreById( session, attuatore.getIdAttuatore() ) );
+        }
+
+        List<IrrigazionePianificatoreModel> pianificatores = irrigazionePianificatoreService.findIrrigazionePianificatoreByIdserra( session, idSerra );
+        if(pianificatores.size() != 0){
+            pianificatores.forEach( pianificatore -> {
+                try {
+                    irrigazionePianificatoreService.deleteIrrigazionePianificatoreById(session, pianificatore.getIdIrrigazionePianificatore());
+                } catch( Exception e ) {
+                    throw new RuntimeException( e );
+                }
+            } );
+        }
+
         serraRepository.deleteById( serraEntity.getIdSerra() );
         return new DeleteResponseModel( "Serra is deleted", true );
     }

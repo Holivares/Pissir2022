@@ -13,4 +13,6 @@ public interface MisuraService {
     MisuraModel findMisuraById ( HttpSession session, UUID idMisura ) throws Exception;
 
     List<MisuraModel> findMisuraBySensoreId ( HttpSession session, UUID idSensore ) throws Exception;
+
+    void deleteAllMisura ( HttpSession session, UUID idSensore ) throws Exception;
 }

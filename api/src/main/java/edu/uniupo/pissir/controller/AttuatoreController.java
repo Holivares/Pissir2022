@@ -1,5 +1,6 @@
 package edu.uniupo.pissir.controller;
 
+import edu.uniupo.pissir.exception.NotAutorizedActionException;
 import edu.uniupo.pissir.model.AttuatoreModel;
 import edu.uniupo.pissir.service.AttuatoreService;
 import jakarta.servlet.http.HttpSession;
@@ -28,6 +29,9 @@ public class AttuatoreController {
     @ResponseStatus( value = HttpStatus.CREATED )
     public AttuatoreModel createAttuatore ( HttpSession session, @RequestBody AttuatoreModel attuatoreModel ) throws Exception {
         logger.info( "i'm in the controller to create an Attuatore ..." );
+        if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
+            throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
+        }
         return attuatoreService.createAttuatore( session, attuatoreModel );
 
     }
@@ -43,6 +47,9 @@ public class AttuatoreController {
     @ResponseStatus( value = HttpStatus.OK )
     public AttuatoreModel enableAttuatore ( HttpSession session, @PathVariable UUID idAttuatore ) throws Exception {
         logger.info( "i'm in the controller to enable an attuatore ..." );
+        if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
+            throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
+        }
         return attuatoreService.enableAttuatore( session, idAttuatore );
     }
 
@@ -50,6 +57,9 @@ public class AttuatoreController {
     @ResponseStatus( HttpStatus.OK )
     public AttuatoreModel disableAttuatore ( HttpSession session, @PathVariable UUID idAttuatore ) throws Exception {
         logger.info( "i'm in he controller to disable an attuatore ..." );
+        if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
+            throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
+        }
         return attuatoreService.disableAttuatore( session, idAttuatore );
     }
 
@@ -57,6 +67,9 @@ public class AttuatoreController {
     @ResponseStatus( value = HttpStatus.OK )
     public AttuatoreModel getManualModeAttuatore ( HttpSession session, @PathVariable UUID idAttuatore ) throws Exception {
         logger.info( "i'm in the controller to change mode of attuatore to manuel ..." );
+        if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
+            throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
+        }
         return attuatoreService.getManualModeAttuatore( session, idAttuatore );
     }
 
@@ -64,6 +77,9 @@ public class AttuatoreController {
     @ResponseStatus( HttpStatus.OK )
     public AttuatoreModel getAutomatiqueModeAttuatore ( HttpSession session, @PathVariable UUID idAttuatore ) throws Exception {
         logger.info( "i'm in he controller to change mode of attuatore to automatique ..." );
+        if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
+            throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
+        }
         return attuatoreService.getAutomatiqueModeAttuatore( session, idAttuatore );
     }
 

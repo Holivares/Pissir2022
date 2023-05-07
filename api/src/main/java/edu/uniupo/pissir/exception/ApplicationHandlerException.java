@@ -34,7 +34,7 @@ public class ApplicationHandlerException {
         return new ApplicationError( notFoundEntityException.getStatus(), List.of( notFoundEntityException.getMessage() ) );
     }
 
-    @ExceptionHandler( NotFoundEntityException.class )
+    @ExceptionHandler( NotAutorizedActionException.class )
     @ResponseStatus( value = HttpStatus.BAD_REQUEST )
     public ApplicationError handleNotAutorizedActionException ( NotAutorizedActionException notAutorizedActionException ) {
         logger.info( "NotAutorizedActionException caught with messages : %s".formatted( notAutorizedActionException.getMessage() ) );

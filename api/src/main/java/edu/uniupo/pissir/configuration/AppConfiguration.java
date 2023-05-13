@@ -1,16 +1,12 @@
 package edu.uniupo.pissir.configuration;
 
-import jakarta.servlet.*;
+import jakarta.servlet.Filter;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.config.BootstrapMode;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.io.IOException;
 
 @Configuration
 @EnableJpaRepositories( basePackages = { "edu.uniupo.pissir.repository" }, enableDefaultTransactions = false, bootstrapMode = BootstrapMode.DEFERRED )
@@ -38,4 +34,5 @@ public class AppConfiguration {
             chain.doFilter( request, response );
         };
     }
+
 }

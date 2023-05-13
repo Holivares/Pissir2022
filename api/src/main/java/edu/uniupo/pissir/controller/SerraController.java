@@ -30,6 +30,7 @@ public class SerraController {
     @ResponseStatus( value = HttpStatus.CREATED )
     public SerraModel createSerra ( HttpSession session, @RequestBody SerraModel serraModel ) throws Exception {
         logger.info( "i'm in the controller to create an serra ..." );
+        logger.info( "session is registred with value : " + session.getAttribute( "role" ) );
         if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
             throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
         }
@@ -40,6 +41,7 @@ public class SerraController {
     @ResponseStatus( value = HttpStatus.OK )
     public SerraModel updateSerra ( HttpSession session, @RequestBody SerraModel serraModel ) throws Exception {
         logger.info( "i'm in the controller to update an serra ..." );
+        logger.info( "session is registred with value : " + session.getAttribute( "role" ) );
         if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
             throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
         }
@@ -50,6 +52,7 @@ public class SerraController {
     @ResponseStatus( value = HttpStatus.OK )
     public DeleteResponseModel deleteSerra ( HttpSession session, @PathVariable UUID idSerra ) throws Exception {
         logger.info( "i'm in the controller to delete an serra ..." );
+        logger.info( "session is registred with value : " + session.getAttribute( "role" ) );
         if(session.getAttribute( "role" ) == "COLLABORATORE"){
             throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you");
         }

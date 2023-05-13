@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -17,7 +18,7 @@ public class AziendaAgricolaModel implements DefaultModel {
     private UUID idAziendaAgricola;
     @NonNull
     @NotNull( message = "User id field can't be empty or null" )
-    private UUID idUtente;
+    private List<UUID> idsUtente;
     @NonNull
     @NotNull( message = "User field can't be empty or null" )
     @NotBlank( message = "User field can't be empty or null" )

@@ -29,6 +29,7 @@ public class SensoreController {
     @ResponseStatus( value = HttpStatus.CREATED )
     public SensoreModel createSensore ( HttpSession session, @RequestBody SensoreModel sensoreModel ) throws Exception {
         logger.info( "i'm in the controller to create an sensore ..." );
+        logger.info( "session is registred with value : " + session.getAttribute( "role" ) );
         if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
             throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
         }

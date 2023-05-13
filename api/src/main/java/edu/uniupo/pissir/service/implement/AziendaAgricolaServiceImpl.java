@@ -7,6 +7,7 @@ import edu.uniupo.pissir.model.AziendaAgricolaModel;
 import edu.uniupo.pissir.model.DefaultModel;
 import edu.uniupo.pissir.model.DeleteResponseModel;
 import edu.uniupo.pissir.repository.AziendaAgricolaRepository;
+import edu.uniupo.pissir.repository.UtenteRepository;
 import edu.uniupo.pissir.service.AziendaAgricolaService;
 import edu.uniupo.pissir.service.thrower.ServiceThrower;
 import edu.uniupo.pissir.utility.OptionalUnpacker;
@@ -24,13 +25,15 @@ import java.util.UUID;
 @Transactional
 public class AziendaAgricolaServiceImpl implements AziendaAgricolaService {
     private final AziendaAgricolaRepository aziendaAgricolaRepository;
+    private final UtenteRepository utenteRepository;
     private final ModelsToEntities mapper = Mappers.getMapper( ModelsToEntities.class );
     private final ServiceThrower<Exception> serviceThrower = ( exception ) -> {throw exception;};
     private final Logger logger = LoggerFactory.getLogger( AziendaAgricolaServiceImpl.class );
 
     @Autowired
-    public AziendaAgricolaServiceImpl ( AziendaAgricolaRepository aziendaAgricolaRepository ) {
+    public AziendaAgricolaServiceImpl ( AziendaAgricolaRepository aziendaAgricolaRepository, UtenteRepository utenteRepository ) {
         this.aziendaAgricolaRepository = aziendaAgricolaRepository;
+        this.utenteRepository = utenteRepository;
     }
 
     @Override
@@ -38,12 +41,14 @@ public class AziendaAgricolaServiceImpl implements AziendaAgricolaService {
         logger.info( "The create aziendaAgricola method has been called ..." );
         DefaultModel.checkModelType( aziendaAgricolaModel, this.getClass().getName(), "createAziendaAgricola" );
         AziendaAgricolaEntity aziendaAgricola = OptionalUnpacker.unpacker( aziendaAgricolaRepository
-                                                                                   .findByUtenteEntityIdUtente( aziendaAgricolaModel.getIdUtente() ) );
+                                                                                   .findByUtenteEntitiesIdUtenteIn( aziendaAgricolaModel.getIdsUtente() ) );
         if( aziendaAgricola != null ) {
             serviceThrower.thrower( new DuplicateEntityException( this.getClass().getName(), "createAziendaAgricola", "This user have already an azienda" ) );
         }
-        AziendaAgricolaEntity azienda = aziendaAgricolaRepository.save( mapper.modelToEntityOfAziendaAgricola( aziendaAgricolaModel ) );
-        return mapper.entityToModelOfAziendaAgricola( azienda );
+        AziendaAgricolaEntity aziendaAgricolaEntity = new AziendaAgricolaEntity();
+        mapper.modelToEntityOfAziendaAgricola( aziendaAgricolaEntity, aziendaAgricolaModel, utenteRepository );
+        aziendaAgricolaRepository.save( aziendaAgricolaEntity );
+        return mapper.entityToModelOfAziendaAgricola( aziendaAgricolaEntity );
     }
 
     @Override
@@ -70,7 +75,7 @@ public class AziendaAgricolaServiceImpl implements AziendaAgricolaService {
     public AziendaAgricolaModel findAziendaAgricolaByIdUser ( HttpSession session, UUID idUtente ) throws Exception {
         logger.info( "The find aziendaAgricola by id of user method has been called ..." );
         logger.info( "session is registered by role : " + session.getAttribute( "role" ) );
-        AziendaAgricolaEntity aziendaAgricola = OptionalUnpacker.unpackerOrThrows( aziendaAgricolaRepository.findByUtenteEntityIdUtente( idUtente ),
+        AziendaAgricolaEntity aziendaAgricola = OptionalUnpacker.unpackerOrThrows( aziendaAgricolaRepository.findByUtenteEntitiesIdUtente( idUtente ),
                                                                                    "Not found data of this azienda in server" );
         return mapper.entityToModelOfAziendaAgricola( aziendaAgricola );
     }

@@ -29,6 +29,7 @@ public class MisuraController {
     @ResponseStatus( value = HttpStatus.CREATED )
     public MisuraModel createMisura ( HttpSession session, @RequestBody MisuraModel misuraModel ) throws Exception {
         logger.info( "i'm in the controller to create an misura ..." );
+        logger.info( "session is registred with value : " + session.getAttribute( "role" ) );
         if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
             throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
         }

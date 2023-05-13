@@ -32,6 +32,7 @@ public class IrrigazionePianificatoreController {
                                                                           @RequestBody IrrigazionePianificatoreModel irrigazionePianificatoreModel
                                                                         ) throws Exception {
         logger.info( "i'm in the controller to create an pianificatore ..." );
+        logger.info( "session is registred with value : " + session.getAttribute( "role" ) );
         if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
             throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
         }
@@ -44,6 +45,7 @@ public class IrrigazionePianificatoreController {
                                                                           @RequestBody IrrigazionePianificatoreModel irrigazionePianificatoreModel
                                                                         ) throws Exception {
         logger.info( "i'm in the controller to update an pianificatore ..." );
+        logger.info( "session is registred with value : " + session.getAttribute( "role" ) );
         if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
             throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
         }
@@ -54,6 +56,7 @@ public class IrrigazionePianificatoreController {
     @ResponseStatus( value = HttpStatus.OK )
     public DeleteResponseModel deleteIrrigazionePianificatore ( HttpSession session, @PathVariable UUID idIrrigazionePianificatore ) throws Exception {
         logger.info( "i'm in controller to delete an pianificatore ..." );
+        logger.info( "session is registred with value : " + session.getAttribute( "role" ) );
         if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
             throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
         }

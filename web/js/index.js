@@ -104,7 +104,7 @@ function addPianificatoreInTBody(pianificatore) {
                     headers: {"Content-Type": "application/json;charset=UTF-8"},
                     body: JSON.stringify(payload)
                 })
-                fetch(request).then(response => response.json()).then(json => {
+                fetch(request, {credentials: 'include'}).then(response => response.json()).then(json => {
                     if (json.hasOwnProperty("messages")) {
                         console.log("Add serra error caught: " + json.messages)
                         throw new Error(json.messages)
@@ -136,7 +136,7 @@ function getAllPianificatore() {
         id = azienda.idAziendaAgricola;
         url = getPianificatoreByIdAziendaAgricolaUrl;
     }
-    fetch(url + id).then(response => response.json()).then(json => {
+    fetch(url + id, {credentials: 'include'}).then(response => response.json()).then(json => {
         if (json.hasOwnProperty("messages")) {
             console.log("Find pianificatore error caught: " + json.messages)
             throw new Error(json.messages)
@@ -207,7 +207,7 @@ let setAttuatore = (attuatore, rowMode, rowStatus, rowChangeMode, rowChangeStatu
     rowChangeMode.addEventListener("click", (event) => {
         let currentMode = event.target.parentElement.previousElementSibling.textContent
         if (currentMode === "MANUALE") {
-            fetch(changeAttuatoreToAutomatiqueModeUrl + event.target.getAttribute("data-id-attuatore")).then(response => response.json()).then(json => {
+            fetch(changeAttuatoreToAutomatiqueModeUrl + event.target.getAttribute("data-id-attuatore"), {credentials: 'include'}).then(response => response.json()).then(json => {
                 if (json.hasOwnProperty("messages")) {
                     console.log("Find attuatore error caught: " + json.messages)
                     throw new Error(json.messages)
@@ -216,7 +216,7 @@ let setAttuatore = (attuatore, rowMode, rowStatus, rowChangeMode, rowChangeStatu
                 }
             })
         } else {
-            fetch(changeAttuatoreToManualModeUrl + event.target.getAttribute("data-id-attuatore")).then(response => response.json()).then(json => {
+            fetch(changeAttuatoreToManualModeUrl + event.target.getAttribute("data-id-attuatore"), {credentials: 'include'}).then(response => response.json()).then(json => {
                 if (json.hasOwnProperty("messages")) {
                     console.log("Find attuatore error caught: " + json.messages)
                     throw new Error(json.messages)
@@ -229,7 +229,7 @@ let setAttuatore = (attuatore, rowMode, rowStatus, rowChangeMode, rowChangeStatu
     rowChangeStatus.addEventListener("click", (event) => {
         let currentMode = event.target.parentElement.previousElementSibling.textContent
         if (currentMode === "DISATTIVATO") {
-            fetch(changeAttuatoreToEnableStatusUrl + event.target.getAttribute("data-id-attuatore")).then(response => response.json()).then(json => {
+            fetch(changeAttuatoreToEnableStatusUrl + event.target.getAttribute("data-id-attuatore"), {credentials: 'include'}).then(response => response.json()).then(json => {
                 if (json.hasOwnProperty("messages")) {
                     console.log("Find sensore error caught: " + json.messages)
                     throw new Error(json.messages)
@@ -238,7 +238,7 @@ let setAttuatore = (attuatore, rowMode, rowStatus, rowChangeMode, rowChangeStatu
                 }
             })
         } else {
-            fetch(changeAttuatoreToDisableStatusUrl + event.target.getAttribute("data-id-attuatore")).then(response => response.json()).then(json => {
+            fetch(changeAttuatoreToDisableStatusUrl + event.target.getAttribute("data-id-attuatore"), {credentials: 'include'}).then(response => response.json()).then(json => {
                 if (json.hasOwnProperty("messages")) {
                     console.log("Find sensore error caught: " + json.messages)
                     throw new Error(json.messages)
@@ -264,7 +264,7 @@ let clickDetailsRowSerra = (element) => {
                 headers: {"Content-Type": "application/json;charset=UTF-8"}
             })
 
-            fetch(getSensoreRequest).then(response => response.json()).then(json => {
+            fetch(getSensoreRequest, {credentials: 'include'}).then(response => response.json()).then(json => {
                 if (json.hasOwnProperty("messages")) {
                     console.log("Find sensore error caught: " + json.messages)
                     throw new Error(json.messages)
@@ -285,7 +285,7 @@ let clickDetailsRowSerra = (element) => {
                         }
                         if (sensore.hasOwnProperty("idSensore")) {
                             rowNumber.setAttribute("data-id-sensore", sensore.idSensore)
-                            fetch(getMisuraUrl + sensore.idSensore).then(response => response.json()).then(json => {
+                            fetch(getMisuraUrl + sensore.idSensore, {credentials: 'include'}).then(response => response.json()).then(json => {
                                 if (json.hasOwnProperty("messages")) {
                                     console.log("Find sensore error caught: " + json.messages)
                                     throw new Error(json.messages)
@@ -302,7 +302,7 @@ let clickDetailsRowSerra = (element) => {
                                 method: "GET",
                                 headers: {"Content-Type": "application/json;charset=UTF-8"}
                             })
-                            fetch(getAttuatoriRequest).then(response => response.json()).then(json => {
+                            fetch(getAttuatoriRequest, {credentials: 'include'}).then(response => response.json()).then(json => {
                                 if (json.hasOwnProperty("messages")) {
                                     console.log("Find sensore error caught: " + json.messages)
                                     throw new Error(json.messages)
@@ -339,7 +339,7 @@ let clickDeleteRowSerra = (element) => {
             headers: {"Content-Type": "application/json;charset=UTF-8"},
             mode: "cors"
         })
-        fetch(deleteSerraRequest).then(response => response.json()).then(json => {
+        fetch(deleteSerraRequest, {credentials: 'include'}).then(response => response.json()).then(json => {
             if (json.hasOwnProperty("messages")) {
                 console.log("Delete serra error caught: " + json.messages)
                 throw new Error(json.messages)
@@ -361,7 +361,7 @@ signIn.addEventListener("click", () => {
             body: JSON.stringify(payload)
         })
 
-    fetch(loginRequest).then(response => response.json()).then(json => {
+    fetch(loginRequest, {credentials: 'include'}).then(response => response.json()).then(json => {
         if (json.hasOwnProperty("messages")) {
             console.log("Login error caught: " + json.messages)
             throw new Error(json.messages)
@@ -376,7 +376,7 @@ signIn.addEventListener("click", () => {
             }
 
             if (user.hasOwnProperty("idUtente")) {
-                fetch(getAziendaByUserIDUrl + user.idUtente).then(response => response.json()).then(json => {
+                fetch(getAziendaByUserIDUrl + user.idUtente, {credentials: 'include'}).then(response => response.json()).then(json => {
                     if (json.hasOwnProperty("messages")) {
                         console.log("Delete serra error caught: " + json.messages)
                         throw new Error(json.messages)
@@ -389,7 +389,7 @@ signIn.addEventListener("click", () => {
                             aziendaAgricolaDescription.textContent = azienda.descrizione;
                         }
 
-                        fetch(getSerraByIdAziendaUrl + azienda.idAziendaAgricola).then(response => response.json()).then(json => {
+                        fetch(getSerraByIdAziendaUrl + azienda.idAziendaAgricola, {credentials: 'include'}).then(response => response.json()).then(json => {
                             if (json.hasOwnProperty("messages")) {
                                 console.log("Delete serra error caught: " + json.messages)
                                 throw new Error(json.messages)
@@ -425,7 +425,7 @@ addSerra.addEventListener("click", () => {
             body: JSON.stringify(payload)
         })
 
-    fetch(addSerraRequest).then(response => response.json()).then(json => {
+    fetch(addSerraRequest, {credentials: 'include'}).then(response => response.json()).then(json => {
         if (json.hasOwnProperty("messages")) {
             console.log("Add serra error caught: " + json.messages)
             throw new Error(json.messages)
@@ -458,7 +458,7 @@ addPlanningButton.addEventListener("click", () => {
             headers: {"Content-Type": "application/json;charset=UTF-8"},
             body: JSON.stringify(payload)
         })
-    fetch(addPlanningRequest).then(response => response.json()).then(json => {
+    fetch(addPlanningRequest, {credentials: 'include'}).then(response => response.json()).then(json => {
         if (json.hasOwnProperty("messages")) {
             console.log("Add pianificatore error caught: " + json.messages)
             throw new Error(json.messages)

@@ -29,6 +29,7 @@ public class AttuatoreController {
     @ResponseStatus( value = HttpStatus.CREATED )
     public AttuatoreModel createAttuatore ( HttpSession session, @RequestBody AttuatoreModel attuatoreModel ) throws Exception {
         logger.info( "i'm in the controller to create an Attuatore ..." );
+        logger.info( "session is registred with value : " + session.getAttribute( "role" ) );
         if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
             throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
         }
@@ -47,6 +48,7 @@ public class AttuatoreController {
     @ResponseStatus( value = HttpStatus.OK )
     public AttuatoreModel enableAttuatore ( HttpSession session, @PathVariable UUID idAttuatore ) throws Exception {
         logger.info( "i'm in the controller to enable an attuatore ..." );
+        logger.info( "session is registred with value : " + session.getAttribute( "role" ) );
         if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
             throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
         }
@@ -57,6 +59,7 @@ public class AttuatoreController {
     @ResponseStatus( HttpStatus.OK )
     public AttuatoreModel disableAttuatore ( HttpSession session, @PathVariable UUID idAttuatore ) throws Exception {
         logger.info( "i'm in he controller to disable an attuatore ..." );
+        logger.info( "session is registred with value : " + session.getAttribute( "role" ) );
         if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
             throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
         }
@@ -67,6 +70,7 @@ public class AttuatoreController {
     @ResponseStatus( value = HttpStatus.OK )
     public AttuatoreModel getManualModeAttuatore ( HttpSession session, @PathVariable UUID idAttuatore ) throws Exception {
         logger.info( "i'm in the controller to change mode of attuatore to manuel ..." );
+        logger.info( "session is registred with value : " + session.getAttribute( "role" ) );
         if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
             throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
         }
@@ -77,6 +81,7 @@ public class AttuatoreController {
     @ResponseStatus( HttpStatus.OK )
     public AttuatoreModel getAutomatiqueModeAttuatore ( HttpSession session, @PathVariable UUID idAttuatore ) throws Exception {
         logger.info( "i'm in he controller to change mode of attuatore to automatique ..." );
+        logger.info( "session is registred with value : " + session.getAttribute( "role" ) );
         if( session.getAttribute( "role" ) == "COLLABORATORE" ) {
             throw new NotAutorizedActionException( "serraController", "deleteSerra", "This action is not authorized for you" );
         }

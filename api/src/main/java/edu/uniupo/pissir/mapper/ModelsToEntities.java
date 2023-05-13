@@ -2,14 +2,14 @@ package edu.uniupo.pissir.mapper;
 
 import edu.uniupo.pissir.entity.*;
 import edu.uniupo.pissir.model.*;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import edu.uniupo.pissir.repository.UtenteRepository;
+import org.mapstruct.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-@Mapper()
+@Mapper( uses = { UtenteRepository.class})
 public abstract class ModelsToEntities {
 
     @Mapping( target = "idSerra", source = "serraEntity.idSerra" )
@@ -40,8 +40,15 @@ public abstract class ModelsToEntities {
 
     public abstract UtenteModel entityToModelOfUtente ( UtenteEntity utenteEntity );
 
-    @Mapping( target = "idUtente", source = "utenteEntity.idUtente" )
+
+    @Mapping( target = "idsUtente", expression = "java(utenteListToUUIDList( aziendaAgricolaEntity.getUtenteEntities() ))" )
     public abstract AziendaAgricolaModel entityToModelOfAziendaAgricola ( AziendaAgricolaEntity aziendaAgricolaEntity );
+
+    public List<UUID> utenteListToUUIDList (List<UtenteEntity> utenteEntities){
+        List<UUID> ids = new ArrayList<>();
+        utenteEntities.forEach( utenteEntity -> ids.add( utenteEntity.getIdUtente() ));
+        return ids;
+    }
 
     @Mapping( target = "idSerra", source = "serraEntity.idSerra" )
     public abstract SensoreModel entityToModelOfSensore ( SensoreEntity sensoreEntity );
@@ -107,9 +114,15 @@ public abstract class ModelsToEntities {
 
     public abstract UtenteEntity modelToEntityOfUtente ( UtenteModel utenteModel );
 
-    @Mapping( target = "utenteEntity.idUtente", source = "idUtente" )
-    @Mapping( target = "utenteEntity", ignore = true )
-    public abstract AziendaAgricolaEntity modelToEntityOfAziendaAgricola ( AziendaAgricolaModel aziendaAgricolaModel );
+    @Mapping( target = "utenteEntities", expression = "java(afterMappingForAzienda(aziendaAgricolaModel, utenteRepository))" )
+    public abstract void modelToEntityOfAziendaAgricola ( @MappingTarget AziendaAgricolaEntity aziendaAgricolaEntity, AziendaAgricolaModel aziendaAgricolaModel,
+                                                          @Context UtenteRepository utenteRepository );
+
+    public List<UtenteEntity> UUIDListToUtenteList ( List<UUID> ids ) {
+        List<UtenteEntity> utenteEntities = new ArrayList<>();
+        ids.forEach( id -> utenteEntities.add( null));
+        return utenteEntities;
+    }
 
     @Mapping( target = "serraEntity.idSerra", source = "idSerra" )
     @Mapping( target = "serraEntity", ignore = true )
@@ -151,9 +164,8 @@ public abstract class ModelsToEntities {
     @Mapping( target = "idUtente", ignore = true )
     public abstract void updateUtenteEntity ( UtenteModel newUtente, @MappingTarget UtenteEntity oldUtente );
 
+    @Mapping( target = "utenteEntities", ignore = true )
     @Mapping( target = "idAziendaAgricola", ignore = true )
-    @Mapping( target = "utenteEntity.idUtente", source = "idUtente" )
-    @Mapping( target = "utenteEntity", ignore = true )
     public abstract void updateAziendaAgricolaEntity ( AziendaAgricolaModel newAziendaAgricolaModel,
                                                        @MappingTarget AziendaAgricolaEntity oldAziendaAgricolaEntity
                                                      );
@@ -170,5 +182,10 @@ public abstract class ModelsToEntities {
     public abstract void updateIrrigazionePianificatore ( IrrigazionePianificatoreModel newIrrigazionePianificatore,
                                                           @MappingTarget IrrigazionePianificatoreEntity oldIrrigazionePianificatore
                                                         );
+    public List<UtenteEntity> afterMappingForAzienda ( AziendaAgricolaModel aziendaAgricolaModel, @Context UtenteRepository utenteRepository ) {
+        List<UtenteEntity> utenteEntities = new ArrayList<>();
+        aziendaAgricolaModel.getIdsUtente().forEach( id -> utenteEntities.add( utenteRepository.findById( id ).orElse( null ) ));
+        return utenteEntities;
+    }
 
 }

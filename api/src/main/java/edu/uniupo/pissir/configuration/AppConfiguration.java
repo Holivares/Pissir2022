@@ -30,7 +30,7 @@ public class AppConfiguration {
     public Filter filter(){
         return ( request, response, chain ) -> {
             HttpServletResponse servletResponse = ( HttpServletResponse ) response;
-            servletResponse.setHeader( "Access-Control-Allow-Origin", "*" );
+            servletResponse.setHeader( "Access-Control-Allow-Origin", "http://localhost:63342" );
             servletResponse.setHeader( "Access-Control-Allow-Credentials", "true" );
             servletResponse.setHeader( "Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE, PATCH" );
             servletResponse.setHeader( "Access-Control-Max-Age", "3600" );

@@ -7,6 +7,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -14,7 +15,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @ToString
-@NoArgsConstructor
+@NoArgsConstructor( force = true )
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Table( name = "AGRICULTURAL_HOLDING", uniqueConstraints = @UniqueConstraint( columnNames = "NAME" ) )
@@ -26,9 +27,8 @@ public class AziendaAgricolaEntity implements Serializable {
     private UUID idAziendaAgricola;
     @NotNull
     @NonNull
-    @JoinColumn( name = "ID_USER" )
-    @OneToOne( orphanRemoval = true )
-    private UtenteEntity utenteEntity;
+    @OneToMany
+    private List<UtenteEntity> utenteEntities;
     @NotNull
     @NonNull
     @NotBlank

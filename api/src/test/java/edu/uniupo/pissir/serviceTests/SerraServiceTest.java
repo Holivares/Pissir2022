@@ -1,20 +1,26 @@
-package edu.uniupo.coltivazioni.serviceTests;
+package edu.uniupo.pissir.serviceTests;
 
-import edu.uniupo.coltivazioni.entity.AziendaAgricolaEntity;
-import edu.uniupo.coltivazioni.entity.RuoloEntity;
-import edu.uniupo.coltivazioni.entity.SerraEntity;
-import edu.uniupo.coltivazioni.entity.UtenteEntity;
-import edu.uniupo.coltivazioni.model.DeleteResponseModel;
-import edu.uniupo.coltivazioni.model.SerraModel;
-import edu.uniupo.coltivazioni.repository.SerraRepository;
-import edu.uniupo.coltivazioni.service.SerraService;
-import edu.uniupo.coltivazioni.service.implement.SerraServiceImpl;
+
+import edu.uniupo.pissir.entity.AziendaAgricolaEntity;
+import edu.uniupo.pissir.entity.RuoloEntity;
+import edu.uniupo.pissir.entity.SerraEntity;
+import edu.uniupo.pissir.entity.UtenteEntity;
+import edu.uniupo.pissir.model.DeleteResponseModel;
+import edu.uniupo.pissir.model.SerraModel;
+import edu.uniupo.pissir.repository.SerraRepository;
+import edu.uniupo.pissir.service.AttuatoreService;
+import edu.uniupo.pissir.service.IrrigazionePianificatoreService;
+import edu.uniupo.pissir.service.SensoreService;
+import edu.uniupo.pissir.service.SerraService;
+import edu.uniupo.pissir.service.implement.SerraServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
@@ -34,19 +40,28 @@ import static org.mockito.Mockito.verify;
 public class SerraServiceTest {
     @Mock
     private SerraRepository serraRepository;
+
     private SerraService serraService;
+    @Mock
+    private SensoreService sensoreService;
+    @Mock
+    private AttuatoreService attuatoreService;
+    @Mock
+    private IrrigazionePianificatoreService pianificatoreService;
     private SerraEntity serraEntity;
     private SerraModel serraModel;
     private AziendaAgricolaEntity aziendaAgricolaEntity;
+    @InjectMocks
+    private MockHttpSession mockHttpSession;
 
     @BeforeEach
     void setUp(){
 
-        serraService = new SerraServiceImpl(serraRepository);
+        serraService = new SerraServiceImpl(serraRepository, sensoreService, attuatoreService, pianificatoreService);
 
         UtenteEntity utenteEntity = new UtenteEntity(UUID.randomUUID(), "Holivares", "Ngali", "evrardngali12@gmil.com", "1424", RuoloEntity.AGRICOLTORE);
 
-        aziendaAgricolaEntity = new AziendaAgricolaEntity(UUID.randomUUID(), utenteEntity, "Azienda 1", "this is a first azienda for my test implementation");
+        aziendaAgricolaEntity = new AziendaAgricolaEntity(UUID.randomUUID(), List.of(utenteEntity), "Azienda 1", "this is a first azienda for my test implementation");
 
         serraEntity = new SerraEntity(UUID.randomUUID(), aziendaAgricolaEntity, "this is a first serra for my test implementation...");
 
@@ -62,7 +77,7 @@ public class SerraServiceTest {
 
         //When
         doReturn(serraEntity).when(serraRepository).save(any(SerraEntity.class));
-        SerraModel serviceSerra = serraService.createSerra(serraModel);
+        SerraModel serviceSerra = serraService.createSerra(mockHttpSession,serraModel);
 
         //Then
         verify(serraRepository).save(repositotySaveParamSerraCaptor.capture());
@@ -76,7 +91,7 @@ public class SerraServiceTest {
 
         //When
         doReturn(Optional.of(serraEntity)).when(serraRepository).findById(any(UUID.class));
-        SerraModel updateSerra = serraService.updateSerra(new SerraModel(UUID.randomUUID(),aziendaAgricolaEntity.getIdAziendaAgricola(),"this is a update of serra for my test implementation..."));
+        SerraModel updateSerra = serraService.updateSerra(mockHttpSession,new SerraModel(UUID.randomUUID(),aziendaAgricolaEntity.getIdAziendaAgricola(),"this is a update of serra for my test implementation..."));
 
         //Then
         verify(serraRepository).findById(repositotyUpdateParamSerraCaptor.capture());
@@ -90,7 +105,7 @@ public class SerraServiceTest {
 
         //When
         doReturn(Optional.of(serraEntity)).when(serraRepository).findById(any(UUID.class));
-        DeleteResponseModel deleteResponseModel = serraService.deleteSerra(UUID.randomUUID());
+        DeleteResponseModel deleteResponseModel = serraService.deleteSerra(mockHttpSession,UUID.randomUUID());
 
         //Then
         verify(serraRepository).findById(repositotyDeleteParamSerraCaptor.capture());
@@ -103,7 +118,7 @@ public class SerraServiceTest {
 
         //When
         doReturn(Optional.of(List.of(serraEntity))).when(serraRepository).findByAziendaAgricolaEntityIdAziendaAgricola(any(UUID.class));
-        serraService.findSerraByIdAziendaAgricola(UUID.randomUUID());
+        serraService.findSerraByIdAziendaAgricola(mockHttpSession,UUID.randomUUID());
 
         //Then
         verify(serraRepository).findByAziendaAgricolaEntityIdAziendaAgricola(repositotyFindParamSerraCaptor.capture());

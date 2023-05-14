@@ -1,18 +1,20 @@
-package edu.uniupo.coltivazioni.serviceTests;
+package edu.uniupo.pissir.serviceTests;
 
-import edu.uniupo.coltivazioni.entity.*;
-import edu.uniupo.coltivazioni.model.DeleteResponseModel;
-import edu.uniupo.coltivazioni.model.ExecutionTimeModel;
-import edu.uniupo.coltivazioni.model.IrrigazionePianificatoreModel;
-import edu.uniupo.coltivazioni.repository.IrrigazionePianificatoreRepository;
-import edu.uniupo.coltivazioni.service.IrrigazionePianificatoreService;
-import edu.uniupo.coltivazioni.service.implement.IrrigazionePianificatoreServiceImpl;
+import edu.uniupo.pissir.entity.*;
+import edu.uniupo.pissir.model.ExecutionTimeModel;
+import edu.uniupo.pissir.model.IrrigazionePianificatoreModel;
+import edu.uniupo.pissir.repository.IrrigazionePianificatoreRepository;
+import edu.uniupo.pissir.service.IrrigazionePianificatoreService;
+import edu.uniupo.pissir.service.implement.IrrigazionePianificatoreServiceImpl;
+import edu.uniupo.pissir.model.DeleteResponseModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
@@ -38,6 +40,8 @@ public class IrrigazionePianificatoreServiceTest {
     private IrrigazionePianificatoreModel irrigazionePianificatoreModel;
     private AziendaAgricolaEntity aziendaAgricolaEntity;
     private SerraEntity serraEntity;
+    @InjectMocks
+    private MockHttpSession mockHttpSession;
 
 
     @BeforeEach
@@ -49,7 +53,7 @@ public class IrrigazionePianificatoreServiceTest {
 
         UtenteEntity utenteEntity = new UtenteEntity(UUID.randomUUID(), "Holivares", "Ngali", "evrardngali12@gmil.com", "1424", RuoloEntity.AGRICOLTORE);
 
-        aziendaAgricolaEntity = new AziendaAgricolaEntity(UUID.randomUUID(), utenteEntity, "Azienda 1", "this is a first azienda for my test implementation");
+        aziendaAgricolaEntity = new AziendaAgricolaEntity(UUID.randomUUID(), List.of(utenteEntity), "Azienda 1", "this is a first azienda for my test implementation");
 
         serraEntity = new SerraEntity(UUID.randomUUID(), aziendaAgricolaEntity, "this is a first serra for my test implementation...");
 
@@ -70,7 +74,7 @@ public class IrrigazionePianificatoreServiceTest {
 
         //When
         doReturn(irrigazionePianificatoreEntity).when(pianificatoreRepository).save(any(IrrigazionePianificatoreEntity.class));
-        IrrigazionePianificatoreModel pianificatoreModel = pianificatoreService.createIrrigazionePianificatore(irrigazionePianificatoreModel);
+        IrrigazionePianificatoreModel pianificatoreModel = pianificatoreService.createIrrigazionePianificatore(mockHttpSession,irrigazionePianificatoreModel);
 
         //Then
         verify(pianificatoreRepository).save(repositorySaveParamPianificatoreCaptor.capture());
@@ -85,7 +89,7 @@ public class IrrigazionePianificatoreServiceTest {
 
         //When
         doReturn(Optional.of(irrigazionePianificatoreEntity)).when(pianificatoreRepository).findById(any(UUID.class));
-        IrrigazionePianificatoreModel pianificatoreModel = pianificatoreService.updateIrrigazionePianificatore(new IrrigazionePianificatoreModel(UUID.randomUUID(),aziendaAgricolaEntity.getIdAziendaAgricola(), serraEntity.getIdSerra(), "Pianificatore1", LocalDate.of(2023, 1, 12), new ExecutionTimeModel(LocalTime.of(12, 30), LocalTime.of(16, 30))));
+        IrrigazionePianificatoreModel pianificatoreModel = pianificatoreService.updateIrrigazionePianificatore(mockHttpSession,new IrrigazionePianificatoreModel(UUID.randomUUID(),aziendaAgricolaEntity.getIdAziendaAgricola(), serraEntity.getIdSerra(), "Pianificatore1", LocalDate.of(2023, 1, 12), new ExecutionTimeModel(LocalTime.of(12, 30), LocalTime.of(16, 30))));
 
 
         //Then
@@ -101,7 +105,7 @@ public class IrrigazionePianificatoreServiceTest {
         //When
 
         doReturn(Optional.of(irrigazionePianificatoreEntity)).when(pianificatoreRepository).findById(any(UUID.class));
-        DeleteResponseModel deleteResponseModel = pianificatoreService.deleteIrrigazionePianificatoreById(irrigazionePianificatoreEntity.getIdIrrigazionePianificatore());
+        DeleteResponseModel deleteResponseModel = pianificatoreService.deleteIrrigazionePianificatoreById(mockHttpSession,irrigazionePianificatoreEntity.getIdIrrigazionePianificatore());
 
         //Then
         verify(pianificatoreRepository).deleteById(repositoryDeleteParamPianificatoreCaptor.capture());
@@ -115,7 +119,7 @@ public class IrrigazionePianificatoreServiceTest {
 
         //When
         doReturn(Optional.of(List.of(irrigazionePianificatoreEntity))).when(pianificatoreRepository).findByAziendaAgricolaEntityIdAziendaAgricola(any(UUID.class));
-        pianificatoreService.findIrrigazionePianificatoreByIdAziendaAgricola(UUID.randomUUID());
+        pianificatoreService.findIrrigazionePianificatoreByIdAziendaAgricola(mockHttpSession,UUID.randomUUID());
 
 
         //Then
@@ -130,7 +134,7 @@ public class IrrigazionePianificatoreServiceTest {
 
         //When
         doReturn(Optional.of(List.of(irrigazionePianificatoreEntity))).when(pianificatoreRepository).findBySerraEntityIdSerra(any(UUID.class));
-        List<IrrigazionePianificatoreModel> pianificatoreByIdserra = pianificatoreService.findIrrigazionePianificatoreByIdserra(UUID.randomUUID());
+        List<IrrigazionePianificatoreModel> pianificatoreByIdserra = pianificatoreService.findIrrigazionePianificatoreByIdserra(mockHttpSession,UUID.randomUUID());
 
         //Then
         verify(pianificatoreRepository).findBySerraEntityIdSerra(repositoryFindParamPianificatoreCaptor.capture());

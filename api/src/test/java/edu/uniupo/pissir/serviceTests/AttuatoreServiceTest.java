@@ -1,16 +1,20 @@
-package edu.uniupo.coltivazioni.serviceTests;
+package edu.uniupo.pissir.serviceTests;
 
-import edu.uniupo.coltivazioni.entity.*;
-import edu.uniupo.coltivazioni.model.*;
-import edu.uniupo.coltivazioni.repository.AttuatoreRepository;
-import edu.uniupo.coltivazioni.service.AttuatoreService;
-import edu.uniupo.coltivazioni.service.implement.AttuatoreServiceImpl;
+
+import edu.uniupo.pissir.entity.*;
+import edu.uniupo.pissir.model.*;
+import edu.uniupo.pissir.repository.AttuatoreRepository;
+import edu.uniupo.pissir.service.AttuatoreService;
+import edu.uniupo.pissir.service.implement.AttuatoreServiceImpl;
+import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
@@ -33,6 +37,8 @@ public class AttuatoreServiceTest {
     private AttuatoreService attuatoreService;
     private AttuatoreEntity attuatoreEntity;
     private AttuatoreModel attuatoreModel;
+    @InjectMocks
+    private MockHttpSession mockHttpSession;
 
     @BeforeEach
     void setUp() {
@@ -41,7 +47,7 @@ public class AttuatoreServiceTest {
 
         UtenteEntity utenteEntity = new UtenteEntity(UUID.randomUUID(), "Holivares", "Ngali", "evrardngali12@gmil.com", "1424", RuoloEntity.AGRICOLTORE);
 
-        AziendaAgricolaEntity aziendaAgricolaEntity = new AziendaAgricolaEntity(UUID.randomUUID(), utenteEntity, "Azienda 1", "this is a first azienda for my test implementation");
+        AziendaAgricolaEntity aziendaAgricolaEntity = new AziendaAgricolaEntity(UUID.randomUUID(), List.of(utenteEntity), "Azienda 1", "this is a first azienda for my test implementation");
 
         SerraEntity serraEntity = new SerraEntity(UUID.randomUUID(), aziendaAgricolaEntity, "this is a first serra for my test implementation...");
 
@@ -60,7 +66,7 @@ public class AttuatoreServiceTest {
 
         //When
         doReturn(attuatoreEntity).when(attuatoreRepository).save(any(AttuatoreEntity.class));
-        AttuatoreModel attuatore = attuatoreService.createAttuatore(attuatoreModel);
+        AttuatoreModel attuatore = attuatoreService.createAttuatore(mockHttpSession, attuatoreModel);
 
         //Then
         verify(attuatoreRepository).save(repositorySaveParamAttuatoreCaptor.capture());
@@ -74,7 +80,7 @@ public class AttuatoreServiceTest {
 
         //When
         doReturn(Optional.of(List.of(attuatoreEntity))).when(attuatoreRepository).findBySerraEntityIdSerra(any(UUID.class));
-        List<AttuatoreModel> attuatore = attuatoreService.findAttuatoreByIdSerra(UUID.randomUUID());
+        List<AttuatoreModel> attuatore = attuatoreService.findAttuatoreByIdSerra(mockHttpSession,UUID.randomUUID());
 
         //Then
         verify(attuatoreRepository).findBySerraEntityIdSerra(repositoryFindParamAttuatoreCaptor.capture());
@@ -89,7 +95,7 @@ public class AttuatoreServiceTest {
 
         //When
         doReturn(Optional.of(attuatoreEntity)).when(attuatoreRepository).findById(any(UUID.class));
-        AttuatoreModel attuatore = attuatoreService.enableAttuatore(UUID.randomUUID());
+        AttuatoreModel attuatore = attuatoreService.enableAttuatore(mockHttpSession,UUID.randomUUID());
 
         //Then
         verify(attuatoreRepository).findById(repositoryEnableParamAttuatoreCaptor.capture());
@@ -105,7 +111,7 @@ public class AttuatoreServiceTest {
 
         //When
         doReturn(Optional.of(attuatoreEntity)).when(attuatoreRepository).findById(any(UUID.class));
-        AttuatoreModel attuatore = attuatoreService.disableAttuatore(UUID.randomUUID());
+        AttuatoreModel attuatore = attuatoreService.disableAttuatore(mockHttpSession,UUID.randomUUID());
 
         //Then
         verify(attuatoreRepository).findById(repositoryDisableParamAttuatoreCaptor.capture());

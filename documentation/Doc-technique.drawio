@@ -1,0 +1,124 @@
+<mxfile host="Electron" modified="2023-05-22T09:08:58.454Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.1.2 Chrome/106.0.5249.199 Electron/21.4.3 Safari/537.36" etag="DfrgGyUxBOGzObn43KfR" version="21.1.2" type="device">
+  <diagram name="Page-1" id="ux6zau2yHKvC5HA0hhAy">
+    <mxGraphModel dx="812" dy="877" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L14MOquYi8NIOUNwayBG-1" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;u&gt;Documentation Pissir Project&lt;/u&gt;&lt;/font&gt;&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="L14MOquYi8NIOUNwayBG-2" value="&lt;b&gt;&lt;i&gt;&lt;u&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;Architecture du projet:&lt;/font&gt;&lt;/u&gt;&lt;/i&gt;&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="40" y="540" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="L14MOquYi8NIOUNwayBG-3" value="Le projet pissir est un projet microservice subdiviser en deux services:&lt;br&gt;&lt;ul&gt;&lt;li&gt;Le backend, subdiviser en deux modules :&lt;/li&gt;&lt;ul&gt;&lt;li&gt;Le module &lt;b style=&quot;font-style: italic;&quot;&gt;API, &lt;/b&gt;module concernant la gestion de la serre en elle même&lt;/li&gt;&lt;li&gt;Le module &lt;i style=&quot;font-weight: bold;&quot;&gt;IOT,&lt;/i&gt; module concernant la gestion du &lt;b&gt;&lt;i&gt;MQTT&lt;/i&gt;&lt;/b&gt; Broker&lt;/li&gt;&lt;/ul&gt;&lt;li&gt;Le frontend, partie visuelle (UI) de l&#39;application&lt;/li&gt;&lt;/ul&gt;&lt;div&gt;les technologies utiliser pour la realisation du projet sont les suivantes :&lt;/div&gt;&lt;div&gt;&lt;ul&gt;&lt;li&gt;Java, V17 (Langage de programation du projet)&lt;/li&gt;&lt;li&gt;Springboot, V3.0.5 (Framework Java pour l&#39;implementation de l&#39;API REST)&lt;/li&gt;&lt;ul&gt;&lt;li&gt;Spring JPA (Pour l&#39;implementation des regles de connexion à la base de donnée)&lt;/li&gt;&lt;li&gt;Spring Web (Pour l&#39;implementation des controlleurs http et endpoints)&lt;/li&gt;&lt;li&gt;Spring Validation (Pour la validation des données)&lt;/li&gt;&lt;li&gt;Spring Integration MQTT (Pour l&#39;implementation du broker)&lt;/li&gt;&lt;li&gt;Spring Quartz&amp;nbsp;&amp;nbsp;(Pour l&#39;implementation du CRON MQTT)&lt;/li&gt;&lt;/ul&gt;&lt;li&gt;Logback, V1.4.6 (Pour la gestion des logs)&lt;/li&gt;&lt;li&gt;SL4J, V2.0.5 (Pour la gestion des logs)&lt;/li&gt;&lt;li&gt;Lombok, V1.18.26 (Pour l&#39;implementation des getter, setter et constructeur par annotation)&lt;/li&gt;&lt;li&gt;Jupiter, V5.9.2 (Pour l&#39;implementation des tests)&lt;/li&gt;&lt;li&gt;AssertJ, V3.24.2 (Pour l&#39;implementation des tests)&lt;/li&gt;&lt;li&gt;H2Database, V2.1.214 (Pour la connexion à la base de donnée test)&lt;/li&gt;&lt;li&gt;MYSQL-Connector-J, V8.0.32 (Pour la connexion à la base de donnée dev)&lt;/li&gt;&lt;li&gt;Mapstruct 1.5.3 (Pour le mapping des entités en models et vise-versa)&lt;/li&gt;&lt;li&gt;Gradle (Outils de gestion du build)&lt;/li&gt;&lt;li&gt;JavaScript (Pour l&#39;impleementation du front)&lt;/li&gt;&lt;li&gt;HTML (Pour l&#39;impleementation du front)&lt;/li&gt;&lt;li&gt;CSS (Pour l&#39;impleementation du front)&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="40" y="30" width="760" height="440" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-1" value="L&#39;architecture du projet respect un certain nombre de norme, decrit comme etant necessaire pour&amp;nbsp; l&#39;obtention d&#39;une application saine.&lt;br&gt;&amp;nbsp;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="80" y="570" width="720" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-2" value="&lt;b&gt;&lt;i&gt;&lt;u&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;Backend architecture:&lt;/font&gt;&lt;/u&gt;&lt;/i&gt;&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="80" y="610" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-3" value="Le&amp;nbsp; backend respect les normes ou principes de l&#39;architecture MVC (Modele, Vue, Controlleur) .&lt;br&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="120" y="650" width="640" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-5" value="&lt;b&gt;&lt;i&gt;&lt;u&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;Structure MVC du module API:&lt;/font&gt;&lt;/u&gt;&lt;/i&gt;&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="120" y="700" width="210" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-7" value="Contient toutes les ressources servant à la configuration du module plus precisement à la configuration des beans utilisés par le framework Springboot.&lt;br&gt;Ici, nous trouverons u&lt;span style=&quot;background-color: initial;&quot;&gt;ne configuration pour le CORS afin de permettre à l&#39;API de recevoir des appels http venant de l&#39;exterieur (Autres IP)&amp;nbsp;&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="790" width="520" height="70.51" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-6" value="La constitution du module API sur la plan architectural est la suivante ;&lt;br&gt;&lt;ul&gt;&lt;li&gt;Le package &lt;b&gt;&lt;i&gt;Configuration:&lt;/i&gt;&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="160" y="730" width="640" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-11" value="&lt;ul style=&quot;border-color: var(--border-color);&quot;&gt;&lt;li style=&quot;border-color: var(--border-color);&quot;&gt;Le package&amp;nbsp;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;&lt;i style=&quot;border-color: var(--border-color);&quot;&gt;Controller:&lt;/i&gt;&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="160" y="880" width="560" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-12" value="Contient les ressources servant à l&#39;implementation des endpoints (URL http).&lt;br&gt;Nous avant opté pour une classification par entité, ainsi, nous retrouvons dans ce package plus ou moins de classe que d&#39;entité present dans l&#39;API" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="900" width="520" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-13" value="&lt;ul style=&quot;border-color: var(--border-color);&quot;&gt;&lt;li style=&quot;border-color: var(--border-color);&quot;&gt;Le package&amp;nbsp;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;&lt;i style=&quot;border-color: var(--border-color);&quot;&gt;Entity:&lt;/i&gt;&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="160" y="980" width="560" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-14" value="Contient les entités de l&#39;API. ces entités representent le models des informations sauvegardés dans la base de donnée. chaque données de l&#39;entité est validé avant sauvegarde." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1000" width="520" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-15" value="&lt;ul style=&quot;border-color: var(--border-color);&quot;&gt;&lt;li style=&quot;border-color: var(--border-color);&quot;&gt;Le package &lt;b&gt;&lt;i&gt;Error&lt;/i&gt;&lt;/b&gt;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;&lt;i style=&quot;border-color: var(--border-color);&quot;&gt;:&lt;/i&gt;&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="160" y="1060" width="560" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-16" value="Contient des resources representant les erreurs personalisées pouvant êtres retourné par le module.&lt;br&gt;Nous avons opté une solution d&#39;ensemble, une seul erreur pou le module customisable par status et message." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1080" width="520" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-17" value="&lt;ul style=&quot;border-color: var(--border-color);&quot;&gt;&lt;li style=&quot;border-color: var(--border-color);&quot;&gt;Le package &lt;b&gt;&lt;i&gt;Exception&lt;/i&gt;&lt;/b&gt;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;&lt;i style=&quot;border-color: var(--border-color);&quot;&gt;:&lt;/i&gt;&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="160" y="1180" width="560" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-18" value="Contient des resources representant les exceptions personalisé pouvant lever par le module et un intercepteur d&#39;exception qui se charge de convertir l&#39;exception en erreur à retourner au client." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1200" width="520" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-19" value="&lt;ul style=&quot;border-color: var(--border-color);&quot;&gt;&lt;li style=&quot;border-color: var(--border-color);&quot;&gt;Le package &lt;b&gt;&lt;i&gt;Mapper&lt;/i&gt;&lt;/b&gt;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;&lt;i style=&quot;border-color: var(--border-color);&quot;&gt;:&lt;/i&gt;&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="160" y="1260" width="560" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-20" value="Contient des resources&amp;nbsp; servant à mapper ou convertir les entités (information de la base de donnée) en models (Information retourné au client)&amp;nbsp;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1280" width="520" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-21" value="Contient des resources servant de models de données presenté au client comme response aux requêtes http" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1360" width="520" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-22" value="&lt;ul style=&quot;border-color: var(--border-color);&quot;&gt;&lt;li style=&quot;border-color: var(--border-color);&quot;&gt;Le package &lt;b&gt;&lt;i&gt;Model&lt;/i&gt;&lt;/b&gt;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;&lt;i style=&quot;border-color: var(--border-color);&quot;&gt;:&lt;/i&gt;&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="160" y="1340" width="560" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-23" value="&lt;ul style=&quot;border-color: var(--border-color);&quot;&gt;&lt;li style=&quot;border-color: var(--border-color);&quot;&gt;Le package&amp;nbsp;&lt;b&gt;&lt;i&gt;Repository&lt;/i&gt;&lt;/b&gt;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;&lt;i style=&quot;border-color: var(--border-color);&quot;&gt;:&lt;/i&gt;&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="160" y="1420" width="560" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-24" value="Contient des resources servant d&#39;implementation des normes JPA pour une connexion normalisé à la base de données" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1440" width="520" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-25" value="&lt;ul style=&quot;border-color: var(--border-color);&quot;&gt;&lt;li style=&quot;border-color: var(--border-color);&quot;&gt;Le package&amp;nbsp;&lt;b&gt;&lt;i&gt;Service&lt;/i&gt;&lt;/b&gt;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;&lt;i style=&quot;border-color: var(--border-color);&quot;&gt;:&lt;/i&gt;&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="160" y="1490" width="560" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-26" value="Contient des resources servant d&#39;implementation de la logique fonctionnelle de l&#39;API.&lt;br&gt;Nous retrouverons dans ce package une partie importante de notre module." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1510" width="520" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-27" value="&lt;ul style=&quot;border-color: var(--border-color);&quot;&gt;&lt;li style=&quot;border-color: var(--border-color);&quot;&gt;Le package&amp;nbsp;&lt;b&gt;&lt;i&gt;Utility&lt;/i&gt;&lt;/b&gt;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;&lt;i style=&quot;border-color: var(--border-color);&quot;&gt;:&lt;/i&gt;&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="160" y="1570" width="560" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-28" value="Contient des resources vue comme redondante dans notre module, regrouper en methode static" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1590" width="520" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-29" value="&lt;ul style=&quot;border-color: var(--border-color);&quot;&gt;&lt;li style=&quot;border-color: var(--border-color);&quot;&gt;Le package&amp;nbsp;&lt;b&gt;&lt;i&gt;Validator&lt;/i&gt;&lt;/b&gt;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;&lt;i style=&quot;border-color: var(--border-color);&quot;&gt;:&lt;/i&gt;&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="160" y="1630" width="560" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-30" value="Contient des resources servant à l&#39;implementation de methode de validation de données personnalisée" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1650" width="520" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-32" value="&lt;b&gt;&lt;i&gt;&lt;u&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;Structure MVC du module IOT:&lt;/font&gt;&lt;/u&gt;&lt;/i&gt;&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="120" y="1720" width="210" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-34" value="La constitution du module IOT sur la plan architectural est la suivante ;&lt;br&gt;&lt;ul&gt;&lt;li&gt;Le package &lt;b&gt;&lt;i&gt;Configuration:&lt;/i&gt;&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="160" y="1754" width="640" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-35" value="Contient toutes les ressources servant à la configuration du module plus precisement à la configuration des beans utilisés par le framework Springboot.&lt;br&gt;Ici, nous trouverons &lt;br&gt;&lt;ul&gt;&lt;li&gt;u&lt;span style=&quot;background-color: initial;&quot;&gt;ne configuration pour le CORS afin de permettre à l&#39;API de recevoir des appels http venant de l&#39;exterieur (Autres IP)&amp;nbsp;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Une configuration du MQTT broker&amp;nbsp;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Une configuration du bean RestTemplate servant d&#39;outils pour les appels d&#39;API externe&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1813" width="520" height="137" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-36" value="&lt;ul style=&quot;border-color: var(--border-color);&quot;&gt;&lt;li style=&quot;border-color: var(--border-color);&quot;&gt;Le package&amp;nbsp;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;&lt;i style=&quot;border-color: var(--border-color);&quot;&gt;Controller:&lt;/i&gt;&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="160" y="1950" width="560" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-37" value="Contient les ressources servant à l&#39;implementation des endpoints (URL http).&lt;br&gt;Nous avant opté pour une classification par entité, ainsi, nous retrouvons dans ce package plus ou moins de classe que d&#39;entité present dans l&#39;API" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1970" width="520" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-38" value="Contient des resources servant de models de données presenté au client comme response aux requêtes http" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="2060" width="520" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-39" value="&lt;ul style=&quot;border-color: var(--border-color);&quot;&gt;&lt;li style=&quot;border-color: var(--border-color);&quot;&gt;Le package &lt;b&gt;&lt;i&gt;Model&lt;/i&gt;&lt;/b&gt;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;&lt;i style=&quot;border-color: var(--border-color);&quot;&gt;:&lt;/i&gt;&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="160" y="2040" width="560" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-40" value="&lt;ul style=&quot;border-color: var(--border-color);&quot;&gt;&lt;li style=&quot;border-color: var(--border-color);&quot;&gt;Le package&amp;nbsp;&lt;b&gt;&lt;i&gt;Service&lt;/i&gt;&lt;/b&gt;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;&lt;i style=&quot;border-color: var(--border-color);&quot;&gt;:&lt;/i&gt;&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="160" y="2120" width="560" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aLYTQQsK3veODGx8UK8e-41" value="Contient des resources servant d&#39;implementation de la logique fonctionnelle de l&#39;API.&lt;br&gt;Nous retrouverons dans ce package une partie importante de notre module." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="2140" width="520" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
